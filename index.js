@@ -56,9 +56,7 @@ class Usuario{
     }
 
     getBookNames(){
-        const names= []
-        this.libros.forEach(book => names.push( book.nombre ));
-        return names
+        return this.libros.map(book => book.nombre);
     }
 }
 
