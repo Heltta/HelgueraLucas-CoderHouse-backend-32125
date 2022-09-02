@@ -41,8 +41,7 @@ class Usuario{
     };
 
     addMascota(petName){
-        this.mascotas.push(String(petName));
-        return;
+        this.mascotas.push(petName);
     };
 
     countMascotas(){
