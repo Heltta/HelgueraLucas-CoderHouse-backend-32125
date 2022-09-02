@@ -30,10 +30,10 @@
 
 class Usuario{
     constructor(name, surname , books =[], pets = []){
-        this.nombre = String(name)
-        this.apellido= String(surname)
-        this.libros= Array(...books)
-        this.mascotas= Array(...pets)
+        this.nombre = name;
+        this.apellido= surname;
+        this.libros= [...books];
+        this.mascotas= [...pets];
     };
 
     getFullName() {
