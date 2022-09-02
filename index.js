@@ -37,7 +37,7 @@ class Usuario{
     };
 
     getFullName() {
-        return(`${this.nombre} ${this.apellido}`);
+        return `${this.nombre} ${this.apellido}`;
     };
 
     addMascota(petName){
