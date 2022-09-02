@@ -50,10 +50,9 @@ class Usuario{
 
     addBook(title, author){
         this.libros.push({
-            nombre: String(title),
-            autor: String(author)
+            nombre: title,
+            autor: author,
         })
-        return;
     }
 
     getBookNames(){
