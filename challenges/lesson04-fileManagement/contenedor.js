@@ -1,5 +1,7 @@
 class Contenedor {
-    constructor(){
+    constructor(filePath){
+        this.filePath=filePath;
+    }
 
     }
 
