@@ -46,3 +46,5 @@ class Contenedor {
         //Elimina todos los objetos presentes en el archivo.
     }
 }
+
+export default Contenedor;
