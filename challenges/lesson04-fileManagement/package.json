@@ -1,0 +1,5 @@
+{
+    "name": "lesson04-file-management",
+    "main": "index.js",
+    "type": "module"
+}
