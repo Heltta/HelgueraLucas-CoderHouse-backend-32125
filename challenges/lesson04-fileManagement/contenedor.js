@@ -1,8 +1,23 @@
+const fs = require('fs');
+
 class Contenedor {
     constructor(filePath){
         this.filePath=filePath;
     }
 
+    async #getParsedFile(){
+        //Lee el archivo y lo devuelve parseado
+        try {
+            const content = await fs.promises.readFile(
+                this.filePath,
+                'utf-8'
+            );
+            const parsedContent = JSON.parse(content);
+            return parsedContent;
+        }
+        catch(error) {
+            console.log(error);
+        }
     }
 
     save(data){
