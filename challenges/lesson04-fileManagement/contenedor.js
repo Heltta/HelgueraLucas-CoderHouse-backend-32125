@@ -20,10 +20,26 @@ class Contenedor {
         }
     }
 
-    save(data){
+    async save(data){
         //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
-        let id;
-        return id
+        const content = await this.#getParsedFile(); 
+        const objId = content.length+1;
+        //const objParseado = JSON.stringify({...data, id:objId });
+        content.push({...data, id:objId });
+        const stringContent = JSON.stringify(content);
+        try{
+            await fs.promises.writeFile(
+                this.filePath,
+                stringContent,
+            )
+            console.log('Obj agregado');
+            return objId
+        }
+        catch(error) {
+            console.log(error);
+        }
+
+        
     }
 
     getById(id){
