@@ -1,4 +1,4 @@
-const fs = require('fs');
+import * as fs from 'node:fs';
 
 class Contenedor {
     constructor(filePath){
