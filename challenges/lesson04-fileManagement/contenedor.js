@@ -20,6 +20,20 @@ class Contenedor {
         }
     }
 
+    async #writeObj(obj){
+        //Convierte a string un objeto y lo escribe en el archivo
+        const stringifiedObj = JSON.stringify(obj);
+        try{
+            await fs.promises.writeFile(
+                this.filePath,
+                stringifiedObj,
+            )
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
+
     async save(data){
         //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
         const content = await this.#getParsedFile(); 
