@@ -70,8 +70,14 @@ class Contenedor {
         return objs
     }
 
-    deleteById(id){
+    async deleteById(id){
         //Elimina del archivo el objeto con el id buscado
+        const content = await this.#getParsedFile();
+        if (content.some( (element) => element.id === id )) {
+            //Solo filtro los objetos si es que existe un objeto con al id ingresada
+            const filteredContent = content.filter( (element) => element.id !== id );
+            await this.#writeObj(filteredContent);
+        }
     }
 
     async deleteAll(){
