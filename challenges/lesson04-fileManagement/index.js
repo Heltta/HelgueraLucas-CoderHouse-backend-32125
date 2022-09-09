@@ -1,6 +1,6 @@
 import Contenedor from "./contenedor.js";
 
-const contenedor = new Contenedor('challenges/lesson04-fileManagement/test/content.json');
+const contenedor = new Contenedor('challenges/lesson04-fileManagement/test/content.txt');
 
 const testingObj = {
     title: 'Champion',
