@@ -38,7 +38,11 @@ class Contenedor {
         //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
         const content = await this.#getParsedFile(); 
 
-        const objId = content.length+1;
+        const objId = (content.length === 0)?
+            1
+            :
+            content[content.length-1].id+1;
+        
         content.push({...data, id:objId });
 
         try{
