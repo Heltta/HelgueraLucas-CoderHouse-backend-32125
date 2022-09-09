@@ -17,4 +17,12 @@ catch(error){
     console.log(error)
 }
 
+try{
+    const allObjs = await contenedor.getAll()
+    console.log( allObjs );
+}
+catch(error){
+    console.log(error)
+}
+
 console.log('fin programa');

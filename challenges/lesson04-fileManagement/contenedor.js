@@ -51,9 +51,10 @@ class Contenedor {
         return obj
     }
 
-    getAll(){
+    async getAll(){
         //Devuelve un array con los objetos presentes en el archivo.
-        let objs = [];
+        const content = await this.#getParsedFile(); 
+        const objs = content.map(element => element);
         return objs
     }
 
