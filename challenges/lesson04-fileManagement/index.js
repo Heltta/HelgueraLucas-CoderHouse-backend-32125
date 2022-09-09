@@ -10,4 +10,11 @@ contenedor.save(
     }
 );
 
+try{
+    const objFound = await contenedor.getById(2);
+}
+catch(error){
+    console.log(error)
+}
+
 console.log('fin programa');

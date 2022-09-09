@@ -38,13 +38,16 @@ class Contenedor {
         catch(error) {
             console.log(error);
         }
-
+        
         
     }
-
-    getById(id){
+    
+    async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o null si no está.
-        let obj = null;
+        const content = await this.#getParsedFile(); 
+        const obj = content.filter(element => element.id === id);
+        console.log('Objeto encontrado');
+        console.log(obj);
         return obj
     }
 
