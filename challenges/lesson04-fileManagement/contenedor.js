@@ -76,16 +76,7 @@ class Contenedor {
 
     async deleteAll(){
         //Elimina todos los objetos presentes en el archivo.
-        try{
-            await fs.promises.writeFile(
-                this.filePath,
-                '[]',
-            )
-            console.log('Objs eliminados');
-        }
-        catch(error) {
-            console.log(error);
-        }
+        await this.#writeObj([]);
     }
 }
 
