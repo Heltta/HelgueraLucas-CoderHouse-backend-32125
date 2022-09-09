@@ -62,8 +62,18 @@ class Contenedor {
         //Elimina del archivo el objeto con el id buscado
     }
 
-    deleteAll(){
+    async deleteAll(){
         //Elimina todos los objetos presentes en el archivo.
+        try{
+            await fs.promises.writeFile(
+                this.filePath,
+                '[]',
+            )
+            console.log('Objs eliminados');
+        }
+        catch(error) {
+            console.log(error);
+        }
     }
 }
 

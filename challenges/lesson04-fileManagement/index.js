@@ -25,4 +25,13 @@ catch(error){
     console.log(error)
 }
 
+try{
+    await contenedor.deleteAll()
+    const allObjs = await contenedor.getAll()
+    console.log( allObjs );
+}
+catch(error){
+    console.log(error)
+}
+
 console.log('fin programa');
