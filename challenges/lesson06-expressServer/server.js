@@ -10,15 +10,8 @@ const server = app.listen(PORT, () => {
 server.on("error", error => console.log(`Error en servidor ${error}`));
 
 app.get('/', (req, res) => {
-    res.send({ mensaje: 'hola mundo' })
+    res.send({ mensaje: 'Desafío: Servidor Express' })
 });
-
-let count =0;
-app.get('/visitas', (req, res) => {
-    count++;
-    res.send({mensaje:"Hola visitante!", count});
-})
-
 
 const contenedor = new Contenedor('./db/productos.txt');
 
