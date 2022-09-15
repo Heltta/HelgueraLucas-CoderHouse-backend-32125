@@ -19,11 +19,10 @@ app.get('/visitas', (req, res) => {
     res.send({mensaje:"Hola visitante!", count});
 })
 
-//Testing code
-const contenedor = new Contenedor('./test/content.txt');
-try{
-    contenedor.save({producto:'Papas', cantidad:5})
-}
-catch(error){
-    console.log(error);
-}
+
+const contenedor = new Contenedor('./db/productos.txt');
+
+app.get('/productos', (req, res) => {
+    contenedor.getAll()
+        .then((products)=>res.send(products));
+})
