@@ -11,3 +11,9 @@ server.on("error", error => console.log(`Error en servidor ${error}`));
 app.get('/', (req, res) => {
     res.send({ mensaje: 'hola mundo' })
 });
+
+let count =0;
+app.get('/visitas', (req, res) => {
+    count++;
+    res.send({mensaje:"Hola visitante!", count});
+})
