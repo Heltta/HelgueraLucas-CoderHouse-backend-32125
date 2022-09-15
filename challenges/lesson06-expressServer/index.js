@@ -1,4 +1,5 @@
 const express = require('express');
+const Contenedor = require('./modules/contenedor');
 const app = express();
 
 const PORT = 8080
@@ -17,3 +18,12 @@ app.get('/visitas', (req, res) => {
     count++;
     res.send({mensaje:"Hola visitante!", count});
 })
+
+//Testing code
+const contenedor = new Contenedor('./test/content.txt');
+try{
+    contenedor.save({producto:'Papas', cantidad:5})
+}
+catch(error){
+    console.log(error);
+}
