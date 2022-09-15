@@ -26,3 +26,11 @@ app.get('/productos', (req, res) => {
     contenedor.getAll()
         .then((products)=>res.send(products));
 })
+
+app.get('/productoRandom', (req, res) => {
+    contenedor.getAll()
+        .then((products)=>{
+            const index = Math.round(Math.random() * (products.length-1)) ;
+            res.send(products[index]);
+        });
+})
