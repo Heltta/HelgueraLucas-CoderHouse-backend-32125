@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=}, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- form subir archivos -->
+    <form action="/uploadfile" method="POST" enctype="multipart/form-data">
+        <input type="file" name="myfile">
+        <button type="submit">Subir</button>
+    </form>
+    <!-- form subir multiples archivos -->
+    <form action="/uploadmultiple" method="POST" enctype="multipart/form-data">
+        <input type="file" name="myfiles" multiple>
+        <button type="submit">Subir</button>
+    </form>
+</body>
+</html>
