@@ -28,4 +28,16 @@ router.post('/', (req, res) => {
         .catch( error => console.log(error));
 })
 
+router.put('/:id', (req, res) => {
+    const prod = {
+        title: req.body.title,
+        price: req.body.price,
+        thumbnail: req.body.thumbnail
+    }
+    res.status(102);
+    products.overwriteById(parseInt(req.params.id), prod)
+        .then( () =>res.status(201).send())
+        .catch( error => console.log(error));
+})
+
 module.exports = router;

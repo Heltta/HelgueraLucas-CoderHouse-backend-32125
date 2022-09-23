@@ -54,6 +54,16 @@ class Contenedor {
             console.log(error);
         }
     }
+
+    async overwriteById(id, data){
+        //Recibe un objeto con id existente y sobreescribe al objeto de dicha id
+        const content = await this.#getParsedFile();
+        if (content.some( (element) => element.id === id )) {
+            //Solo filtro los objetos si es que existe un objeto con al id ingresada
+            const mapedContent = content.map( (element) => (element.id !== id)? element : {...data, id:id });
+            await this.#writeObj(mapedContent);
+        }
+    }
     
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o null si no está.
