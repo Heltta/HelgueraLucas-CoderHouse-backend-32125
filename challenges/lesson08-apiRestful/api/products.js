@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
-        .then((product)=>res.send(product));
+        .then((product)=>(product.length === 0)?
+            res.status(404).send({ error : 'producto no encontrado' }) :
+            res.status(302).send(product));
 })
 
 router.post('/', (req, res) => {

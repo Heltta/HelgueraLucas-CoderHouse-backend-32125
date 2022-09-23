@@ -66,7 +66,7 @@ class Contenedor {
     }
     
     async getById(id){
-        //Recibe un id y devuelve el objeto con ese id, o null si no está.
+        //Recibe un id y devuelve el objeto con ese id, o [] si no está.
         const content = await this.#getParsedFile(); 
         const obj = content.filter(element => element.id === id);
         return obj
