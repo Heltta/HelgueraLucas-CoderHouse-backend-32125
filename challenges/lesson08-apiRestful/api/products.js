@@ -40,4 +40,11 @@ router.put('/:id', (req, res) => {
         .catch( error => console.log(error));
 })
 
+router.delete('/:id', (req, res) => {
+    res.status(102);
+    products.deleteById(parseInt(req.params.id))
+        .then( () =>res.status(200).send())
+        .catch( error => console.log(error));
+})
+
 module.exports = router;
