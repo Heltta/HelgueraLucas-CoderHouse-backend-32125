@@ -7,14 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- form subir archivos -->
-    <form action="/uploadfile" method="POST" enctype="multipart/form-data">
-        <input type="file" name="myfile">
-        <button type="submit">Subir</button>
-    </form>
-    <!-- form subir multiples archivos -->
-    <form action="/uploadmultiple" method="POST" enctype="multipart/form-data">
-        <input type="file" name="myfiles" multiple>
+    <!-- form subir archivo -->
+    <h1>Ingresar producto</h1>
+    <form action="/api/productos" method="post">
+        <input type="text" name="title" id="title"><br />
+        <input type="text" name="price" id="price"><br />
+        <input type="text" name="thumbnail" id="thumbnail">
         <button type="submit">Subir</button>
     </form>
 </body>
