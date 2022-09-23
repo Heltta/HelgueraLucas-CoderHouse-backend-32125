@@ -10,9 +10,7 @@ app.use(json());
 app.use(express.urlencoded({ extended: true}));
 
 app.use('/api/productos', products);
-app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/public/index.html')
-});
+app.use(express.static("./public"))
 
 const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, () => {
