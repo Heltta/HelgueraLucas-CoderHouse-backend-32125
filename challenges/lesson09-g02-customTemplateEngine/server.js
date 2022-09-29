@@ -18,28 +18,6 @@ server.on("error", error => console.log(`Error en servidor ${error}`));
 
 const fs = require('fs');
 
-// defino el motor de plantilla de ejemplo
-app.engine('ntl', function (filePath, options, callback) {
-    fs.readFile(filePath, function (err, content) {
-        if (err) {
-            return callback(new Error(err));
-        }
-
-        const rendered = content.toString()
-            .replace('#title#', ''+ options.title +'')
-            .replace('#message#', ''+ options.message +'');
-        
-        return callback(null, rendered);
-    });
-});
-app.set('views', './views'); // especifica el directorio de vistas
-app.set('view engine', 'ntl'); // registra el motor de plantillas
-
-// renderizo una vista usando el motor custom del ejemplo
-app.get('/', function (req, res) {
-    res.render('index', { title: 'Hey', message: 'Hello there!'});
-});
-
 // defino motor de plantilla del desafío
 app.engine('cte', function (filePath, options, callback) {
     fs.readFile(filePath, function (err, content) {
@@ -82,6 +60,17 @@ app.get('/cte2', function (req, res) {
         apellido:    "Botella",
         fecha:      "22/02/2022",
         hora:    "2pm"
+        }
+        );
+});
+
+// renderizo una vista de home
+app.get('/', function (req, res) {
+    res.render('plantilla1', {
+        titulo:     "Home",
+        mensaje:    "Segundo desafío de clase 9",
+        autor:      "Pepe botella",
+        version:    "1.0.0"
         }
         );
 });
