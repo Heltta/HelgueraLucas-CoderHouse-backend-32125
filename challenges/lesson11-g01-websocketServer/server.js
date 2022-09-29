@@ -23,4 +23,10 @@ io.on('connection', (socket) => {
     // "connection" se ejecuta la primera vez que se abre una nueva conexión
     console.log('Usuario conectado')
     // Se imprimirá solo la primera vez que se ha abierto la conexión
+    socket.emit('mi mensaje', 'Este es mi mensaje desde el servidor')
+    
+    socket.on('notificacion', data => {
+        console.log(data)
+    })
 })
+
