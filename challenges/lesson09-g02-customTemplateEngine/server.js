@@ -51,7 +51,12 @@ app.engine('cte', function (filePath, options, callback) {
             .replace('^^titulo$$', ''+ options.titulo +'')
             .replace('^^mensaje$$', ''+ options.mensaje +'')
             .replace('^^autor$$', ''+ options.autor +'')
-            .replace('^^version$$', ''+ options.version +'');
+            .replace('^^version$$', ''+ options.version +'')
+            .replace('^^nombre$$', ''+ options.nombre +'')
+            .replace('^^apellido$$', ''+ options.apellido +'')
+            .replace('^^fecha$$', ''+ options.fecha +'')
+            .replace('^^hora$$', ''+ options.hora +'')
+            ;
         
         return callback(null, rendered);
     });
@@ -66,6 +71,17 @@ app.get('/cte1', function (req, res) {
         mensaje:    "Esta es la ruta a la plantilla 1",
         autor:      "Pepe botella",
         version:    "1.0.0"
+        }
+        );
+});
+
+// renderizo una vista usando el motor custom del desafio
+app.get('/cte2', function (req, res) {
+    res.render('plantilla2', {
+        nombre:     "Pepe",
+        apellido:    "Botella",
+        fecha:      "22/02/2022",
+        hora:    "2pm"
         }
         );
 });
