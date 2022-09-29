@@ -1,0 +1,15 @@
+{
+  "name": "lesson09-g02-custom-template-engine",
+  "version": "1.0.0",
+  "description": "Vamos a practicar lo aprendido hasta ahora",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.1"
+  }
+}
