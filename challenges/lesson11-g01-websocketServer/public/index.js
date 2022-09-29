@@ -1,8 +1,13 @@
 
 const socket = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
 
-// Cliente
-socket.on('mi mensaje', data => {
+// Client
+socket.on('welcome', data => {
     alert(data)
-    socket.emit('notificacion', 'Mensaje recibido exitosamente')
+    socket.emit('answer', 'Mensaje recibido exitosamente')
+})
+
+
+socket.on('answer-server', data => {
+    console.log(data);
 })
