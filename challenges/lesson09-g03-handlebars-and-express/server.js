@@ -2,13 +2,24 @@ const express = require('express');
 
 const app = express();
 
-//same as app.use(express.json())
-const { json } = express;
-app.use(json());
+// load handlebars
+const handlebars = require('express-handlebars');
 
-// app.use(express.urlencoded({ extended: true}));
+// config handlebars
+app.engine(
+    "hbs", // template engine reference name (it will be used later with a .set())
+    handlebars.engine({ // handlebars config function
+        extname: ".hbs", // extension used (instead of default .handlebars)
+        defaultLayout: 'index.hbs', // main template
+        layoutsDir: __dirname + '/views/layouts', // main template directory route
+        partialsDir: __dirname + 'views/partials', // partials templates directory route
+    })
+);
 
-app.use(express.static("./public"))
+app.set('view engine', 'cte'); // register template engine
+app.set('views', './views'); // set template files folder
+app.use(express.static("./public")) // set server public space
+
 
 const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, () => {

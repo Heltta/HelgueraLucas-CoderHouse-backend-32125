@@ -1,4 +1,7 @@
 
+// load handlebars
+const Handlebars = require('express-handlebars');
+
 const template = Handlebars.compile(`
     <h1>{{titulo}}</h1>
     <h2>Datos Personales del usuario</h2>
@@ -9,7 +12,8 @@ const template = Handlebars.compile(`
         <li>{{email}}</li>
         <li>{{teléfono}} </li>
     </ul>
-    <p> Traductor de Google, esto está en está en español<p>`
+    <p> Traductor de Google, esto está en está en español<p>
+    `
 ); // compila la plantilla
 const html = template({ 
         titulo: 'CoderHouse',
