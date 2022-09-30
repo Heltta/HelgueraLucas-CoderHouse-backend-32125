@@ -1,0 +1,21 @@
+extends ./layouts/index.pug
+
+block content
+    //- form subir archivo 
+    //- include partials/pageTitle.pug(pageName="Ingresar productos")
+    form(action="/productos" method="post" class="p-5")
+        div(class="row mb-3")
+            label(for="title"  class="form-label") Title
+            input(type="text" name="title" id="title" class="form-control")
+
+        div(class="row mb-3")
+            label(for="price"  class="form-label") Price
+            input(type="text" name="price" id="price" class="form-control")
+
+        div(class="row mb-3")
+            label(for="thumbnail"  class="form-label") thumbnail
+            input(type="text" name="thumbnail" id="thumbnail" class="form-control")
+
+        div
+            button(type="submit" class="btn btn-primary") Subir
+            //- include partials/redirectBtn.pug(link="/productos" name="Ver productos")
