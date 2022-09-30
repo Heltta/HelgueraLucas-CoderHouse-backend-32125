@@ -1,5 +1,7 @@
+
+<%- include('./partials/document'); %>
 <!-- form subir archivo -->
-{{> pageTitle pageName="Ingresar productos"}}
+<%- include('./partials/pageTitle',{ pageName:"Ingresar productos"}); %>
 <form action="/productos" method="post" class="p-5">
 
     <div class="row mb-3">
@@ -19,6 +21,9 @@
 
     <div>
         <button type="submit" class="btn btn-primary">Subir</button>
-        {{> redirectBtn link="/productos" name="Ver productos"}}
+        <%- include('./partials/redirectBtn',{ link:"/productos", name:"Ver productos"}); %>
+        <!-- {{> redirectBtn link="/productos" name="Ver productos"}} -->
     </div>
 </form>
+
+<%- include('./partials/bootstrap'); %>
