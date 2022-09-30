@@ -13,6 +13,18 @@ router.get('/', (req, res) => {
             {items: products, listExists: _ => products.length !== 0}))
 })
 
+router.post('/', (req, res) => {
+    const prod = {
+        title: req.body.title,
+        price: req.body.price,
+        thumbnail: req.body.thumbnail
+    }
+    res.status(102);
+    products.save(prod)
+        .then((id)=> res.status(201).redirect('/'))
+        .catch( error => console.log(error));
+})
+
 // Eventos restful
 router.get('/api/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
