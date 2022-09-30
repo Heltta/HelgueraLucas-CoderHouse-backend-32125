@@ -1,14 +1,14 @@
-# Motores de plantilla
+Motores de plantilla
 
-## Directorios
+Directorios:
 * El proyecto de **HandleBars** se encuentra en incorporate-hbs
 * El proyecto de **Pug** se encuentra en incorporate-pug
 * El proyecto de **Ejs** se encuentra en incorporate-ejs
 
-## Motor favorito
+Motor favorito: Pug... aunque EJS está muy cerca
 
-Mi motor preferido es ...
+La sintaxis de Pug fue la que me pareció más prolija, fácil de leer y rápida de codear. Aunque la sensasión de no estar escribiendo el HTML es algo rara.
 
-### El por qué:
+EJS me encanta que parece ser el más rápido de implementar en un proyecto ya iniciado. No quedó como mi favorito porque no me gusta cómo se ve el código ni me queda demasiado cómodo escribirlo. Lo que menos me gusta es que, a diferencia de HBS y PUG, no me permite usar "padres" de los archivos.
 
-Lorem ipsum...
+HandleBars ni lo sufrí particularmente ni lo disfruté particularmente. No está mal visualmente ni es incómodo de escribir pero tampoco está tan compacto y lindo como pug. No es complicado de implementar pero igual es algo rígido y llevaría más tiempo adaptar un projecto a HBS que a EJS.
