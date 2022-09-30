@@ -14,22 +14,7 @@ app.use(json());
 const dirProducts = '/api/productos';
 app.use(dirProducts, products);
 
-// load handlebars
-const handlebars = require('express-handlebars');
-
-// config handlebars
-app.engine(
-    "hbs", // template engine reference name (it will be used later with a .set())
-    handlebars.engine({ // handlebars config function
-        extname: ".hbs", // extension used (instead of default .handlebars)
-        defaultLayout: 'index.hbs', // main template
-        layoutsDir: __dirname+'/views/layouts', // main template directory route
-        partialsDir: __dirname+'/views/partials', // partials templates directory route
-    })
-);
-
-app.set('view engine', 'hbs'); // register template engine
-app.set('views', './views'); // set template files folder
+app.set('view engine', 'ejs'); // register template engine
 app.use(express.static("./public")) // set server public space
 
 app.use(express.urlencoded({ extended: true}));
