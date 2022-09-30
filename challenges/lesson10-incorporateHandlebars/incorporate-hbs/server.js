@@ -45,7 +45,7 @@ const userData = {
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
-    res.render('main', userData);
+    res.render('sendProduct', userData);
 });
 
 // Start server
