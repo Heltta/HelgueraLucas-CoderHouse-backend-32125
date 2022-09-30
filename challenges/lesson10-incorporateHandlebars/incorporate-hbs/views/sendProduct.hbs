@@ -1,12 +1,24 @@
 <!-- form subir archivo -->
-<h1>Ingresar producto</h1>
-<form action="/api/productos" method="post">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title"><br />
-    <label for="price">Price</label>
-    <input type="text" name="price" id="price"><br />
-    <label for="thumbnail">thumbnail</label>
-    <input type="text" name="thumbnail" id="thumbnail">
-    <button type="submit">Subir</button>
+<h1 class="px-5 pb-2 pt-5">Ingresar producto</h1>
+<form action="/api/productos" method="post" class="p-5">
+
+    <div class="row mb-3">
+        <label for="title"  class="form-label">Title</label>
+        <input type="text" name="title" id="title" class="form-control">
+    </div>
+
+    <div class="row mb-3">
+        <label for="price"  class="form-label">Price</label>
+        <input type="text" name="price" id="price" class="form-control">
+    </div>
+
+    <div class="row mb-3">
+        <label for="thumbnail"  class="form-label">thumbnail</label>
+        <input type="text" name="thumbnail" id="thumbnail" class="form-control">
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Subir</button>
+        {{> redirectBtn link="/productos" name="Ver productos"}}
+    </div>
 </form>
-{{> redirectBtn link="/productos" name="Ver productos"}}
