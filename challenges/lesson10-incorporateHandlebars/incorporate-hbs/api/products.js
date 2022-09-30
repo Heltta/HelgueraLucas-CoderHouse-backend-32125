@@ -1,4 +1,4 @@
-const Contenedor = require('../modules/productos.js');
+const Contenedor = require('../modules/contenedor.js');
 const express = require('express')
 const { Router } = express;
 
