@@ -21,6 +21,10 @@
                 {{/each}}
             </tbody>
         </table>
+    {{else}}
+    <p class="bg-warning border border-warning rounded p-2" style="--bs-bg-opacity: .2;">
+        No se encontraron items
+    </p>
     {{/if}}
     {{> redirectBtn link="/" name="Ingresar productos"}}
 </section>

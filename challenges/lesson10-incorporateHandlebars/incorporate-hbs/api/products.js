@@ -8,8 +8,9 @@ const products = new Contenedor('./uploads/productos.json');
 
 router.get('/', (req, res) => {
     products.getAll()
-        .then( (products) => res.render('viewProducts', {items: products, listExists:true}))
-        // .then((products)=>res.send(products));
+        .then( (products) => res.render(
+            'viewProducts',
+            {items: products, listExists: _ => products.length !== 0}))
 })
 
 // Eventos restful
