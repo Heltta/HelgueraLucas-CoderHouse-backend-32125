@@ -13,6 +13,8 @@ app.use(json());
 //load products api
 const dirProducts = '/api/productos';
 app.use(dirProducts, products);
+
+app.set('view engine', 'pug'); // register template engine
 app.set('views', './views'); // set template files folder
 app.use(express.static("./public")) // set server public space
 
