@@ -10,6 +10,10 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 const { json } = express;
 app.use(json());
 
+//load products api
+const dirProducts = '/api/productos';
+app.use(dirProducts, products);
+
 // load handlebars
 const handlebars = require('express-handlebars');
 
@@ -30,22 +34,15 @@ app.use(express.static("./public")) // set server public space
 
 app.use(express.urlencoded({ extended: true}));
 
-app.use('/api/productos', products);
+app.use('/productos', products);
 app.use(express.static("./public"))
 
-const userData = { 
-    titulo: 'CoderHouse',
-    nombre: 'Pepe',
-    apellido: 'Botella',
-    edad: '40',
-    email: 'pepito_botellon@hotmail.com',
-    telefono: '+599 91 123 123'
-};
+// const prodList = products.
 
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
-    res.render('sendProduct', userData);
+    res.render('sendProduct', {});
 });
 
 // Start server

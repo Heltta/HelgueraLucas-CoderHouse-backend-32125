@@ -1,0 +1,8 @@
+<h1>Vista de products</h1>
+{{#if listExists}}
+    <ul>
+        {{#each items}}
+            <li>{{this.title}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
