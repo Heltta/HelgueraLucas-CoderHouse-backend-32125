@@ -1,4 +1,4 @@
-const Contenedor = require('../modules/productos.js');
+const Contenedor = require('../modules/contenedor.js');
 const express = require('express')
 const { Router } = express;
 
@@ -8,17 +8,32 @@ const products = new Contenedor('./uploads/productos.json');
 
 router.get('/', (req, res) => {
     products.getAll()
-        .then((products)=>res.send(products));
+        .then( (products) => res.render(
+            'viewProducts',
+            {items: products, listExists: _ => products.length !== 0}))
 })
 
-router.get('/:id', (req, res) => {
+router.post('/', (req, res) => {
+    const prod = {
+        title: req.body.title,
+        price: req.body.price,
+        thumbnail: req.body.thumbnail
+    }
+    res.status(102);
+    products.save(prod)
+        .then((id)=> res.status(201).redirect('/'))
+        .catch( error => console.log(error));
+})
+
+// Eventos restful
+router.get('/api/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
         .then((product)=>(product.length === 0)?
             res.status(404).send({ error : 'producto no encontrado' }) :
             res.status(302).send(product));
 })
 
-router.post('/', (req, res) => {
+router.post('/api/', (req, res) => {
     const prod = {
         title: req.body.title,
         price: req.body.price,
@@ -30,7 +45,7 @@ router.post('/', (req, res) => {
         .catch( error => console.log(error));
 })
 
-router.put('/:id', (req, res) => {
+router.put('/api/:id', (req, res) => {
     const prod = {
         title: req.body.title,
         price: req.body.price,
@@ -42,7 +57,7 @@ router.put('/:id', (req, res) => {
         .catch( error => console.log(error));
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/api/:id', (req, res) => {
     res.status(102);
     products.deleteById(parseInt(req.params.id))
         .then( () =>res.status(200).send())
