@@ -6,8 +6,8 @@ include partials/redirectBtn.pug
 
 block content
     +title("Vista de productos")
-    <section class="p-5">
-        if listExists
+    section(class="p-5")
+        if listExists()
             table(class="table")
                 thead
                     tr
