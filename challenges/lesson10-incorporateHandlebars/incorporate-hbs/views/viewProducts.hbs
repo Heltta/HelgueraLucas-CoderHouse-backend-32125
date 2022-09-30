@@ -1,11 +1,26 @@
 {{> pageTitle pageName="Vista de productos"}}
 <section class="p-5">
     {{#if listExists}}
-        <ul class="list-group">
-            {{#each items}}
-                <li class="list-group-item">{{this.title}}</li>
-            {{/each}}
-        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                    <tr>
+                        <th scope="row">{{this.id}}</th>
+                        <td>{{this.title}}</td>
+                        <td>{{this.price}}</td>
+                        <td><img src={{this.thumbnail}} alt={{this.title}} width="64" height="64"></img></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
     {{/if}}
     {{> redirectBtn link="/" name="Ingresar productos"}}
 </section>
