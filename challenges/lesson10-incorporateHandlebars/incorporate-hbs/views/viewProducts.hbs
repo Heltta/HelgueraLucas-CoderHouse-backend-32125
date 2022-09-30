@@ -1,9 +1,11 @@
 {{> pageTitle pageName="Vista de productos"}}
-{{#if listExists}}
-    <ul>
-        {{#each items}}
-            <li>{{this.title}}</li>
-        {{/each}}
-    </ul>
-{{/if}}
-{{> redirectBtn link="/" name="Ingresar productos"}}
+<section class="p-5">
+    {{#if listExists}}
+        <ul class="list-group">
+            {{#each items}}
+                <li class="list-group-item">{{this.title}}</li>
+            {{/each}}
+        </ul>
+    {{/if}}
+    {{> redirectBtn link="/" name="Ingresar productos"}}
+</section>
