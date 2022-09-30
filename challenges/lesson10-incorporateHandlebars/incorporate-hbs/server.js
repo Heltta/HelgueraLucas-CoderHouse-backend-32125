@@ -3,6 +3,9 @@ const products = require('./api/products.js');
 
 const app = express();
 
+//load bootstrap
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+
 //same as app.use(express.json())
 const { json } = express;
 app.use(json());
