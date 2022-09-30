@@ -1,4 +1,6 @@
-{{> pageTitle pageName="Vista de productos"}}
+
+<%- include('./partials/document'); %>
+<%- include('./partials/pageTitle',{ pageName:"Vista de productos"}); %>
 <section class="p-5">
     {{#if listExists}}
         <table class="table">
@@ -26,5 +28,7 @@
         No se encontraron items
     </p>
     {{/if}}
-    {{> redirectBtn link="/" name="Ingresar productos"}}
+    <%- include('./partials/redirectBtn',{ link:"/", name:"Ingresar productos"}); %>
 </section>
+
+<%- include('./partials/bootstrap'); %>
