@@ -1,0 +1,14 @@
+# Motores de plantilla
+
+## Directorios
+* El proyecto de **HandleBars** se encuentra en incorporate-hbs
+* El proyecto de **Pug** se encuentra en incorporate-pug
+* El proyecto de **Ejs** se encuentra en incorporate-ejs
+
+## Motor favorito
+
+Mi motor preferido es ...
+
+### El por qué:
+
+Lorem ipsum...
