@@ -26,7 +26,7 @@ app.use(express.static("./public"))
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
-    res.render('sendProduct', {});
+    res.render('hello.pug', {mensaje: 'Usando Pug JS en express'});
 });
 
 // Start server
