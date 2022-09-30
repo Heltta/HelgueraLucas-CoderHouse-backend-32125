@@ -32,7 +32,7 @@ const userData = {
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
-    res.render('main', {});
+    res.render('main', userData);
 });
 
 
