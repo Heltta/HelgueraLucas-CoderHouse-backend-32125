@@ -14,14 +14,14 @@ router.get('/', (req, res) => {
 })
 
 // Eventos restful
-router.get('/:id', (req, res) => {
+router.get('/api/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
         .then((product)=>(product.length === 0)?
             res.status(404).send({ error : 'producto no encontrado' }) :
             res.status(302).send(product));
 })
 
-router.post('/', (req, res) => {
+router.post('/api/', (req, res) => {
     const prod = {
         title: req.body.title,
         price: req.body.price,
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
         .catch( error => console.log(error));
 })
 
-router.put('/:id', (req, res) => {
+router.put('/api/:id', (req, res) => {
     const prod = {
         title: req.body.title,
         price: req.body.price,
@@ -45,7 +45,7 @@ router.put('/:id', (req, res) => {
         .catch( error => console.log(error));
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/api/:id', (req, res) => {
     res.status(102);
     products.deleteById(parseInt(req.params.id))
         .then( () =>res.status(200).send())
