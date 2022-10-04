@@ -15,5 +15,6 @@ socket.on('answer-server', data => {
 let MSGform = document.querySelector("#chat");
 MSGform.addEventListener("submit", e =>{
     e.preventDefault();
-    console.log(e.target.querySelector("#msg").value)
+    const message = e.target.querySelector("#msg").value;
+    socket.emit("chat", message);
 })

@@ -36,5 +36,12 @@ io.on('connection', (socket) => {
         // Emite un mensaje a todos los usuarios conectados
         io.sockets.emit('answer-server', data);
     });
+
+    //chat messages
+    socket.on("chat", data=>{
+        console.log(data);
+        // Emite un mensaje a todos los usuarios conectados
+        io.sockets.emit('answer-server', data);
+    })
 })
 
