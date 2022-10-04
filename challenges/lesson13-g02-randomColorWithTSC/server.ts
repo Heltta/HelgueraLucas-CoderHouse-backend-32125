@@ -6,12 +6,19 @@ lista.map((x:number) => x*x)
     
 // Generic challenge
 class Paleta{
+
+    colors: { 
+        red: number;
+        green: number;
+        blue: number;
+    }[];
+    
     constructor(mode="RGB"){
         if(mode === "RGB"){
             this.colors = [];
         }
     }
-
+    
     randomRGBColor(){
         return Math.floor(Math.random() * 256)
     }
