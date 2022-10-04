@@ -21,6 +21,7 @@ server.on("error", error => console.log(`Error en servidor ${error}`));
 
 //Server
 
+const msgHistory = [];
 // "connection" se ejecuta la primera vez que se abre una nueva conexión
 io.on('connection', (socket) => {
 
@@ -28,20 +29,24 @@ io.on('connection', (socket) => {
     // Imprime la id del socket del nuevo usuario
     console.log(`New user connection: id = ${socket.id} `);
 
-    // Saluda al usuario recién conectado
-    socket.emit('welcome', `Hello client ${socket.id}, I am server`);
+    // Send chat history to new client
+    socket.emit('welcome', msgHistory);
     
-    socket.on('answer', data => {
+    socket.on('welcome-answer', data => {
         console.log(data);
         // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('answer-server', {socketId: socket.id, content: data});
+        io.sockets.emit('server-broadcast', {socketId: socket.id, content: data});
+        //Guarda en el servidor el nuevo mensaje
+        msgHistory.push({socketId: socket.id, content: data});
     });
 
     //chat messages
     socket.on("chat", data=>{
         console.log(data);
+        //Guarda en el servidor el nuevo mensaje
+        msgHistory.push({socketId: socket.id, content: data});
         // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('answer-server', {socketId: socket.id, content: data});
+        io.sockets.emit('server-broadcast', {socketId: socket.id, content: data});
     })
 })
 

@@ -1,23 +1,37 @@
 
 const socket = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
 
+const parseIntoList = (sender, content) =>{
+    return `
+        <li>
+            <span style="color: grey;">from ${sender}:</span> ${content}
+        </li>
+    `
+}
+
 // Client
 socket.on('welcome', data => {
-    alert(data)
-    socket.emit('answer', 'Gracias por recibirme')
+
+    if(data.length !== 0){
+        console.log(data.length);
+        //Write Chat History if not empty
+        const chatBox = document.querySelector("#messages");
+        data.forEach( msg => {
+            chatBox.innerHTML = chatBox.innerHTML.concat(
+                parseIntoList(msg.socketId, msg.content)
+            )
+        });
+    };
+
+    socket.emit('welcome-answer', 'Gracias por recibirme')
 })
 
 
-socket.on('answer-server', data => {
-    //console.log(data);
+socket.on('server-broadcast', data => {
     const chatBox = document.querySelector("#messages");
     chatBox.innerHTML = chatBox.innerHTML.concat(
-        `<span style="color: grey;">
-            from: ${data.socketId}
-        </span>`,
-        `<span> 
-            ${data.content}
-        </span><br>`);
+        parseIntoList(data.socketId, data.content)
+    )
 })
 
 let MSGform = document.querySelector("#chat");
