@@ -34,14 +34,14 @@ io.on('connection', (socket) => {
     socket.on('answer', data => {
         console.log(data);
         // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('answer-server', data);
+        io.sockets.emit('answer-server', {socketId: socket.id, content: data});
     });
 
     //chat messages
     socket.on("chat", data=>{
         console.log(data);
         // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('answer-server', data);
+        io.sockets.emit('answer-server', {socketId: socket.id, content: data});
     })
 })
 
