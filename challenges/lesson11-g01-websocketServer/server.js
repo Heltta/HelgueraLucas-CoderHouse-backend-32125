@@ -10,7 +10,7 @@ const io = new IOServer(httpServer);
 app.use(express.static('./public'));
 // Esta ruta carga nuestro archivo index.html en la raíz de la misma
 app.get('/', (req, res) => {
-res.sendFile('index.html', { root: __dirname })
+    res.sendFile('index.html', { root: __dirname })
 });
 // El servidor funcionando en el puerto 3000
 const PORT = process.env.PORT || 3000;
