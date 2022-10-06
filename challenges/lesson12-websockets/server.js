@@ -15,9 +15,13 @@ app.set('views', './views'); // set template files folder
 
 app.use(express.urlencoded({ extended: true}));
 
-// Load products api
+// Load products api routes
 const dirProducts = '/productos';
 app.use(dirProducts, products);
+
+// Load chat api routes
+const chat = require('./src/routes/chat.js')
+app.use('/chat', chat);
 
 // Set server public space
 app.use(express.static("./public")) 

@@ -1,0 +1,12 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include partials/pageTitle.pug
+
+block content
+    +title("Sockets.io tutorial")
+    form(action="#" method="post" class="p-5" id="chat")
+        input(type="text" name="message" class="form-control" id="msg")
+        input(type="submit" value="send" class="btn btn-primary")
+    ol(id="messages")
+    script(src="/index.js")
