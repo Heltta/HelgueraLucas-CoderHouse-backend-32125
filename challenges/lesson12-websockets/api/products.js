@@ -26,6 +26,12 @@ router.post('/', (req, res) => {
 })
 
 // Eventos restful
+
+router.get('/api/', (req, res) => {
+    products.getAll()
+        .then((products)=>res.send(products));
+})
+
 router.get('/api/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
         .then((product)=>(product.length === 0)?
