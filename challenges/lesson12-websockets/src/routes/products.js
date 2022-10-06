@@ -1,10 +1,10 @@
-const Contenedor = require('../controllers/contenedor.js');
+const Container = require('../controllers/container.js');
 const express = require('express')
 const { Router } = express;
 
 const router = Router();
 
-const products = new Contenedor('./uploads/productos.json');
+const products = new Container('./uploads/productos.json');
 
 router.get('/', (req, res) => {
     products.getAll()

@@ -1,7 +1,7 @@
 // import * as fs from 'node:fs';
 const fs = require('fs');
 
-class Contenedor {
+class Container {
     constructor(filePath){
         this.filePath=filePath;
     }
@@ -95,5 +95,5 @@ class Contenedor {
     }
 }
 
-// export default Contenedor;
-module.exports = Contenedor;
+// export default Container;
+module.exports = Container;
