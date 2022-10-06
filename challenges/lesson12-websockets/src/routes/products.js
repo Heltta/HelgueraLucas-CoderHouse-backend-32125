@@ -1,4 +1,4 @@
-const Contenedor = require('../src/controllers/contenedor.js');
+const Contenedor = require('../controllers/contenedor.js');
 const express = require('express')
 const { Router } = express;
 
