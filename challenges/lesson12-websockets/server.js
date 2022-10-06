@@ -1,12 +1,7 @@
 const express = require('express');
-const { Server: HttpServer } = require('http');
 const products = require('./api/products.js');
 
 const app = express();
-const httpServer = new HttpServer(app);
-
-// Load static files
-app.use(express.static("./public"))
 
 // Load bootstrap
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
@@ -15,14 +10,17 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.json());
 
 // Load products api
-const dirProducts = '/productos';
-app.use(dirProducts, products);
-
-//Set up template engine 
 app.set('view engine', 'pug'); // register template engine
 app.set('views', './views'); // set template files folder
 
 app.use(express.urlencoded({ extended: true}));
+
+// Load products api
+const dirProducts = '/productos';
+app.use(dirProducts, products);
+
+// Set server public space
+app.use(express.static("./public")) 
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
