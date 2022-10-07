@@ -31,13 +31,14 @@ block content
     //- Products table
     section(class="p-5" id="products")
 
+    h2(class="px-5") Centro de mensajes
     //- Chat input box
     form(action="/chat" method="post" class="p-5" id="chat")
         input(type="text" name="message" class="form-control" id="msg")
         input(type="submit" value="send" class="btn btn-primary")
 
     //- Chat history
-    ol(id="messages" class="px-5")
+    ol(id="messages" class="mx-5")
 
     script(src="/websocket/itemList.js")
     script(src="/websocket/chat.js")
