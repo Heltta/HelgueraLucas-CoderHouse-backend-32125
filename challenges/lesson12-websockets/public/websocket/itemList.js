@@ -23,7 +23,7 @@ const parseIntoRow = (id, name, price, thumbnail) =>{
     `
 }
 
-socket.on('welcome', data => {
+socket.on('update-product-list', data => {
     console.log(data);
 
     if(data.length !== 0){
@@ -42,5 +42,4 @@ socket.on('welcome', data => {
         });
     };
     
-    socket.emit('tabla recibida', 'Gracias por recibirme')
 })

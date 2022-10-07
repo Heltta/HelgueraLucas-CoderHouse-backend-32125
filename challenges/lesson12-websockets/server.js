@@ -44,31 +44,46 @@ server.on("error", error => console.log(`Error en servidor ${error}`));
 
 // Start websocket server
 
-const msgHistory = [];
 // "connection" se ejecuta la primera vez que se abre una nueva conexión
+const msgHistory = [];
 io.on('connection', (socket) => {
-
+    
     // Se imprimirá solo la primera vez que se ha abierto la conexión
     // Imprime la id del socket del nuevo usuario
     console.log(`New user connection: id = ${socket.id} `);
+    
+    const sendProductList = (mode = 'response') =>{
+                // Send all products
+                const Container = require('./src/controllers/container.js');
+                const itemContainer = new Container('./uploads/productos.json');
+                const event = 'update-product-list';
+                itemContainer.getAll()
+                    .then( items => {
+                        if(mode === 'response'){
+                            socket.emit(event, items)
+                        }
+                        else if(mode === 'broadcast'){
+                            io.sockets.emit(event, items)
+                        }
+                    })
+                    .catch( error => console.log(error));
+    }
+    
+    module.exports = sendProductList;
 
-    // Ask client for api type
+    // Ask client for api type (websocket for chat OR for updating the product list)
     socket.emit('req-api-type');
 
+    // Ask recieve client api type
     socket.on('res-api-type', data => {
         console.log(data);
-        const welcomeEvent = 'welcome';
         if(data === 'itemList'){
-            // Send all products
-            const Container = require('./src/controllers/container.js')
-            const itemContainer = new Container('./uploads/productos.json');
-            itemContainer.getAll()
-                .then( items => socket.emit(welcomeEvent, items))
-                .catch( error => console.log(error));
+            // Send all products to client
+            sendProductList();
         }
         else if(data === 'chat'){
             // Send chat history to new client
-            socket.emit(welcomeEvent, msgHistory);
+            socket.emit('welcome', msgHistory);
         }
     })
     

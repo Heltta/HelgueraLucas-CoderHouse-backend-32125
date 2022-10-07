@@ -10,7 +10,7 @@ block headerScripts
 block content
     //- form subir archivo 
     +title("Ingresar productos")
-    form(action="/productos" method="post" class="p-5")
+    form(action="/productos" method="post" class="p-5" id="addProdForm")
         div(class="row mb-3")
             label(for="title"  class="form-label") Title
             input(type="text" name="title" id="title" class="form-control")

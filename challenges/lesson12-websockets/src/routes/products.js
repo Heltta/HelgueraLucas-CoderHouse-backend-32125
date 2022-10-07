@@ -20,8 +20,10 @@ router.post('/', (req, res) => {
         thumbnail: req.body.thumbnail
     }
     res.status(102);
+    const sendProductList =  require('../../server.js')
     products.save(prod)
-        .then((id)=> res.status(201).redirect('/'))
+        .then( _ => res.status(201).redirect('/'))
+        .then( _ => sendProductList('broadcast'))
         .catch( error => console.log(error));
 })
 
@@ -46,8 +48,10 @@ router.post('/api/', (req, res) => {
         thumbnail: req.body.thumbnail
     }
     res.status(102);
+    const sendProductList =  require('../../server.js')
     products.save(prod)
         .then((id)=> res.status(201).send({ id }))
+        .then( _ => sendProductList('broadcast'))
         .catch( error => console.log(error));
 })
 
@@ -58,8 +62,10 @@ router.put('/api/:id', (req, res) => {
         thumbnail: req.body.thumbnail
     }
     res.status(102);
+    const sendProductList =  require('../../server.js')
     products.overwriteById(parseInt(req.params.id), prod)
-        .then( () =>res.status(201).send())
+        .then( _ =>res.status(201).send())
+        .then( _ => sendProductList('broadcast'))
         .catch( error => console.log(error));
 })
 
