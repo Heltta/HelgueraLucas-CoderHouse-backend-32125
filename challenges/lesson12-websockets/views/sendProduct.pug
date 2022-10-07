@@ -27,5 +27,15 @@ block content
             button(type="submit" class="btn btn-primary") Subir
             +rdirBtn("Ver productos", "/productos")
             +rdirBtn("Chat", "/chat")
+    
+    section(class="p-5")
+        table(class="table" id="productTable")
+            thead
+                tr
+                    th(scope="col") #
+                    th(scope="col") Nombre
+                    th(scope="col") Precio
+                    th(scope="col") Imagen
+            tbody
 
     script(src="/websocket/itemList.js")
