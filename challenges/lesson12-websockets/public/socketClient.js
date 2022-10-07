@@ -10,6 +10,12 @@ const parseIntoList = (sender, content) =>{
 }
 
 // Client
+
+// Identify functionality needs to server
+socket.on('req-api-type', _ => {
+    socket.emit('res-api-type', 'chat');
+})
+
 socket.on('welcome', data => {
 
     if(data.length !== 0){

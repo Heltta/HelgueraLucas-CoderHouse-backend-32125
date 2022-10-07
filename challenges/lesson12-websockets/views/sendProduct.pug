@@ -4,6 +4,9 @@ extends ./layouts/index.pug
 include partials/pageTitle.pug
 include partials/redirectBtn.pug
 
+block headerScripts
+    <script src="/socket.io/socket.io.js"></script>
+
 block content
     //- form subir archivo 
     +title("Ingresar productos")
@@ -24,3 +27,5 @@ block content
             button(type="submit" class="btn btn-primary") Subir
             +rdirBtn("Ver productos", "/productos")
             +rdirBtn("Chat", "/chat")
+
+    script(src="/websocket/itemList.js")

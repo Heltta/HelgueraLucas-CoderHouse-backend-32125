@@ -52,8 +52,21 @@ io.on('connection', (socket) => {
     // Imprime la id del socket del nuevo usuario
     console.log(`New user connection: id = ${socket.id} `);
 
-    // Send chat history to new client
-    socket.emit('welcome', msgHistory);
+    // Ask client for api type
+    socket.emit('req-api-type');
+
+    socket.on('res-api-type', data => {
+        console.log(data);
+        const welcomeEvent = 'welcome';
+        if(data === 'itemList'){
+            // Send all products
+            socket.emit(welcomeEvent, {});
+        }
+        else if(data === 'chat'){
+            // Send chat history to new client
+            socket.emit(welcomeEvent, msgHistory);
+        }
+    })
     
     socket.on('welcome-answer', data => {
         console.log(data);
