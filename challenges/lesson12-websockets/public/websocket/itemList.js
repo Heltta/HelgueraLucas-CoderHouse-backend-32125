@@ -7,3 +7,6 @@ socket.on('req-api-type', _ => {
     socket.emit('res-api-type', 'itemList');
 })
 
+socket.on('welcome', data => {
+    console.log(data);
+})

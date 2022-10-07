@@ -60,7 +60,11 @@ io.on('connection', (socket) => {
         const welcomeEvent = 'welcome';
         if(data === 'itemList'){
             // Send all products
-            socket.emit(welcomeEvent, {});
+            const Container = require('./src/controllers/container.js')
+            const itemContainer = new Container('./uploads/productos.json');
+            itemContainer.getAll()
+                .then( items => socket.emit(welcomeEvent, items))
+                .catch( error => console.log(error));
         }
         else if(data === 'chat'){
             // Send chat history to new client
@@ -68,6 +72,8 @@ io.on('connection', (socket) => {
         }
     })
     
+
+    // Chat events
     socket.on('welcome-answer', data => {
         console.log(data);
         // Emite un mensaje a todos los usuarios conectados
