@@ -2,8 +2,9 @@
 let userEmail = null;
 const setEmail = email => userEmail = email;
 const userLogged = _ => userEmail !== null;
+let socketChat;
 const setUpChat = (userEmail) => {
-    const socketChat = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
+    socketChat = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
 
     setEmail(userEmail);
 
@@ -28,18 +29,19 @@ const setUpChat = (userEmail) => {
             const chatBox = document.querySelector("#messages");
             data.forEach( msg => {
                 chatBox.innerHTML = chatBox.innerHTML.concat(
-                    parseIntoList(msg.socketId, msg.content)
+                    parseIntoList(msg.socketId, msg.content, msg.user, msg.date)
                 )
             });
         };
     
-        socketChat.emit('welcome-answer', 'Gracias por recibirme')
+        socketChat.emit('welcome-answer', {message:'Gracias por recibirme' , userEmail})
     })
     
     socketChat.on('server-broadcast', data => {
         const chatBox = document.querySelector("#messages");
+        console.log(data);
         chatBox.innerHTML = chatBox.innerHTML.concat(
-            parseIntoList(data.socketId, data.content)
+            parseIntoList(data.socketId, data.content, data.user, data.date)
         )
     })
 }

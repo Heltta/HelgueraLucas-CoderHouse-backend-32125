@@ -96,24 +96,33 @@ io.on('connection', (socket) => {
 
     // Chat events
     socket.on('welcome-answer', data => {
-        console.log(data);
-        // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('server-broadcast', {socketId: socket.id, content: data});
-        //Guarda en el servidor el nuevo mensaje
-        msgHistory.push({socketId: socket.id, content: data});
-    });
-
-    //chat messages
-    socket.on("chat", data=>{
-        console.log(data);
-        //Guarda en el servidor el nuevo mensaje
-        msgHistory.push({
+        const currentDate = Date();
+        const msg = {
             socketId: socket.id,
             content: data.message,
             user: data.userEmail,
-            date: Date()
-        });
+            date: currentDate,
+        };
+
+        //Guarda en el servidor el nuevo mensaje
+        msgHistory.push(msg);
         // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('server-broadcast', {socketId: socket.id, content: data});
+        io.sockets.emit('server-broadcast', msg);
+    });
+    
+
+    //chat messages
+    socket.on("chat", data=>{
+        //Guarda en el servidor el nuevo mensaje
+        const currentDate = Date();
+        const msg = {
+            socketId: socket.id,
+            content: data.message,
+            user: data.userEmail,
+            date: currentDate,
+        };
+        msgHistory.push(msg);
+        // Emite un mensaje a todos los usuarios conectados
+        io.sockets.emit('server-broadcast', msg);
     })
 })
