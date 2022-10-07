@@ -55,9 +55,15 @@ io.on('connection', (socket) => {
     const sendProductList = (mode = 'response') =>{
                 // Send all products
                 const Container = require('./src/controllers/container.js');
+                const pug = require("pug");
                 const itemContainer = new Container('./uploads/productos.json');
                 const event = 'update-product-list';
+                
                 itemContainer.getAll()
+                    .then( rawItems => 
+                        pug.renderFile('./views/partials/productsTable.pug',
+                        {items: rawItems, listExists: _ => products.length !== 0})
+                    )
                     .then( items => {
                         if(mode === 'response'){
                             socket.emit(event, items)

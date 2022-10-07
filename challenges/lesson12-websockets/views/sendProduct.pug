@@ -28,14 +28,6 @@ block content
             +rdirBtn("Ver productos", "/productos")
             +rdirBtn("Chat", "/chat")
     
-    section(class="p-5")
-        table(class="table" id="productTable")
-            thead
-                tr
-                    th(scope="col") #
-                    th(scope="col") Nombre
-                    th(scope="col") Precio
-                    th(scope="col") Imagen
-            tbody
+    section(class="p-5" id="products")
 
     script(src="/websocket/itemList.js")
