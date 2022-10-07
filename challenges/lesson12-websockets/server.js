@@ -107,7 +107,12 @@ io.on('connection', (socket) => {
     socket.on("chat", data=>{
         console.log(data);
         //Guarda en el servidor el nuevo mensaje
-        msgHistory.push({socketId: socket.id, content: data});
+        msgHistory.push({
+            socketId: socket.id,
+            content: data.message,
+            user: data.userEmail,
+            date: Date()
+        });
         // Emite un mensaje a todos los usuarios conectados
         io.sockets.emit('server-broadcast', {socketId: socket.id, content: data});
     })

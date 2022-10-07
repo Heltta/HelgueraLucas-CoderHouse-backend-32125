@@ -32,9 +32,17 @@ block content
     section(class="p-5" id="products")
 
     h2(class="px-5") Centro de mensajes
+    //- Chat log in
+    form(action="#" method="post" class="p-5" id="login")
+        div(class="row mb-3")
+            label(for="title"  class="form-label") Correo de usuario
+            input(type="email" class="form-control" id="userMail")
+        input(type="submit" class="btn btn-primary")
     //- Chat input box
-    form(action="/chat" method="post" class="p-5" id="chat")
-        input(type="text" name="message" class="form-control" id="msg")
+    form(action="#" method="post" class="p-5" id="chat")
+        div(class="row mb-3")
+            label(for="message"  class="form-label") mensaje
+            input(type="text" name="message" class="form-control" id="msg")
         input(type="submit" value="send" class="btn btn-primary")
 
     //- Chat history
