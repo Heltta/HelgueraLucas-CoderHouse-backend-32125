@@ -1,5 +1,5 @@
 
-const socket = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
+const socketChat = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
 
 const parseIntoList = (sender, content) =>{
     return `
@@ -12,11 +12,11 @@ const parseIntoList = (sender, content) =>{
 // Client
 
 // Identify functionality needs to server
-socket.on('req-api-type', _ => {
-    socket.emit('res-api-type', 'chat');
+socketChat.on('req-api-type', _ => {
+    socketChat.emit('res-api-type', 'chat');
 })
 
-socket.on('welcome', data => {
+socketChat.on('welcome', data => {
 
     if(data.length !== 0){
         console.log(data.length);
@@ -29,11 +29,11 @@ socket.on('welcome', data => {
         });
     };
 
-    socket.emit('welcome-answer', 'Gracias por recibirme')
+    socketChat.emit('welcome-answer', 'Gracias por recibirme')
 })
 
 
-socket.on('server-broadcast', data => {
+socketChat.on('server-broadcast', data => {
     const chatBox = document.querySelector("#messages");
     chatBox.innerHTML = chatBox.innerHTML.concat(
         parseIntoList(data.socketId, data.content)
@@ -44,5 +44,5 @@ let MSGform = document.querySelector("#chat");
 MSGform.addEventListener("submit", e =>{
     e.preventDefault();
     const message = e.target.querySelector("#msg").value;
-    socket.emit("chat", message);
+    socketChat.emit("chat", message);
 })

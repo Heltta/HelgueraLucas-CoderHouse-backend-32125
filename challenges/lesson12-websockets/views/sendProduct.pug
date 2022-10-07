@@ -28,6 +28,16 @@ block content
             +rdirBtn("Ver productos", "/productos")
             +rdirBtn("Chat", "/chat")
     
+    //- Products table
     section(class="p-5" id="products")
 
+    //- Chat input box
+    form(action="/chat" method="post" class="p-5" id="chat")
+        input(type="text" name="message" class="form-control" id="msg")
+        input(type="submit" value="send" class="btn btn-primary")
+
+    //- Chat history
+    ol(id="messages" class="px-5")
+
     script(src="/websocket/itemList.js")
+    script(src="/websocket/chat.js")
