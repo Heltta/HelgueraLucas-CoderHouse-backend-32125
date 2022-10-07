@@ -2,11 +2,25 @@
 extends ./layouts/index.pug
 //- partials (mixins)
 include partials/pageTitle.pug
+include partials/redirectBtn.pug
+
+block headerScripts
+    <script src="/socket.io/socket.io.js"></script>
 
 block content
     +title("Sockets.io tutorial")
+
+    //- Pseudo navigation bar
+    div(class="px-5")
+        +rdirBtn("Ingresar productos", "/")
+        +rdirBtn("Ver productos", "/productos")
+    
+    //- Chat input box
     form(action="#" method="post" class="p-5" id="chat")
         input(type="text" name="message" class="form-control" id="msg")
         input(type="submit" value="send" class="btn btn-primary")
-    ol(id="messages")
-    script(src="/index.js")
+
+    //- Chat history
+    ol(id="messages" class="px-5")
+    
+    script(src="/socketClient.js")
