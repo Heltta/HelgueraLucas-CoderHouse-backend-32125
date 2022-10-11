@@ -1,8 +1,16 @@
 
 class Product {
-    constructor(title, price, thumbnail){
-        this.title = title;
+    constructor(id, name, description, code, photoURL, price, stock){
+        this.id = id;
+        this.timestamp = Date.now();
+        this.name = name;
+        this.description = description;
+        this.code = code;
+        this.photo = photoURL;
         this.price = price;
-        this.thumbnail = thumbnail;
+        this.stock = stock;
     }
 }
+
+// export default Container;
+module.exports = Product;
