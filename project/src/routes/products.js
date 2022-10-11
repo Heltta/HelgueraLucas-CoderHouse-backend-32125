@@ -4,7 +4,9 @@ const { Router } = express;
 
 const router = Router();
 
-const products = new Container('./uploads/products.json');
+const products = new Container('../data/products.json');
+
+/////// HTTP request methods routing //////
 
 router.get('/', (req, res) => {
     products.getAll()
