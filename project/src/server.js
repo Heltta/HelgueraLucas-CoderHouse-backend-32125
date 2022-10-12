@@ -4,18 +4,22 @@ const app = express();
 
 
 //////////// Template engine //////////
-app.set('view engine', 'pug'); // register pug
-app.set('views', './views'); // set template files folder
+app.set('view engine', 'ejs'); // register pug
 
 
 //////////// Middleware ///////////////
+//-- Custom APIs ---------------//
 const products = require('./routes/products.js');
 const cart = require('./routes/cart.js');
 app.use('/api/productos', products);
 app.use('/api/carrito', cart);
+//-- Express middleware ---------//
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
-app.use(express.static('../public')) ;
+//-- Client files (mw: static) --//
+app.use(express.static(__dirname + '/../public')) ;
+app.use(express.static(__dirname + '/../node_modules/bootstrap/dist'));
+app.use(express.static(__dirname + '/../node_modules/ejs'));
 
 
 //////////// Turn on server ///////////
