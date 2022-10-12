@@ -9,10 +9,10 @@ app.set('view engine', 'ejs'); // register pug
 
 //////////// Middleware ///////////////
 //-- Custom APIs ---------------//
-const products = require('./routes/products.js');
-const cart = require('./routes/cart.js');
-app.use('/api/productos', products);
-app.use('/api/carrito', cart);
+const products = require('./routes/productsAPI.js');
+const cart = require('./routes/cartsAPI.js');
+app.use('/api/products', products);
+app.use('/api/cart', cart);
 //-- Express middleware ---------//
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
