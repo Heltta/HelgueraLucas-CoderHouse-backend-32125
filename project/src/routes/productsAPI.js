@@ -41,9 +41,9 @@ router.put('/:id', (req, res) => {
         return
     }
     const prod = new Product(req.body);
-    res.status(102);
+    res.status(202);
     products.overwriteById(parseInt(req.params.id), prod)
-        .then( _ =>res.status(201).send())
+        .then( _ =>res.status(200).send())
         .catch( error => console.log(error));
 })
 
