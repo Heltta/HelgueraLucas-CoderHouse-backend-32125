@@ -1,6 +1,6 @@
 
 class Error {
-    constructor(code, description){
+    constructor({code, description}){
         this.code = code || "";
         this.description = description || "";
     }
