@@ -30,4 +30,20 @@ router.delete('/:id', (req, res) => {
         .catch( error => console.log(error));
 })
 
+router.get('/:id/products', async (req, res) => {
+    // Get all products stored in a cart wich id is send as parameter
+    try{
+        const cart = await carts.getById(parseInt(req.params.id));
+        if(cart.length === 0){
+            res.status(404).send('Error: no matches found');
+        }
+        else{
+            (cart[0].products)? 
+                res.status(302).send(cart[0].products) :
+                res.status(500).send('Error: Cart products is nullish');
+        }
+    } 
+    catch (error) { console.log(error) }
+})
+
 export default router;
