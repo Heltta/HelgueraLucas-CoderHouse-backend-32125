@@ -49,4 +49,57 @@ router.get('/:id/products', async (req, res) => {
     catch (error) { console.log(error) }
 })
 
+router.post('/:id/products', async (req, res) =>{
+    // Add products to a cart wich ID is send as parameter
+    // Products are send inside request body as a list of its IDs
+    
+    // If body is not an array, the code will break
+    if( !Array.isArray(req.body)){
+        res.status(400).send('Error: Request\'s body is not an Array'); 
+        return;
+    }
+
+    try{
+        const cartID = parseInt(req.params.id);
+        const cart = await storedCarts.getById(cartID);
+        
+        // Cart must exist
+        if(cart.length === 0){
+            res.status(404).send('Error: no cart matches found');
+        }
+        // Avoid working with a nullish
+        else if(!cart[0].products){
+            res.status(500).send('Error: Cart products is nullish');
+        }
+        else{
+            const cartProd = [...cart[0].products];
+
+            // Map method returns an array of promises 
+            // and Promise.all packs them into a unique promise
+            const newProducts = await Promise.all(req.body.map(async ID => {
+                try{
+                    const prod = await prodDB.getById(parseInt(ID));
+                    return prod[0];
+                }
+                catch (error) { console.log(error) }
+            }));
+
+            // Don't add products if some are duplicated
+            if(cartProd.some( prod => newProducts.some( nProd => nProd.id === prod.id))){
+                res.status(400).send('Error: Some products already in cart');
+            }
+            else{
+                const updatedCart = new Cart({
+                    id: cart[0].id,
+                    products: [...cartProd, ...newProducts]
+                })
+                storedCarts.overwriteById(cart[0].id, updatedCart);
+                res.status(202);
+                res.status(200).send({cartID});
+            }
+        }
+    } 
+    catch (error) { console.log(error) }
+})
+
 export default router;
