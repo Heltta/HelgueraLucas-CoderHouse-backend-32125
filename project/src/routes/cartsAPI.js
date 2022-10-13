@@ -1,5 +1,6 @@
 import Container from '../controllers/container.js';
 import Cart from '../models/cart.js';
+import Error from '../models/error.js';
 import express from 'express';
 const { Router } = express;
 
@@ -15,7 +16,10 @@ import {products as prodDB} from './productsAPI.js'
 router.post('/', (req, res) =>{
     // Create (and save) a cart and returns its ID
     if(!(req.body)){
-        res.status(400).send('Error: body is empty');
+        res.status(400).send(new Error({
+            code:400,
+            description:'Error: body is empty'
+        }));
         return
     }
     const cart = new Cart(req.body);
@@ -38,12 +42,18 @@ router.get('/:id/products', async (req, res) => {
     try{
         const cart = await storedCarts.getById(parseInt(req.params.id));
         if(cart.length === 0){
-            res.status(404).send('Error: no matches found');
+            res.status(404).send(new Error({
+                code:404,
+                description:'Error: no matches found'
+            }));
         }
         else{
             (cart[0].products)? 
                 res.status(302).send(cart[0].products) :
-                res.status(500).send('Error: Cart products is nullish');
+                res.status(500).send(new Error({
+                    code:500,
+                    description:'Error: Cart products is nullish'
+                }));
         }
     } 
     catch (error) { console.log(error) }
@@ -55,7 +65,10 @@ router.post('/:id/products', async (req, res) =>{
     
     // If body is not an array, the code will break
     if( !Array.isArray(req.body)){
-        res.status(400).send('Error: Request\'s body is not an Array'); 
+        res.status(400).send(new Error({
+            code:400,
+            description:'Error: Request\'s body is not an Array'
+        })); 
         return;
     }
 
@@ -65,11 +78,17 @@ router.post('/:id/products', async (req, res) =>{
 
         // Cart must exist
         if(cart.length === 0){
-            res.status(404).send('Error: no cart matches found');
+            res.status(404).send(new Error({
+                code:404,
+                description:'Error: no cart matches found'
+            }));
         }
         // Avoid working with a nullish
         else if(!cart[0].products){
-            res.status(500).send('Error: Cart products is nullish');
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Cart products is nullish'
+            }));
         }
         else{
             const cartProd = [...cart[0].products];
@@ -86,7 +105,10 @@ router.post('/:id/products', async (req, res) =>{
 
             // Don't add products if some are duplicated
             if(cartProd.some( prod => newProducts.some( nProd => nProd.id === prod.id))){
-                res.status(400).send('Error: Some products already in cart');
+                res.status(400).send(new Error({
+                    code:400,
+                    description:'Error: Some products already in cart'
+                }));
             }
             else{
                 const updatedCart = new Cart({
@@ -110,7 +132,10 @@ router.delete('/:id/products/:id_prod', async (req, res) => {
 
     // Check for correct parameters 
     if(!(cartID && prodID)){
-        res.status(400).send('Error: Some request parameters are not a number'); 
+        res.status(400).send(new Error({
+            code:400,
+            description:'Error: Some request parameters are not a number'
+        })); 
         return;
     }
     
@@ -118,15 +143,24 @@ router.delete('/:id/products/:id_prod', async (req, res) => {
         const cart = await storedCarts.getById(cartID);
         // Cart must exist
         if(cart.length === 0){
-            res.status(404).send('Error: No cart matches found');
+            res.status(404).send(new Error({
+                code:404,
+                description:'Error: No cart matches found'
+            }));
         }
         // Avoid working with a nullish
         else if(!cart[0].products){
-            res.status(500).send('Error: Cart products is nullish');
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Cart products is nullish'
+            }));
         }
         // Check if product is in cart
         else if(!cart[0].products.some( prod => prod.id === prodID)){
-            res.status(404).send('Error: No product matches found for given ID');
+            res.status(404).send( new Error({
+                code:404,
+                description:'Error: No product matches found for given ID'
+            }));
         }
         else{
             res.status(202)
@@ -144,13 +178,19 @@ router.delete('/:id/products/:id_prod', async (req, res) => {
                 res.status(200).send(filteredCart);
             }
             catch(error) { 
-                res.status(500).send('Error: Internal Server Error');
+                res.status(500).send(new Error({
+                    code:500,
+                    description:'Error: Internal Server Error'
+                }));
                 console.log(error); 
             }
         }
     }
     catch(error) { 
-        res.status(500).send('Error: Internal Server Error');
+        res.status(500).send(new Error({
+            code:500,
+            description:'Error: Internal Server Error'
+        }));
         console.log(error); 
     }
     // storedCarts.deleteById(cartID)
