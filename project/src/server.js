@@ -12,14 +12,14 @@ app.set('view engine', 'ejs'); // register pug
 
 
 //////////// Middleware ///////////////
+//-- Express middleware ---------//
+app.use(json());
+app.use(urlencoded({ extended:true }));
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
 app.use('/api/products', products);
 app.use('/api/cart', cart);
-//-- Express middleware ---------//
-app.use(json());
-app.use(urlencoded({ extended:true }));
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
