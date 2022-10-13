@@ -24,7 +24,10 @@ app.use('/api/cart', cart);
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
-
+//-- Handle Not Implemented requests --/
+app.all('/*', (req, res) => {
+    res.status(501).send('Error: The server does not support the functionality required to fulfill the request')
+})
 
 //////////// Turn on server ///////////
 const PORT = process.env.PORT || 8080
