@@ -22,4 +22,12 @@ router.post('/', (req, res) =>{
         .catch( error => console.log(error));
 })
 
+router.delete('/:id', (req, res) => {
+    // Delete a cart which id is send as parameter
+    res.status(102);
+    carts.deleteById(parseInt(req.params.id))
+        .then( () =>res.status(200).send())
+        .catch( error => console.log(error));
+})
+
 export default router;
