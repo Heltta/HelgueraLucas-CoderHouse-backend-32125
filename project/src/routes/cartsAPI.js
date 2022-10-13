@@ -62,7 +62,7 @@ router.post('/:id/products', async (req, res) =>{
     try{
         const cartID = parseInt(req.params.id);
         const cart = await storedCarts.getById(cartID);
-        
+
         // Cart must exist
         if(cart.length === 0){
             res.status(404).send('Error: no cart matches found');
@@ -100,6 +100,62 @@ router.post('/:id/products', async (req, res) =>{
         }
     } 
     catch (error) { console.log(error) }
+})
+
+router.delete('/:id/products/:id_prod', async (req, res) => {
+    // Delete a cart which id is send as parameter
+
+    const cartID = parseInt(req.params.id);
+    const prodID = parseInt(req.params.id_prod);
+
+    // Check for correct parameters 
+    if(!(cartID && prodID)){
+        res.status(400).send('Error: Some request parameters are not a number'); 
+        return;
+    }
+    
+    try{
+        const cart = await storedCarts.getById(cartID);
+        // Cart must exist
+        if(cart.length === 0){
+            res.status(404).send('Error: No cart matches found');
+        }
+        // Avoid working with a nullish
+        else if(!cart[0].products){
+            res.status(500).send('Error: Cart products is nullish');
+        }
+        // Check if product is in cart
+        else if(!cart[0].products.some( prod => prod.id === prodID)){
+            res.status(404).send('Error: No product matches found for given ID');
+        }
+        else{
+            res.status(202)
+            const cartProd = cart[0].products.filter( prod => prod.id != prodID );
+            const filteredCart = new Cart ({
+                id:cartID,
+                products:cartProd
+            })
+
+            try{
+                await storedCarts.overwriteById(
+                    cartID,
+                    filteredCart
+                )
+                res.status(200).send(filteredCart);
+            }
+            catch(error) { 
+                res.status(500).send('Error: Internal Server Error');
+                console.log(error); 
+            }
+        }
+    }
+    catch(error) { 
+        res.status(500).send('Error: Internal Server Error');
+        console.log(error); 
+    }
+    // storedCarts.deleteById(cartID)
+    //     .then( () =>res.status(200).send())
+    //     .catch( error => console.log(error));
 })
 
 export default router;
