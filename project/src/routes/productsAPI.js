@@ -1,6 +1,7 @@
 import Container from '../controllers/container.js';
 import Product from '../models/product.js';
 import Error from '../models/error.js';
+import adminRights from '../config/admin.js';
 import express from 'express';
 const { Router } = express;
 
@@ -38,6 +39,13 @@ router.post('/', (req, res) => {
         }));
         return
     }
+    else if(!adminRights){
+        res.status(403).send(new Error({
+            code:400,
+            description:'Error: Client has no admin rights'
+        }));
+        return
+    }
     const prod = new Product(req.body);
     res.status(102);
     products.save(prod)
@@ -53,6 +61,13 @@ router.put('/:id', (req, res) => {
         }));
         return
     }
+    else if(!adminRights){
+        res.status(403).send(new Error({
+            code:400,
+            description:'Error: Client has no admin rights'
+        }));
+        return
+    }
     const prod = new Product(req.body);
     res.status(202);
     products.overwriteById(parseInt(req.params.id), prod)
@@ -61,6 +76,13 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
+    if(!adminRights){
+        res.status(403).send(new Error({
+            code:400,
+            description:'Error: Client has no admin rights'
+        }));
+        return
+    }
     res.status(102);
     products.deleteById(parseInt(req.params.id))
         .then( () =>res.status(200).send())
