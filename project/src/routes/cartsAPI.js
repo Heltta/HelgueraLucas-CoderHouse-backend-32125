@@ -5,7 +5,10 @@ const { Router } = express;
 
 const router = Router();
 
+/////// Containers ////////////////////////
 const carts = new Container('data/carts.json');
+import {products as prodDB} from './productsAPI.js'
+
 
 /////// HTTP request methods routing //////
 

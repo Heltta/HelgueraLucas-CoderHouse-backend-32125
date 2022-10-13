@@ -54,4 +54,8 @@ router.delete('/:id', (req, res) => {
         .catch( error => console.log(error));
 })
 
+export {
+    router,
+    products,
+}
 export default router;
