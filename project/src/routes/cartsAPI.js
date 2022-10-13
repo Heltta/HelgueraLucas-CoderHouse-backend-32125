@@ -6,7 +6,7 @@ const { Router } = express;
 const router = Router();
 
 /////// Containers ////////////////////////
-const carts = new Container('data/carts.json');
+const storedCarts = new Container('data/carts.json');
 import {products as prodDB} from './productsAPI.js'
 
 
@@ -20,7 +20,7 @@ router.post('/', (req, res) =>{
     }
     const cart = new Cart(req.body);
     res.status(102);
-    carts.save(cart)
+    storedCarts.save(cart)
         .then((id)=> res.status(201).send({ id }))
         .catch( error => console.log(error));
 })
@@ -28,7 +28,7 @@ router.post('/', (req, res) =>{
 router.delete('/:id', (req, res) => {
     // Delete a cart which id is send as parameter
     res.status(102);
-    carts.deleteById(parseInt(req.params.id))
+    storedCarts.deleteById(parseInt(req.params.id))
         .then( () =>res.status(200).send())
         .catch( error => console.log(error));
 })
@@ -36,7 +36,7 @@ router.delete('/:id', (req, res) => {
 router.get('/:id/products', async (req, res) => {
     // Get all products stored in a cart wich id is send as parameter
     try{
-        const cart = await carts.getById(parseInt(req.params.id));
+        const cart = await storedCarts.getById(parseInt(req.params.id));
         if(cart.length === 0){
             res.status(404).send('Error: no matches found');
         }
