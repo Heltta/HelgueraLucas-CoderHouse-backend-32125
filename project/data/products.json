@@ -1,1 +1,74 @@
-[{"title":"Escuadra","price":123.45,"thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png","id":1},{"title":"Calculadora","price":234.56,"thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png","id":2},{"title":"Globo Terráqueo","price":345.67,"thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png","id":3},{"title":"Jugo de pepino","price":123.45,"thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png","id":9},{"title":"iwatch","price":"69","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/clock-stopwatch-timer-time-256.png","id":10},{"title":"Zapallo","price":"34","thumbnail":"https://cdn3.iconfinder.com/data/icons/education-209/64/apple-fruit-science-school-256.png","id":11}]
+[
+    {
+        "id": 1,
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_spyfall.webp?alt=media&token=e2245236-eca7-4aaa-a47b-23ce02047ce4",
+        "name": "Spyfall",
+        "price": 23,
+        "stock": 5
+    },
+    {
+        "id": 2,
+        "stock": 6,
+        "description": "Queen Gimnax has ordered the reclamation of the northern lands. As a cartographer in her service, you are sent to map this territory, claiming it for the Kingdom of Nalos. Through official edicts, the queen announces which lands she prizes most, and you will increase your reputation by meeting her demands. But you are not alone in this wilderness. The Dragul contest your claims with their outposts, so you must draw your lines carefully to reduce their influence. Reclaim the greatest share of the queen’s desired lands and you will be declared the greatest cartographer in the kingdom.  In Cartographers: A Roll Player Tale, players compete to earn the most reputation stars by the time four seasons have passed. Each season, players draw on their map sheets and earn reputation by carrying out the queen's edicts before the season is over. The player with the most reputation stars at the end of winter wins!",
+        "name": " Cartographers",
+        "price": 18,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_cartographers.webp?alt=media&token=74927f21-f713-4ee9-a142-c13435d40bf0"
+    },
+    {
+        "id": 3,
+        "name": "Flick 'em up!",
+        "stock": 8,
+        "price": 19,
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_flick_em_up.webp?alt=media&token=fd85ffd4-79b4-4e73-8565-3f7754307a70"
+    },
+    {
+        "id": 4,
+        "name": "Secret Hitler",
+        "price": 45,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_secret_hitler.webp?alt=media&token=05b8368e-d021-4614-91df-5e27593e4d69",
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+        "stock": 11
+    },
+    {
+        "id": 5,
+        "name": " Sheriff of Nottingham",
+        "description": "Sell goods for profit, or risk losing it all by slipping contrabands in....",
+        "price": 20,
+        "stock": 18,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_sheriff_of_nottingham.webp?alt=media&token=00c30c1c-308f-4b28-b20f-81dd05a1109b"
+    },
+    {
+        "id": 6,
+        "name": "Murder in Hong Kong",
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_murder_in_hong_kong.webp?alt=media&token=8cd71e14-1bdd-46ba-985e-8d518a536e17",
+        "stock": 3,
+        "price": 25,
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo"
+    },
+    {
+        "id": 7,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_catan.webp?alt=media&token=9568174a-69ff-4e87-87be-383894156b69",
+        "stock": 11,
+        "price": 36,
+        "name": "Catan",
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo"
+    },
+    {
+        "id": 8,
+        "stock": 6,
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_exploding_kittens.webp?alt=media&token=f419420d-4fa0-453d-b620-ba6bae1dc87b",
+        "description": "Ask for favors, attack friends, see the future- whatever it takes to avoid exploding!",
+        "price": 13,
+        "name": "Exploding Kittens"
+    },
+    {
+        "id": 9,
+        "stock": 9,
+        "price": 23,
+        "description": "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+        "name": "Sushi Go Party!",
+        "photo": "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_sushi_go_party.webp?alt=media&token=797cee54-76dd-4f74-ae41-42bf19f49272"
+    }
+]
