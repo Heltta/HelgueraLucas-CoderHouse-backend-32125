@@ -7,4 +7,4 @@ class Error {
 }
 
 // export default Container;
-module.exports = Error;
+export default Error;

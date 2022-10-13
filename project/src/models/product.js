@@ -13,4 +13,4 @@ class Product {
 }
 
 // export default Container;
-module.exports = Product;
+export default Product;

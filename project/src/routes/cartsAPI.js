@@ -1,8 +1,8 @@
-const express = require('express')
+import express from 'express';
 const { Router } = express;
 
 const router = Router();
 
 /////// HTTP request methods routing //////
 
-module.exports = router;
+export default router;

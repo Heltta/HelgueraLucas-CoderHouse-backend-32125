@@ -8,4 +8,4 @@ class Cart {
 }
 
 // export default Container;
-module.exports = Cart;
+export default Cart;

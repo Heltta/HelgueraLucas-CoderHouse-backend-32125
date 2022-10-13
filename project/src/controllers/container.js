@@ -1,5 +1,5 @@
 // import * as fs from 'node:fs';
-const fs = require('fs');
+import { promises } from 'fs';
 
 class Container {
     constructor(filePath){
@@ -9,7 +9,7 @@ class Container {
     async #getParsedFile(){
         //Lee el archivo y lo devuelve parseado
         try {
-            const content = await fs.promises.readFile(
+            const content = await promises.readFile(
                 this.filePath,
                 'utf-8'
             );
@@ -25,7 +25,7 @@ class Container {
         //Convierte a string un objeto y lo escribe en el archivo
         const stringifiedObj = JSON.stringify(obj);
         try{
-            await fs.promises.writeFile(
+            await promises.writeFile(
                 this.filePath,
                 stringifiedObj,
             )
@@ -96,4 +96,4 @@ class Container {
 }
 
 // export default Container;
-module.exports = Container;
+export default Container;

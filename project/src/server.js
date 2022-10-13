@@ -1,4 +1,8 @@
-const express = require('express');
+import express, { json, urlencoded, static as serveStatic } from 'express';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -9,17 +13,17 @@ app.set('view engine', 'ejs'); // register pug
 
 //////////// Middleware ///////////////
 //-- Custom APIs ---------------//
-const products = require('./routes/productsAPI.js');
-const cart = require('./routes/cartsAPI.js');
+import products from './routes/productsAPI.js';
+import cart from './routes/cartsAPI.js';
 app.use('/api/products', products);
 app.use('/api/cart', cart);
 //-- Express middleware ---------//
-app.use(express.json());
-app.use(express.urlencoded({ extended:true }));
+app.use(json());
+app.use(urlencoded({ extended:true }));
 //-- Client files (mw: static) --//
-app.use(express.static(__dirname + '/../public')) ;
-app.use(express.static(__dirname + '/../node_modules/bootstrap/dist'));
-app.use(express.static(__dirname + '/../node_modules/ejs'));
+app.use(serveStatic(__dirname + '/../public')) ;
+app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
+app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 
 //////////// Turn on server ///////////
