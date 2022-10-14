@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "timestamp": 1665634177824,
+        "name": "Camaleon",
+        "description": "Test de edit product",
+        "code": "0006666999996660",
+        "photo": "https://cdn3.iconfinder.com/data/icons/fantasy-and-role-play-game-adventure-quest/512/Spell_Book-256.png",
+        "price": 23,
+        "stock": 5
+    },
+    {
+        "id": 4,
+        "timestamp": 1665634177824,
+        "name": "Domino",
+        "description": "Test de edit product",
+        "code": "123123123asdf",
+        "photo": "https://cdn3.iconfinder.com/data/icons/fantasy-and-role-play-game-adventure-quest/512/Spell_Book-256.png",
+        "price": 5,
+        "stock": 125
+    }
+]
