@@ -1,9 +1,30 @@
 // import * as fs from 'node:fs';
 import { promises } from 'fs';
+import myknex  from '../config/mariaDB.js';
+// const knex = require('knex')(options);
 
 class Container {
-    constructor(filePath){
-        this.filePath=filePath;
+    constructor(tableName){
+        this.filePath = tableName;
+        
+        this.tbl =  tableName;
+        myknex.schema.hasTable(tableName).then( exists =>{
+            if(exists){
+                console.log("table already exists")
+            }
+            else{
+                myknex.schema.createTable(tableName, table => {
+                    table.increments('id');
+                    table.string('name');
+                    table.integer('price');
+                })
+                    .then(  _ => console.log("table created"))
+                    .catch( (err) => {console.log(err); throw err})
+                    .finally( _=> {
+                        myknex.destroy();
+                    });
+            }
+        })
     }
 
     async #getParsedFile(){
