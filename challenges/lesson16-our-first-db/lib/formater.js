@@ -1,0 +1,4 @@
+/*
+    Library which controls correct formatting of string variables
+    such as product names and dates
+*/
