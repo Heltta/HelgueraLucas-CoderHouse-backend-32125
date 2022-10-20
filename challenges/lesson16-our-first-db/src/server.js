@@ -33,6 +33,10 @@ app.all('/*', (req, res) => {
     }))
 })
 
+import Container from './controllers/container.js';
+
+const testTabla = new Container('pepino');
+
 //////////// Turn on server ///////////
 const PORT = process.env.PORT || 8080
 const server = app.listen(PORT, () => {
