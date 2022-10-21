@@ -1,7 +1,4 @@
-// import * as fs from 'node:fs';
-import { promises } from 'fs';
 import myknex  from '../config/mariaDB.js';
-// const knex = require('knex')(options);
 
 class Container {
     constructor(tableName, fields){
@@ -85,20 +82,6 @@ class Container {
         };
     }
 
-    async #writeObj(obj){
-        //Convierte a string un objeto y lo escribe en el archivo
-        const stringifiedObj = JSON.stringify(obj);
-        try{
-            await promises.writeFile(
-                this.filePath,
-                stringifiedObj,
-            )
-        }
-        catch(error) {
-            console.log(error);
-        }
-    }
-
     async #uptadeRows(objCondition,data){
         // Update all rows from table stored at DB that pass a condition
         // from a data object and return updated fields
@@ -152,15 +135,12 @@ class Container {
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
         const content = await this.#selectRows({id: id}); 
-        const obj = content.filter(element => element.id === id);
-        return obj
+        return content
     }
 
     async getAll(){
         //Devuelve un array con los objetos presentes en el archivo.
-        const content = await this.#selectRows(); 
-        const objs = content.map(element => element);
-        return objs
+        return await this.#selectRows();
     }
 
     async deleteById(id){

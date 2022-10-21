@@ -20,8 +20,7 @@ const {id, ...testData} = {
   stock: 8
 }
 products.getById(6).then( element => console.log(element));
-products.overwriteById(6, testData).then( element => console.log(element));
-// products.getById(5).then( element => console.log(element));
+products.getAll().then( element => console.log(element));
 
 
 /////// HTTP request methods routing //////
