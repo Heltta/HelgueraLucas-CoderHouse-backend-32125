@@ -12,7 +12,7 @@ class Product {
     }
     static tableFields = [
         {key:'id', type: 'increments'},
-        {key: 'timestamp', type: 'integer'},
+        {key: 'timestamp', type: 'unsigned biginteger'},
         {key: 'name', type: 'string'},
         {key: 'description', type: 'text'},
         {key: 'code', type: 'string'},

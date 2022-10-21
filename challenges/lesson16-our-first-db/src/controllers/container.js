@@ -19,8 +19,17 @@ class Container {
                         if(field.type === 'increments'){
                             table.increments(field.key);
                         }
+                        else if (field.type === 'unsigned integer'){
+                            table.integer(field.key).unsigned();
+                        }
+                        else if (field.type === 'unsigned biginteger'){
+                            table.bigint(field.key).unsigned();
+                        }
                         else if (field.type === 'integer'){
                             table.integer(field.key);
+                        }
+                        else if (field.type === 'biginteger'){
+                            table.bigint(field.key);
                         }
                         else if (field.type === 'string'){
                             table.string(field.key);
