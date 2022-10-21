@@ -52,18 +52,17 @@ class Container {
     }
 
     async #getParsedFile(){
-        //Lee el archivo y lo devuelve parseado
-        try {
-            const content = await promises.readFile(
-                this.filePath,
-                'utf-8'
-            );
-            const parsedContent = JSON.parse(content);
-            return parsedContent;
+        // Select all rows from table stored at DB
+        try{
+            const rows = await myknex.from(this.tbl).select("*")
+            return rows
         }
         catch(error) {
-            console.log(error);
+            console.log(error); throw error;
         }
+        finally{
+            myknex.destroy();
+        };
     }
 
     async #writeObj(obj){

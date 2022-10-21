@@ -8,6 +8,7 @@ const { Router } = express;
 const router = Router();
 
 const products = new Container('products', Product.tableFields);
+products.getAll().then( rows => console.log(rows));
 
 /////// HTTP request methods routing //////
 
