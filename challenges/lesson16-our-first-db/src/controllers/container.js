@@ -99,6 +99,25 @@ class Container {
         }
     }
 
+    async #uptadeRows(objCondition,data){
+        // Update all rows from table stored at DB that pass a condition
+        // from a data object and return updated fields
+        try{
+            const rows = await 
+                myknex.from(this.tbl)
+                    .update(data)
+                    .where(objCondition)
+
+            return rows;
+        }
+        catch(error) {
+            console.log(error); throw error;
+        }
+        finally{
+            myknex.destroy();
+        };
+    }
+
     async #deleteRow(objCondition){
         // Delete a row from table using object syntax
         try{
@@ -123,14 +142,11 @@ class Container {
         }
     }
 
-    async overwriteById(id, data){
-        //Recibe un objeto con id existente y sobreescribe al objeto de dicha id
-        const content = await this.#selectRows();
-        if (content.some( (element) => element.id === id )) {
-            //Solo filtro los objetos si es que existe un objeto con al id ingresada
-            const mapedContent = content.map( (element) => (element.id !== id)? element : {...data, id:id });
-            await this.#writeObj(mapedContent);
-        }
+    async overwriteById(id, objData){
+        // Update fields inside row with given id.
+        // objData parameter contains the keys of the fields
+        // and the new content of those.
+        return await this.#uptadeRows({id:id}, objData);
     }
     
     async getById(id){
