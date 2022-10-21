@@ -4,8 +4,9 @@ import myknex  from '../config/mariaDB.js';
 // const knex = require('knex')(options);
 
 class Container {
-    constructor(tableName){
+    constructor(tableName, fields){
         this.filePath = tableName;
+        this.fields = [...fields] || [];
         
         this.tbl =  tableName;
         myknex.schema.hasTable(tableName).then( exists =>{
@@ -14,9 +15,23 @@ class Container {
             }
             else{
                 myknex.schema.createTable(tableName, table => {
-                    table.increments('id');
-                    table.string('name');
-                    table.integer('price');
+                    fields.forEach( field => {
+                        if(field.type === 'increments'){
+                            table.increments(field.key);
+                        }
+                        else if (field.type === 'integer'){
+                            table.integer(field.key);
+                        }
+                        else if (field.type === 'string'){
+                            table.string(field.key);
+                        }
+                        else if (field.type === 'text'){
+                            table.text(field.key);
+                        }
+                        else{
+                            console.log(`Field type ${field.type} of ${field.key} not implemented`);
+                        }
+                    })
                 })
                     .then(  _ => console.log("table created"))
                     .catch( (err) => {console.log(err); throw err})
