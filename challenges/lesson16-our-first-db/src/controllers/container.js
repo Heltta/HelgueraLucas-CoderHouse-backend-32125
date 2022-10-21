@@ -65,6 +65,21 @@ class Container {
         };
     }
 
+    async #insertRow(obj){
+        // Insert object as a row into table
+        const { id, ...objData } = obj;
+        try{
+            const id = await myknex(this.tbl).insert(objData);
+            return id;
+        }
+        catch(error) {
+            console.log(error); throw error;
+        }
+        finally{
+            myknex.destroy();
+        };
+    }
+
     async #writeObj(obj){
         //Convierte a string un objeto y lo escribe en el archivo
         const stringifiedObj = JSON.stringify(obj);
@@ -80,19 +95,9 @@ class Container {
     }
 
     async save(data){
-        //Recibe un objeto, lo guarda en el archivo, devuelve el id asignado.
-        const content = await this.#getParsedFile(); 
-
-        const objId = (content.length === 0)?
-            1
-            :
-            content[content.length-1].id+1;
-        
-        content.push({...data, id:objId });
-
+        // Store object data as a row into table
         try{
-            await this.#writeObj(content)
-            return objId
+            return await this.#insertRow(data)
         }
         catch(error) {
             console.log(error);
