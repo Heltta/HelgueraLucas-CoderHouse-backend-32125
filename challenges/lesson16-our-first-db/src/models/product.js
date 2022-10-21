@@ -10,6 +10,16 @@ class Product {
         this.price = price  || "";
         this.stock = stock  || "";
     }
+    static tableFields = [
+        {key:'id', type: 'increments'},
+        {key: 'timestamp', type: 'integer'},
+        {key: 'name', type: 'string'},
+        {key: 'description', type: 'text'},
+        {key: 'code', type: 'string'},
+        {key: 'photoURL', type:'string'},
+        {key: 'price', type: 'integer'},
+        {key: 'stock', type: 'integer'}
+    ]
 }
 
 // export default Container;
