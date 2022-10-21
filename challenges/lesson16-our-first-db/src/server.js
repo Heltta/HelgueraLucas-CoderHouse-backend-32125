@@ -17,9 +17,9 @@ app.set('view engine', 'ejs'); // register pug
 app.use(json());
 app.use(urlencoded({ extended:true }));
 //-- Custom APIs ---------------//
-// import products from './routes/productsAPI.js';
+import products from './routes/productsAPI.js';
 // import cart from './routes/cartsAPI.js';
-// app.use('/api/products', products);
+app.use('/api/products', products);
 // app.use('/api/cart', cart);
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
@@ -33,9 +33,6 @@ app.all('/*', (req, res) => {
     }))
 })
 
-import Container from './controllers/container.js';
-
-const testTabla = new Container('pepino');
 
 //////////// Turn on server ///////////
 const PORT = process.env.PORT || 8080

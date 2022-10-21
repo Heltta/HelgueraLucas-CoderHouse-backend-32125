@@ -7,7 +7,7 @@ const { Router } = express;
 
 const router = Router();
 
-const products = new Container('data/products.json');
+const products = new Container('products', Product.tableFields);
 
 /////// HTTP request methods routing //////
 
