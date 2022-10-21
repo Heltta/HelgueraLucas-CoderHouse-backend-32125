@@ -153,8 +153,8 @@ class Container {
     }
 
     async deleteAll(){
-        //Elimina todos los objetos presentes en el archivo.
-        await this.#writeObj([]);
+        // Delete all elements from a table
+        await this.#deleteRow(true);
     }
 }
 
