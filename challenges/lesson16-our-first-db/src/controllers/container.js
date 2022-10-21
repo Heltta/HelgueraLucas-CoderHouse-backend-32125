@@ -94,6 +94,20 @@ class Container {
         }
     }
 
+    async #deleteRow(objCondition){
+        // Delete a row from table using object syntax
+        try{
+            const id = await myknex(this.tbl).where(objCondition).del();
+            return id;
+        }
+        catch(error) {
+            console.log(error); throw error;
+        }
+        finally{
+            myknex.destroy();
+        };
+    }
+
     async save(data){
         // Store object data as a row into table
         try{
@@ -129,13 +143,8 @@ class Container {
     }
 
     async deleteById(id){
-        //Elimina del archivo el objeto con el id buscado
-        const content = await this.#getParsedFile();
-        if (content.some( (element) => element.id === id )) {
-            //Solo filtro los objetos si es que existe un objeto con al id ingresada
-            const filteredContent = content.filter( (element) => element.id !== id );
-            await this.#writeObj(filteredContent);
-        }
+        // Delete element with given id;
+        this.#deleteRow({id: id})
     }
 
     async deleteAll(){

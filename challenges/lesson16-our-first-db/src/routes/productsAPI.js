@@ -9,16 +9,17 @@ const router = Router();
 
 const products = new Container('products', Product.tableFields);
 // Test class methods
-products.save(new Product(
-  {
-    name: " Sheriff of Nottingham",
-    description: "Sell goods for profit, or risk losing it all by slipping contrabands in....",
-    code: "6584fas5dt487m56a",
-    photoURL: "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_sheriff_of_nottingham.webp?alt=media&token=00c30c1c-308f-4b28-b20f-81dd05a1109b",
-    price: 20,
-    stock: 18,
-  }
-))
+// products.save(new Product(
+//   {
+//     name: " Sheriff of Nottingham",
+//     description: "Sell goods for profit, or risk losing it all by slipping contrabands in....",
+//     code: "6584fas5dt487m56a",
+//     photoURL: "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_sheriff_of_nottingham.webp?alt=media&token=00c30c1c-308f-4b28-b20f-81dd05a1109b",
+//     price: 20,
+//     stock: 18,
+//   }
+// ))
+products.deleteById(4);
 
 /////// HTTP request methods routing //////
 
