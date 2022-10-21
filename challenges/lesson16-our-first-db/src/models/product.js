@@ -16,7 +16,7 @@ class Product {
         {key: 'name', type: 'string'},
         {key: 'description', type: 'text'},
         {key: 'code', type: 'string'},
-        {key: 'photoURL', type:'string'},
+        {key: 'photo', type:'string'},
         {key: 'price', type: 'integer'},
         {key: 'stock', type: 'integer'}
     ]
