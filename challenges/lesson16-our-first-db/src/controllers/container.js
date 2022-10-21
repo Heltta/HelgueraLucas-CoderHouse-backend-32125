@@ -51,10 +51,15 @@ class Container {
         })
     }
 
-    async #getParsedFile(){
-        // Select all rows from table stored at DB
+    async #selectRows(objCondition = true){
+        // Select all rows from table stored at DB that pass a condition.
+        // If not condition is passed, then return all table's rows.
         try{
-            const rows = await myknex.from(this.tbl).select("*")
+            const rows = await 
+                myknex.from(this.tbl)
+                    .select("*")
+                    .where(objCondition)
+            
             return rows
         }
         catch(error) {
@@ -120,7 +125,7 @@ class Container {
 
     async overwriteById(id, data){
         //Recibe un objeto con id existente y sobreescribe al objeto de dicha id
-        const content = await this.#getParsedFile();
+        const content = await this.#selectRows();
         if (content.some( (element) => element.id === id )) {
             //Solo filtro los objetos si es que existe un objeto con al id ingresada
             const mapedContent = content.map( (element) => (element.id !== id)? element : {...data, id:id });
@@ -130,14 +135,14 @@ class Container {
     
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#getParsedFile(); 
+        const content = await this.#selectRows({id: id}); 
         const obj = content.filter(element => element.id === id);
         return obj
     }
 
     async getAll(){
         //Devuelve un array con los objetos presentes en el archivo.
-        const content = await this.#getParsedFile(); 
+        const content = await this.#selectRows(); 
         const objs = content.map(element => element);
         return objs
     }
