@@ -8,19 +8,6 @@ const { Router } = express;
 const router = Router();
 
 const products = new Container('products', Product.tableFields);
-// Test class methods
-const {id, ...testData} = {
-  id: 3,
-  timestamp: 1665705788763,
-  name: "asdfa!",
-  description: "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
-  code: "asd897ertfaHTf",
-  photo: "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_flick_em_up.webp?alt=media&token=fd85ffd4-79b4-4e73-8565-3f7754307a70",
-  price: 19,
-  stock: 8
-}
-products.getById(6).then( element => console.log(element));
-products.getAll().then( element => console.log(element));
 
 
 /////// HTTP request methods routing //////
