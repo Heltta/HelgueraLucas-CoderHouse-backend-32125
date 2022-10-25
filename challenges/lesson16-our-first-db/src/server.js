@@ -102,36 +102,37 @@ io.on('connection', (socket) => {
         else if(data === 'chat'){
             // Send chat history to new client
             socket.emit('welcome', msgHistory);
+            
+            // Chat events
+            socket.on('welcome-answer', data => {
+                const msg = new Message(
+                    socket.id,
+                    data.message,
+                    data.userEmail,
+                )
+        
+                //Guarda en el servidor el nuevo mensaje
+                msgHistory.push(msg);
+                // Emite un mensaje a todos los usuarios conectados
+                io.sockets.emit('server-broadcast', msg);
+            });
+            //chat messages
+            socket.on("chat", data=>{
+                //Guarda en el servidor el nuevo mensaje
+                const msg = new Message(
+                    socket.id,
+                    data.message,
+                    data.userEmail,
+                )
+                
+                msgHistory.push(msg);
+                // Emite un mensaje a todos los usuarios conectados
+                io.sockets.emit('server-broadcast', msg);
+            })
         }
     })
     
 
-    // Chat events
-    socket.on('welcome-answer', data => {
-        const msg = new Message(
-            socket.id,
-            data.message,
-            data.userEmail,
-        )
-
-        //Guarda en el servidor el nuevo mensaje
-        msgHistory.push(msg);
-        // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('server-broadcast', msg);
-    });
     
 
-    //chat messages
-    socket.on("chat", data=>{
-        //Guarda en el servidor el nuevo mensaje
-        const msg = new Message(
-            socket.id,
-            data.message,
-            data.userEmail,
-        )
-        
-        msgHistory.push(msg);
-        // Emite un mensaje a todos los usuarios conectados
-        io.sockets.emit('server-broadcast', msg);
-    })
 })
