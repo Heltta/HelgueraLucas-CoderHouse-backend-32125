@@ -19,7 +19,14 @@ router.get('/', (req, res) => {
             res.status(404).send(new Error({
                 code:404,
                 description:'Error: no products found'
-            })));
+            })))
+        .catch( error => {
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Internal Server Error'
+            }))
+            console.log(error)
+        });
 })
 
 router.get('/:id', (req, res) => {
@@ -29,7 +36,14 @@ router.get('/:id', (req, res) => {
                 code:404,
                 description:'Error: no matches found'
             })) :
-            res.status(302).send(product));
+            res.status(302).send(product))
+        .catch( error => {
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Internal Server Error'
+            }))
+            console.log(error)
+        });
 })
 
 router.post('/', (req, res) => {
@@ -51,7 +65,13 @@ router.post('/', (req, res) => {
     res.status(102);
     products.save(prod)
         .then((id)=> res.status(201).send({ id }))
-        .catch( error => console.log(error));
+        .catch( error => {
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Internal Server Error'
+            }))
+            console.log(error)
+        });
 })
 
 router.put('/:id', (req, res) => {
@@ -73,7 +93,13 @@ router.put('/:id', (req, res) => {
     res.status(202);
     products.overwriteById(parseInt(req.params.id), prod)
         .then( _ =>res.status(200).send())
-        .catch( error => console.log(error));
+        .catch( error => {
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Internal Server Error'
+            }))
+            console.log(error)
+        });
 })
 
 router.delete('/:id', (req, res) => {
@@ -87,7 +113,13 @@ router.delete('/:id', (req, res) => {
     res.status(102);
     products.deleteById(parseInt(req.params.id))
         .then( () =>res.status(200).send())
-        .catch( error => console.log(error));
+        .catch( error => {
+            res.status(500).send(new Error({
+                code:500,
+                description:'Error: Internal Server Error'
+            }))
+            console.log(error)
+        });
 })
 
 export {
