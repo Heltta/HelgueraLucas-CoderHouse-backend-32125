@@ -2,16 +2,17 @@ import myknex  from '../config/mariaDB.js';
 
 class Container {
     constructor(tableName, fields){
-        this.filePath = tableName;
-        this.fields = [...fields] || [];
+        this.db = myknex;
         
+        this.fields = [...fields] || [];
         this.tbl =  tableName;
-        myknex.schema.hasTable(tableName).then( exists =>{
+        
+        this.db.schema.hasTable(tableName).then( exists =>{
             if(exists){
                 console.log("table already exists")
             }
             else{
-                myknex.schema.createTable(tableName, table => {
+                this.db.schema.createTable(tableName, table => {
                     fields.forEach( field => {
                         if(field.type === 'increments'){
                             table.increments(field.key);
@@ -42,18 +43,18 @@ class Container {
                     .then(  _ => console.log("table created"))
                     .catch( (err) => {console.log(err); throw err})
                     .finally( _=> {
-                        myknex.destroy();
+                        this.db.destroy();
                     });
             }
         })
     }
 
-    async #selectRows(objCondition = true){
+    async #selectRows(objCondition = {}){
         // Select all rows from table stored at DB that pass a condition.
         // If not condition is passed, then return all table's rows.
         try{
             const rows = await 
-                myknex.from(this.tbl)
+                this.db.from(this.tbl)
                     .select("*")
                     .where(objCondition)
             
@@ -61,9 +62,6 @@ class Container {
         }
         catch(error) {
             console.log(error); throw error;
-        }
-        finally{
-            myknex.destroy();
         };
     }
 
@@ -71,14 +69,11 @@ class Container {
         // Insert object as a row into table
         const { id, ...objData } = obj;
         try{
-            const id = await myknex(this.tbl).insert(objData);
+            const id = await this.db(this.tbl).insert(objData);
             return id;
         }
         catch(error) {
             console.log(error); throw error;
-        }
-        finally{
-            myknex.destroy();
         };
     }
 
@@ -87,7 +82,7 @@ class Container {
         // from a data object and return updated fields
         try{
             const rows = await 
-                myknex.from(this.tbl)
+                this.db.from(this.tbl)
                     .update(data)
                     .where(objCondition)
 
@@ -95,23 +90,17 @@ class Container {
         }
         catch(error) {
             console.log(error); throw error;
-        }
-        finally{
-            myknex.destroy();
         };
     }
 
     async #deleteRow(objCondition){
         // Delete a row from table using object syntax
         try{
-            const id = await myknex(this.tbl).where(objCondition).del();
+            const id = await this.db(this.tbl).where(objCondition).del();
             return id;
         }
         catch(error) {
             console.log(error); throw error;
-        }
-        finally{
-            myknex.destroy();
         };
     }
 

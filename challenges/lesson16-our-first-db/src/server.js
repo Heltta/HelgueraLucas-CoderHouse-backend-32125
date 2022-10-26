@@ -60,7 +60,8 @@ server.on('error', error => console.log(`Error en servidor ${error}`));
 
 // "connection" se ejecuta la primera vez que se abre una nueva conexión
 const msgHistory = [];
-const itemContainer = new Container('products', Product.tableFields);
+import { products as itemContainer } from './routes/productsAPI.js'
+//const itemContainer = new Container('products', Product.tableFields);
 io.on('connection', (socket) => {
     
     // Se imprimirá solo la primera vez que se ha abierto la conexión
@@ -102,7 +103,7 @@ io.on('connection', (socket) => {
         else if(data === 'chat'){
             // Send chat history to new client
             socket.emit('welcome', msgHistory);
-            
+
             // Chat events
             socket.on('welcome-answer', data => {
                 const msg = new Message(
