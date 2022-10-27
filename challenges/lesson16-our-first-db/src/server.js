@@ -37,7 +37,7 @@ app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 // renderizo una vista de home
 app.get('/',  (req, res) => {
-    res.render('./sendProduct.pug', {mensaje: 'Usando Pug JS en express'});
+    res.render('./home.pug');
 });
 
 //-- Handle Not Implemented requests --/
