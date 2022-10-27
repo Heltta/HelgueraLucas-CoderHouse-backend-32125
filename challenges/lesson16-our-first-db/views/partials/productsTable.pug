@@ -11,12 +11,12 @@ if listExists()
             each item in items
                 tr
                     th(scope="row") #{item.id}
-                    td #{item.title}
+                    td #{item.name}
                     td #{item.price}
                     td
                         img(
-                            src=item.thumbnail
-                            alt=item.title
+                            src=item.photo
+                            alt=item.name
                             width="64" height="64")
 else
     p(

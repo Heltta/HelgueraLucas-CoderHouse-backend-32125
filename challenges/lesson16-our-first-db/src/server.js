@@ -68,37 +68,25 @@ io.on('connection', (socket) => {
     // Imprime la id del socket del nuevo usuario
     console.log(`New user connection: id = ${socket.id} `);
     
-    const sendProductList = (mode = 'response') =>{
-                // Send all products
-                const event = 'update-product-list';
-                
-                itemContainer.getAll()
-                    .then( rawItems => 
-                        pug.renderFile('./views/partials/productsTable.pug',
-                        {items: rawItems, listExists: _ => products.length !== 0})
-                    )
-                    .then( items => {
-                        if(mode === 'response'){
-                            socket.emit(event, items)
-                        }
-                        else if(mode === 'broadcast'){
-                            io.sockets.emit(event, items)
-                        }
-                    })
-                    .catch( error => console.log(error));
-    }
-    
     // module.exports = sendProductList;
-
+    
     // Ask client for api type (websocket for chat OR for updating the product list)
     socket.emit('req-api-type');
-
+    
     // Ask recieve client api type
     socket.on('res-api-type', data => {
         console.log(data);
         if(data === 'itemList'){
-            // Send all products to client
-            sendProductList();
+            // Send all products clients
+            itemContainer.getAll()
+                .then( rawItems => 
+                    pug.renderFile('./views/partials/productsTable.pug',
+                        {items: rawItems, listExists: _ => products.length !== 0})
+                )
+                .then( items => {
+                    socket.emit('update-product-list', items)
+                })
+                .catch( error => console.log(error));
         }
         else if(data === 'chat'){
             // Send chat history to new client
@@ -132,8 +120,4 @@ io.on('connection', (socket) => {
             })
         }
     })
-    
-
-    
-
 })
