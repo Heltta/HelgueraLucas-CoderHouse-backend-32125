@@ -232,3 +232,9 @@ db.productos.updateMany(
     { price: { $gt: 4000 } },
     { $set: { stock:0 } }
 );
+
+db.productos.deleteMany(
+    {
+        price:{$lt: 1000}
+    }
+);
