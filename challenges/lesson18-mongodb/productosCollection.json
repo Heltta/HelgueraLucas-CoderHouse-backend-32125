@@ -1,0 +1,170 @@
+{
+    "fields": [
+      {
+        "name": "_id",
+        "path": "_id",
+        "count": 10,
+        "types": [
+          {
+            "name": "ObjectID",
+            "bsonType": "ObjectID",
+            "path": "_id",
+            "count": 10,
+            "values": [
+              "635b22480eef76336488d778",
+              "635b22480eef76336488d77a",
+              "635b22480eef76336488d77c",
+              "635b22480eef76336488d775",
+              "635b22480eef76336488d773",
+              "635b22480eef76336488d777",
+              "635b22480eef76336488d77b",
+              "635b22480eef76336488d776",
+              "635b22480eef76336488d779",
+              "635b22480eef76336488d774"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 10,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 10,
+        "type": "ObjectID",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "content",
+        "path": "content",
+        "count": 10,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "content",
+            "count": 10,
+            "values": [
+              "No luis, el pepe anda con los estudios",
+              "Luis, ya te dije que tengo el examen este finde",
+              "Bueno bueno, me sirve. Exitos en ese examen!",
+              "Me alegro, yo ando estudiando",
+              "Hola, como estas",
+              "Gente salen unas chelas hoy?",
+              "Cuando el Pepe pase ese examen, tomamos para festejar",
+              "Uh y yo que te iba a decir para juntarnos",
+              "Daaa que no aburra",
+              "Bien, y vos?"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 10,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 10,
+        "type": "String",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "date",
+        "path": "date",
+        "count": 10,
+        "types": [
+          {
+            "name": "Double",
+            "bsonType": "Double",
+            "path": "date",
+            "count": 10,
+            "values": [
+              1665705467823,
+              1665705489637,
+              1665705504851,
+              1665705426142,
+              1665705409188,
+              1665705456589,
+              1665705494566,
+              1665705432456,
+              1665705474685,
+              1665705417859
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 10,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 10,
+        "type": "Double",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "socketId",
+        "path": "socketId",
+        "count": 10,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "socketId",
+            "count": 10,
+            "values": [
+              "ahjkghj4345dfa6s5df",
+              "asd45fas645dfa6s5df",
+              "t862hj4345ddsfg4a3i",
+              "asd45fas645dfa6s5df",
+              "asd45fas645dfa6s5df",
+              "t862hj4345ddsfg4a3i",
+              "ahjkghj4345dfa6s5df",
+              "ahjkghj4345dfa6s5df",
+              "t862hj4345ddsfg4a3i",
+              "ahjkghj4345dfa6s5df"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 3,
+            "has_duplicates": true
+          }
+        ],
+        "total_count": 10,
+        "type": "String",
+        "has_duplicates": true,
+        "probability": 1
+      },
+      {
+        "name": "user",
+        "path": "user",
+        "count": 10,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "user",
+            "count": 10,
+            "values": [
+              "mari@gmail.com",
+              "pepe@gmail.com",
+              "el_manija@gmail.com",
+              "pepe@gmail.com",
+              "pepe@gmail.com",
+              "el_manija@gmail.com",
+              "mari@gmail.com",
+              "mari@gmail.com",
+              "el_manija@gmail.com",
+              "mari@gmail.com"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 3,
+            "has_duplicates": true
+          }
+        ],
+        "total_count": 10,
+        "type": "String",
+        "has_duplicates": true,
+        "probability": 1
+      }
+    ],
+    "count": 10
+  }

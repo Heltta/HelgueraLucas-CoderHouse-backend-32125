@@ -1,0 +1,229 @@
+{
+    "fields": [
+      {
+        "name": "_id",
+        "path": "_id",
+        "count": 5,
+        "types": [
+          {
+            "name": "ObjectID",
+            "bsonType": "ObjectID",
+            "path": "_id",
+            "count": 5,
+            "values": [
+              "635b1d130eef76336488d766",
+              "635b1d130eef76336488d765",
+              "635b1d130eef76336488d764",
+              "635b1d130eef76336488d762",
+              "635b23e20eef76336488d77d"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 5,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 5,
+        "type": "ObjectID",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "code",
+        "path": "code",
+        "count": 5,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "code",
+            "count": 5,
+            "values": [
+              "asdfp234786kbj180asbhSDF",
+              "6584fas5dt487m56a",
+              "as9856u5412sdf",
+              "KL565Rasdf",
+              "T34Jqwr566HJ"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 5,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 5,
+        "type": "String",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "description",
+        "path": "description",
+        "count": 5,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "description",
+            "count": 5,
+            "values": [
+              "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+              "Sell goods for profit, or risk losing it all by slipping contrabands in....",
+              "Descripcion placeholder del juego de mesa que esta muy bueno eh compralo",
+              "Queen Gimnax has ordered the reclamation of the northern lands. As a cartographer in her service, you are sent to map this territory, claiming it for the Kingdom of Nalos. Through official edicts, the queen announces which lands she prizes most, and you will increase your reputation by meeting her demands. But you are not alone in this wilderness. The Dragul contest your claims with their outposts, so you must draw your lines carefully to reduce their influence. Reclaim the greatest share of the queen’s desired lands and you will be declared the greatest cartographer in the kingdom.  In Cartographers: A Roll Player Tale, players compete to earn the most reputation stars by the time four seasons have passed. Each season, players draw on their map sheets and earn reputation by carrying out the queen's edicts before the season is over. The player with the most reputation stars at the end of winter wins!",
+              "Queen Gimnax has ordered the reclamation of the northern lands. As a cartographer in her service, you are sent to map this territory, claiming it for the Kingdom of Nalos. Through official edicts, the queen announces which lands she prizes most, and you will increase your reputation by meeting her demands. But you are not alone in this wilderness. The Dragul contest your claims with their outposts, so you must draw your lines carefully to reduce their influence. Reclaim the greatest share of the queen’s desired lands and you will be declared the greatest cartographer in the kingdom.  In Cartographers: A Roll Player Tale, players compete to earn the most reputation stars by the time four seasons have passed. Each season, players draw on their map sheets and earn reputation by carrying out the queen's edicts before the season is over. The player with the most reputation stars at the end of winter wins!"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 3,
+            "has_duplicates": true
+          }
+        ],
+        "total_count": 5,
+        "type": "String",
+        "has_duplicates": true,
+        "probability": 1
+      },
+      {
+        "name": "name",
+        "path": "name",
+        "count": 5,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "name",
+            "count": 5,
+            "values": [
+              "Murder in Hong Kong",
+              " Sheriff of Nottingham",
+              "Secret Hitler",
+              "Apache Helicopter",
+              "Flamecraft"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 5,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 5,
+        "type": "String",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "photo",
+        "path": "photo",
+        "count": 5,
+        "types": [
+          {
+            "name": "String",
+            "bsonType": "String",
+            "path": "photo",
+            "count": 5,
+            "values": [
+              "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_murder_in_hong_kong.webp?alt=media&token=8cd71e14-1bdd-46ba-985e-8d518a536e17",
+              "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_sheriff_of_nottingham.webp?alt=media&token=00c30c1c-308f-4b28-b20f-81dd05a1109b",
+              "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_secret_hitler.webp?alt=media&token=05b8368e-d021-4614-91df-5e27593e4d69",
+              "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_cartographers.webp?alt=media&token=74927f21-f713-4ee9-a142-c13435d40bf0",
+              "https://firebasestorage.googleapis.com/v0/b/homies-night-helguera-zanotta.appspot.com/o/images%2Fitems%2Fcaja_cartographers.webp?alt=media&token=74927f21-f713-4ee9-a142-c13435d40bf0"
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 4,
+            "has_duplicates": true
+          }
+        ],
+        "total_count": 5,
+        "type": "String",
+        "has_duplicates": true,
+        "probability": 1
+      },
+      {
+        "name": "price",
+        "path": "price",
+        "count": 5,
+        "types": [
+          {
+            "name": "Int32",
+            "bsonType": "Int32",
+            "path": "price",
+            "count": 5,
+            "values": [
+              3500,
+              1850,
+              1200,
+              4999,
+              3600
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 5,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 5,
+        "type": "Int32",
+        "has_duplicates": false,
+        "probability": 1
+      },
+      {
+        "name": "stock",
+        "path": "stock",
+        "count": 5,
+        "types": [
+          {
+            "name": "Int32",
+            "bsonType": "Int32",
+            "path": "stock",
+            "count": 5,
+            "values": [
+              100,
+              100,
+              100,
+              0,
+              100
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 2,
+            "has_duplicates": true
+          }
+        ],
+        "total_count": 5,
+        "type": "Int32",
+        "has_duplicates": true,
+        "probability": 1
+      },
+      {
+        "name": "timestamp",
+        "path": "timestamp",
+        "count": 5,
+        "types": [
+          {
+            "name": "Double",
+            "bsonType": "Double",
+            "path": "timestamp",
+            "count": 5,
+            "values": [
+              1665705890470,
+              1665705869019,
+              1665705837251,
+              1665705747331,
+              1665701569497
+            ],
+            "total_count": 0,
+            "probability": 1,
+            "unique": 5,
+            "has_duplicates": false
+          }
+        ],
+        "total_count": 5,
+        "type": "Double",
+        "has_duplicates": false,
+        "probability": 1
+      }
+    ],
+    "count": 5
+  }
