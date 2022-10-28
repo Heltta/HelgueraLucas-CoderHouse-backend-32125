@@ -227,3 +227,8 @@ db.productos.find(
 db.productos.updateMany({}, { $unset: { stock:'' } } );
 
 db.productos.updateMany({}, { $set: { stock:100 } } );
+
+db.productos.updateMany(
+    { price: { $gt: 4000 } },
+    { $set: { stock:0 } }
+);
