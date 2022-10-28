@@ -168,3 +168,7 @@ db.mensajes.insertMany([
 db.productos.find();
 
 db.mensajes.find();
+
+db.productos.estimatedDocumentCount();
+
+db.mensajes.estimatedDocumentCount();
