@@ -164,3 +164,7 @@ db.mensajes.insertMany([
     "date": 1665705504851
   }
 ]);
+
+db.productos.find();
+
+db.mensajes.find();
