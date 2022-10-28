@@ -238,3 +238,19 @@ db.productos.deleteMany(
         price:{$lt: 1000}
     }
 );
+
+db.createUser(
+    {
+        user: 'pepe',
+        pwd: 'asd456',
+        roles: [
+            {role: 'read', db: 'ecommerce' }
+        ]
+    }
+)
+
+mongosh -u pepe -p asd456 --authenticationDatabase ecommerce
+
+use ecommerce;
+db.productos.find();
+db.mensajes.find();
