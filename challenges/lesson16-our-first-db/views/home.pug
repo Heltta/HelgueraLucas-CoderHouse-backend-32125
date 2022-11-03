@@ -10,18 +10,18 @@ block headerScripts
 block content
     //- form subir archivo 
     +title("Ingresar productos")
-    form(action="/productos" method="post" class="p-5" id="addProdForm")
+    form(action="/api/products" method="post" class="p-5" id="addProdForm")
         div(class="row mb-3")
-            label(for="title"  class="form-label") Title
-            input(type="text" name="title" id="title" class="form-control")
+            label(for="name"  class="form-label") Title
+            input(type="text" name="name" id="title" class="form-control")
 
         div(class="row mb-3")
             label(for="price"  class="form-label") Price
             input(type="text" name="price" id="price" class="form-control")
 
         div(class="row mb-3")
-            label(for="thumbnail"  class="form-label") thumbnail
-            input(type="text" name="thumbnail" id="thumbnail" class="form-control")
+            label(for="photoURL"  class="form-label") thumbnail
+            input(type="text" name="photoURL" id="thumbnail" class="form-control")
 
         div
             button(type="submit" class="btn btn-primary") Subir
