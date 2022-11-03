@@ -70,17 +70,18 @@ class Container {
         const { id, ...objData } = obj;
         try{
             const id = await this.db(this.tbl).insert(objData);
-            return id;
+            return id[0];
         }
         catch(error) {
             console.log(error); throw error;
         };
     }
 
-    async #uptadeRows(objCondition,data){
+    async #uptadeRows(objCondition,obj){
         // Update all rows from table stored at DB that pass a condition
         // from a data object and return updated fields
         try{
+            const {id, ...data} = obj;
             const rows = await 
                 this.db.from(this.tbl)
                     .update(data)
