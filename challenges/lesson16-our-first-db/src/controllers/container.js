@@ -2,52 +2,14 @@ import myknex  from '../config/mariaDB.js';
 
 class Container {
     constructor(tableName, modelClass){
+        // Precondition: modelClass has as method for creating a table 
+        // in the database
+
         this.db = myknex;
 
         this.tbl =  tableName;
 
         modelClass.createTable(tableName);
-        
-        // this.db.schema.hasTable(tableName).then( exists =>{
-        //     if(exists){
-        //         console.log("table already exists")
-        //     }
-        //     else{
-        //         this.db.schema.createTable(tableName, table => {
-        //             fields.forEach( field => {
-        //                 if(field.type === 'increments'){
-        //                     table.increments(field.key);
-        //                 }
-        //                 else if (field.type === 'unsigned integer'){
-        //                     table.integer(field.key).unsigned();
-        //                 }
-        //                 else if (field.type === 'unsigned biginteger'){
-        //                     table.bigint(field.key).unsigned();
-        //                 }
-        //                 else if (field.type === 'integer'){
-        //                     table.integer(field.key);
-        //                 }
-        //                 else if (field.type === 'biginteger'){
-        //                     table.bigint(field.key);
-        //                 }
-        //                 else if (field.type === 'string'){
-        //                     table.string(field.key);
-        //                 }
-        //                 else if (field.type === 'text'){
-        //                     table.text(field.key);
-        //                 }
-        //                 else{
-        //                     console.log(`Field type ${field.type} of ${field.key} not implemented`);
-        //                 }
-        //             })
-        //         })
-        //             .then(  _ => console.log("table created"))
-        //             .catch( (err) => {console.log(err); throw err})
-        //             .finally( _=> {
-        //                 this.db.destroy();
-        //             });
-        //     }
-        // })
     }
 
     async #selectRows(objCondition = {}){
@@ -82,10 +44,15 @@ class Container {
         // Update all rows from table stored at DB that pass a condition
         // from a data object and return updated fields
         try{
-            const {id, ...data} = obj;
+            for (const prop in obj) {
+                if(!obj[prop]){
+                    delete obj[prop];
+                }
+            }
+            console.log(obj);
             const rows = await 
                 this.db.from(this.tbl)
-                    .update(data)
+                    .update(obj)
                     .where(objCondition)
 
             return rows;
