@@ -1,3 +1,4 @@
+import myknex from '../config/mariaDB.js';
 
 class Product {
     constructor({id, name, description, code, photoURL, price, stock}){
@@ -10,6 +11,7 @@ class Product {
         this.price = price  || "";
         this.stock = stock  || "";
     }
+    
     static tableFields = [
         {key:'id', type: 'increments'},
         {key: 'timestamp', type: 'unsigned biginteger'},
@@ -20,6 +22,31 @@ class Product {
         {key: 'price', type: 'integer'},
         {key: 'stock', type: 'integer'}
     ]
+
+    static #dataBase = myknex;
+
+    static createTable(tableName){
+        this.#dataBase.schema.hasTable(tableName).then( exists =>{
+            if(exists){
+                console.log("table already exists");
+            }
+            else{
+                this.#dataBase.schema.createTable(tableName, table => {
+                    table.increments('id');
+                    table.bigint('timestamp').unsigned();
+                    table.string('name');
+                    table.text('description');
+                    table.string('code');
+                    table.string('photo');
+                    table.integer('price');
+                    table.integer('stock');
+                })
+                    .then(  _ => console.log("table created"))
+                    .catch( (err) => {console.log(err); throw err});
+
+            }
+        })
+    }  
 }
 
 // export default Container;

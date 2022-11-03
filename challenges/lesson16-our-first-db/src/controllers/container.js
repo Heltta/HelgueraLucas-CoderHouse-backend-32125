@@ -1,52 +1,53 @@
 import myknex  from '../config/mariaDB.js';
 
 class Container {
-    constructor(tableName, fields){
+    constructor(tableName, modelClass){
         this.db = myknex;
-        
-        this.fields = [...fields] || [];
+
         this.tbl =  tableName;
+
+        modelClass.createTable(tableName);
         
-        this.db.schema.hasTable(tableName).then( exists =>{
-            if(exists){
-                console.log("table already exists")
-            }
-            else{
-                this.db.schema.createTable(tableName, table => {
-                    fields.forEach( field => {
-                        if(field.type === 'increments'){
-                            table.increments(field.key);
-                        }
-                        else if (field.type === 'unsigned integer'){
-                            table.integer(field.key).unsigned();
-                        }
-                        else if (field.type === 'unsigned biginteger'){
-                            table.bigint(field.key).unsigned();
-                        }
-                        else if (field.type === 'integer'){
-                            table.integer(field.key);
-                        }
-                        else if (field.type === 'biginteger'){
-                            table.bigint(field.key);
-                        }
-                        else if (field.type === 'string'){
-                            table.string(field.key);
-                        }
-                        else if (field.type === 'text'){
-                            table.text(field.key);
-                        }
-                        else{
-                            console.log(`Field type ${field.type} of ${field.key} not implemented`);
-                        }
-                    })
-                })
-                    .then(  _ => console.log("table created"))
-                    .catch( (err) => {console.log(err); throw err})
-                    .finally( _=> {
-                        this.db.destroy();
-                    });
-            }
-        })
+        // this.db.schema.hasTable(tableName).then( exists =>{
+        //     if(exists){
+        //         console.log("table already exists")
+        //     }
+        //     else{
+        //         this.db.schema.createTable(tableName, table => {
+        //             fields.forEach( field => {
+        //                 if(field.type === 'increments'){
+        //                     table.increments(field.key);
+        //                 }
+        //                 else if (field.type === 'unsigned integer'){
+        //                     table.integer(field.key).unsigned();
+        //                 }
+        //                 else if (field.type === 'unsigned biginteger'){
+        //                     table.bigint(field.key).unsigned();
+        //                 }
+        //                 else if (field.type === 'integer'){
+        //                     table.integer(field.key);
+        //                 }
+        //                 else if (field.type === 'biginteger'){
+        //                     table.bigint(field.key);
+        //                 }
+        //                 else if (field.type === 'string'){
+        //                     table.string(field.key);
+        //                 }
+        //                 else if (field.type === 'text'){
+        //                     table.text(field.key);
+        //                 }
+        //                 else{
+        //                     console.log(`Field type ${field.type} of ${field.key} not implemented`);
+        //                 }
+        //             })
+        //         })
+        //             .then(  _ => console.log("table created"))
+        //             .catch( (err) => {console.log(err); throw err})
+        //             .finally( _=> {
+        //                 this.db.destroy();
+        //             });
+        //     }
+        // })
     }
 
     async #selectRows(objCondition = {}){
