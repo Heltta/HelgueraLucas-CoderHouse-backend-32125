@@ -59,7 +59,7 @@ server.on('error', error => console.log(`Error en servidor ${error}`));
 //////////// Websocket server /////////
 
 // "connection" se ejecuta la primera vez que se abre una nueva conexión
-const msgHistory = [];
+const messagesTable = new Container('messages', Message);
 import { products as itemContainer } from './routes/productsAPI.js'
 //const itemContainer = new Container('products', Product.tableFields);
 io.on('connection', (socket) => {
@@ -90,7 +90,8 @@ io.on('connection', (socket) => {
         }
         else if(data === 'chat'){
             // Send chat history to new client
-            socket.emit('welcome', msgHistory);
+            // socket.emit('welcome', msgHistory);
+            messagesTable.getAll().then( chatHistory => socket.emit('welcome', chatHistory));
 
             // Chat events
             socket.on('welcome-answer', data => {
@@ -101,7 +102,7 @@ io.on('connection', (socket) => {
                 )
         
                 //Guarda en el servidor el nuevo mensaje
-                msgHistory.push(msg);
+                messagesTable.save(msg);
                 // Emite un mensaje a todos los usuarios conectados
                 io.sockets.emit('server-broadcast', msg);
             });
@@ -114,7 +115,7 @@ io.on('connection', (socket) => {
                     data.userEmail,
                 )
                 
-                msgHistory.push(msg);
+                messagesTable.save(msg);
                 // Emite un mensaje a todos los usuarios conectados
                 io.sockets.emit('server-broadcast', msg);
             })
