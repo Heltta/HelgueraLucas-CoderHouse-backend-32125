@@ -1,4 +1,4 @@
-import Container from '../controllers/containerMariaDB.js';
+import Container from '../daos/productsDao.js';
 import Product from '../models/product.js';
 import Error from '../models/error.js';
 import adminRights from '../config/admin.js';
