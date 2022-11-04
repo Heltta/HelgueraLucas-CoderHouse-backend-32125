@@ -3,19 +3,20 @@ import CartsDaoMongoDB from "./carts/cartsDaoMongoDB.js"
 import CartsDaoFireBase from "./carts/cartsDaoFireBase.js"
 import CartsDaoFileSystem from "./carts/cartsDaoFileSystem.js"
 
-const dataBase = 'FileSystem'; // placeholder until Environment Variables implementation
+import { DATA_STORAGE_TYPE as storageType } from "../config/dotEnVar.js";
+
 let BaseClass;
 
-if(dataBase === 'MariaDB'){
+if(storageType === 'MariaDB'){
     BaseClass = CartsDaoMariaDB;
 }
-else if(dataBase === 'MongoDB'){
+else if(storageType === 'MongoDB'){
     BaseClass = CartsDaoMongoDB;
 }
-else if(dataBase === 'FireBase'){
+else if(storageType === 'FireBase'){
     BaseClass = CartsDaoFireBase;
 }
-else if(dataBase === 'FileSystem'){
+else if(storageType === 'FileSystem'){
     BaseClass = CartsDaoFileSystem;
 }
 
