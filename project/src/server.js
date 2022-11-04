@@ -23,10 +23,8 @@ app.use(urlencoded({ extended:true }));
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
-import chat from './routes/chatAPI.js';
 app.use('/api/products', products);
 app.use('/api/cart', cart);
-app.use('/chat', chat);
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
