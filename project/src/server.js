@@ -4,13 +4,11 @@ import { fileURLToPath } from 'url';
 import Error from './models/error.js';
 
 import { Server as HttpServer } from 'http';
-import { Server as IOServer }  from 'socket.io';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
 
 //////////// Template engine //////////
 app.set('view engine', 'ejs'); // register pug
