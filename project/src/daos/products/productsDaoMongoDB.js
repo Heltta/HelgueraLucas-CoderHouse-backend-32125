@@ -1,7 +1,7 @@
-import ContainerMariaDB from "../../controllers/containerMariaDB.js";
+import ContainerMongoDB from "../../controllers/containerMongoDB.js";
 import ProductModel from "../../models/product.js"
 
-class ProductsDaoMongoDB extends ContainerMariaDB {
+class ProductsDaoMongoDB extends ContainerMongoDB {
     constructor(){
         super('products', ProductModel)
     }

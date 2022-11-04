@@ -1,15 +1,24 @@
-import myknex  from '../config/mariaDB.js';
+import mongoose, { connect } from "mongoose";
+
 
 class Container {
-    constructor(tableName, modelClass){
-        // Precondition: modelClass has as method for creating a table 
-        // in the database
+    constructor(collectionName, modelClass){
+        // Precondition: modelClass has as method for creating a schema 
+        // in MongoDB
 
-        this.db = myknex;
+        this.coll =  collectionName;
+        this.#connectDB();
+        this.model = mongoose.model(collectionName, modelClass.mongoSchema());
 
-        this.tbl =  tableName;
+    }
 
-        modelClass.createTable(tableName);
+    #connectDB(){
+        const URL = 'mongodb://localhost:27017';
+        mongoose.connect(URL, { 
+            useNewUrlParser: true, 
+            useUnifiedTopology: true 
+        })
+        console.log(`Conection with MongoDB starter for ${this.coll} collection `);
     }
 
     async #selectRows(objCondition = {}){
@@ -17,10 +26,7 @@ class Container {
         // If not condition is passed, then return all table's rows.
         try{
             const rows = await 
-                this.db.from(this.tbl)
-                    .select("*")
-                    .where(objCondition)
-            
+                this.model.find(objCondition);
             return rows
         }
         catch(error) {
@@ -28,12 +34,13 @@ class Container {
         };
     }
 
-    async #insertRow(obj){
+    async #inserDocument(obj){
         // Insert object as a row into table
         const { id, ...objData } = obj;
         try{
-            const id = await this.db(this.tbl).insert(objData);
-            return id[0];
+            const newModel = new this.model(objData)
+            let objSave = await newModel.save();
+            return objSave._id;
         }
         catch(error) {
             console.log(error); throw error;
@@ -51,9 +58,7 @@ class Container {
             }
             console.log(obj);
             const rows = await 
-                this.db.from(this.tbl)
-                    .update(obj)
-                    .where(objCondition)
+                this.model
 
             return rows;
         }
@@ -65,7 +70,7 @@ class Container {
     async #deleteRow(objCondition){
         // Delete a row from table using object syntax
         try{
-            const id = await this.db(this.tbl).where(objCondition).del();
+            const id = await this.model(this.tbl).where(objCondition).del();
             return id;
         }
         catch(error) {
@@ -76,7 +81,7 @@ class Container {
     async save(data){
         // Store object data as a row into table
         try{
-            return await this.#insertRow(data)
+            return await this.#inserDocument(data)
         }
         catch(error) {
             console.log(error);
@@ -92,7 +97,7 @@ class Container {
     
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#selectRows({id: id}); 
+        const content = await this.#selectRows({_id: id}); 
         return content
     }
 
