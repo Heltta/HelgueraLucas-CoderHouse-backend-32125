@@ -67,11 +67,11 @@ class Container {
         };
     }
 
-    async #deleteRow(objCondition){
+    async #deleteDocument(objCondition){
         // Delete a row from table using object syntax
         try{
-            const id = await this.model(this.tbl).where(objCondition).del();
-            return id;
+            const request = await this.model.deleteOne(objCondition);
+            return request.deletedCount;
         }
         catch(error) {
             console.log(error); throw error;
@@ -108,12 +108,7 @@ class Container {
 
     async deleteById(id){
         // Delete element with given id;
-        this.#deleteRow({id: id})
-    }
-
-    async deleteAll(){
-        // Delete all elements from a table
-        await this.#deleteRow(true);
+        return await this.#deleteDocument({_id: id})
     }
 }
 
