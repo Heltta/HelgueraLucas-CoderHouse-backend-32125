@@ -87,12 +87,12 @@ class Container {
         // Update fields inside row with given id.
         // objData parameter contains the keys of the fields
         // and the new content of those.
-        return await this.#uptadeRows({id:id}, objData);
+        return await this.#uptadeRows({id: parseInt(id)}, objData);
     }
     
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#selectRows({id: id}); 
+        const content = await this.#selectRows({id: parseInt(id)}); 
         return content
     }
 
@@ -103,7 +103,7 @@ class Container {
 
     async deleteById(id){
         // Delete element with given id;
-        this.#deleteRow({id: id})
+        this.#deleteRow({id: parseInt(id)})
     }
 
     async deleteAll(){

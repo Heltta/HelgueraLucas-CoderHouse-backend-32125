@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    products.getById(parseInt(req.params.id))
+    products.getById(req.params.id)
         .then((product)=>(product.length === 0)?
             res.status(404).send(new Error({
                 code:404,
@@ -91,7 +91,7 @@ router.put('/:id', (req, res) => {
     }
     const prod = new Product(req.body);
     res.status(202);
-    products.overwriteById(parseInt(req.params.id), prod)
+    products.overwriteById(req.params.id, prod)
         .then( _ =>res.status(200).send())
         .catch( error => {
             res.status(500).send(new Error({
@@ -111,7 +111,7 @@ router.delete('/:id', (req, res) => {
         return
     }
     res.status(102);
-    products.deleteById(parseInt(req.params.id))
+    products.deleteById(req.params.id)
         .then( () =>res.status(200).send())
         .catch( error => {
             res.status(500).send(new Error({
