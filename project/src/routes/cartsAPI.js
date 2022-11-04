@@ -1,4 +1,4 @@
-import Container from '../controllers/containerFileSystem.js';
+import Container from '../daos/carts/cartsDaoFileSystem.js';
 import Cart from '../models/cart.js';
 import Error from '../models/error.js';
 import express from 'express';
@@ -7,7 +7,7 @@ const { Router } = express;
 const router = Router();
 
 /////// Containers ////////////////////////
-const storedCarts = new Container('data/carts.json');
+const storedCarts = new Container();
 import {products as prodDB} from './productsAPI.js'
 
 
