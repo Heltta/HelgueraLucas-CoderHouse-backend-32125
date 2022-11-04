@@ -3,19 +3,20 @@ import ProductsDaoMongoDB from "./products/productsDaoMongoDB.js"
 import ProductsDaoFireBase from "./products/productsDaoFireBase.js"
 import ProductsDaoFileSystem from "./products/productsDaoFileSystem.js"
 
-const dataBase = 'MariaDB'; // placeholder until Environment Variables implementation
+import { DATA_STORAGE_TYPE as storageType } from "../config/dotEnVar.js";
+
 let BaseClass;
 
-if(dataBase === 'MariaDB'){
+if(storageType === 'MariaDB'){
     BaseClass = ProductsDaoMariaDB;
 }
-else if(dataBase === 'MongoDB'){
+else if(storageType === 'MongoDB'){
     BaseClass = ProductsDaoMongoDB;
 }
-else if(dataBase === 'FireBase'){
+else if(storageType === 'FireBase'){
     BaseClass = ProductsDaoFireBase;
 }
-else if(dataBase === 'FileSystem'){
+else if(storageType === 'FileSystem'){
     BaseClass = ProductsDaoFileSystem;
 }
 

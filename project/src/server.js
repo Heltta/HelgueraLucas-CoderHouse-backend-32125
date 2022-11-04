@@ -2,7 +2,7 @@ import express, { json, urlencoded, static as serveStatic } from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Error from './models/error.js';
-
+import { SERVER_PORT as DefaultPORT } from './config/dotEnVar.js'
 import { Server as HttpServer } from 'http';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,7 +36,7 @@ app.all('/*', (req, res) => {
 })
 
 //////////// Turn on server ///////////
-const PORT = process.env.PORT || 8080
+const PORT = DefaultPORT || 8080
 const server = httpServer.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
 });
