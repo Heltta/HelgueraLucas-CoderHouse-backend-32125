@@ -1,4 +1,4 @@
-import Container from '../controllers/container.js';
+import Container from '../controllers/containerMariaDB.js';
 import Product from '../models/product.js';
 import Error from '../models/error.js';
 import adminRights from '../config/admin.js';
