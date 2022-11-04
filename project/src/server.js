@@ -3,10 +3,14 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Error from './models/error.js';
 
+import { Server as HttpServer } from 'http';
+import { Server as IOServer }  from 'socket.io';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
 
 //////////// Template engine //////////
 app.set('view engine', 'ejs'); // register pug
@@ -19,8 +23,10 @@ app.use(urlencoded({ extended:true }));
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
+import chat from './routes/chatAPI.js';
 app.use('/api/products', products);
 app.use('/api/cart', cart);
+app.use('/chat', chat);
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
@@ -35,7 +41,7 @@ app.all('/*', (req, res) => {
 
 //////////// Turn on server ///////////
 const PORT = process.env.PORT || 8080
-const server = app.listen(PORT, () => {
+const server = httpServer.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
 });
 server.on('error', error => console.log(`Error en servidor ${error}`));
