@@ -22,10 +22,10 @@ const setUpChat = (userEmail) => {
 
     setEmail(userEmail);
 
-    const parseIntoList = (socketID, content, user, date) =>{
+    const parseIntoList = ({author, text}) =>{
         return `
             <li>
-                <span style="color: grey;">from ${user} ${date}:</span> ${content}
+                <span style="color: grey;">from ${author.id}:</span> ${text}
             </li>
         `
     }
@@ -43,7 +43,7 @@ const setUpChat = (userEmail) => {
             const chatBox = document.querySelector("#messages");
             data.forEach( msg => {
                 chatBox.innerHTML = chatBox.innerHTML.concat(
-                    parseIntoList(msg.socketId, msg.content, msg.user, msg.date)
+                    parseIntoList(msg)
                 )
             });
         };
@@ -55,7 +55,7 @@ const setUpChat = (userEmail) => {
         const chatBox = document.querySelector("#messages");
         console.log(data);
         chatBox.innerHTML = chatBox.innerHTML.concat(
-            parseIntoList(data.socketId, data.content, data.user, data.date)
+            parseIntoList(data)
         )
     })
 }

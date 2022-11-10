@@ -25,9 +25,9 @@ class Container {
         // Select all rows from table stored at DB that pass a condition.
         // If not condition is passed, then return all table's rows.
         try{
-            const rows = await 
+            const documents = await 
                 this.model.find(objCondition);
-            return rows
+            return documents.map( doc => ({author: doc.author._doc, text: doc.text}));
         }
         catch(error) {
             console.log(error); throw error;
