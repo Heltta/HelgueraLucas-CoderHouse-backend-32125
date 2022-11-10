@@ -8,6 +8,7 @@ import { Server as IOServer }  from 'socket.io';
 
 import pug from 'pug';
 import Container from './controllers/container.js';
+import ContainerMongo from './controllers/containerMongoDB.js';
 import Product from './models/product.js';
 import Message from './models/message.js';
 
@@ -59,7 +60,7 @@ server.on('error', error => console.log(`Error en servidor ${error}`));
 //////////// Websocket server /////////
 
 // "connection" se ejecuta la primera vez que se abre una nueva conexión
-const messagesTable = new Container('messages', Message);
+const messagesTable = new ContainerMongo('messages', Message);
 import { products as itemContainer } from './routes/productsAPI.js'
 //const itemContainer = new Container('products', Product.tableFields);
 io.on('connection', (socket) => {

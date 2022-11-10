@@ -1,42 +1,38 @@
-import myknex from '../config/mariaDB.js';
+import { 
+    Types,
+    Schema,
+} from "mongoose";
 
 class Message {
-    constructor(socketid, content, userEmail, date){
-        this.socketId= socketid || "",
-        this.content= content || "",
-        this.user= userEmail || "",
-        this.date= date ||  Date.now()
+    constructor({email, name, surname, age, alias, avatar, text}){
+        this.author = {
+            id: email || "",
+            name: name || "",
+            surname: surname || "",
+            age: age || null,
+            alias: alias || "",
+            avatar: avatar || "",
+        };
+        this.text = text || "";
     }
 
-    static tableFields = [
-        {key:'id', type: 'increments'},
-        {key: 'socketId', type: 'string'},
-        {key: 'content', type: 'text'},
-        {key: 'user', type: 'string'},
-        {key: 'date', type: 'unsigned biginteger'}
-    ]
+    static authorSchema = () => 
+        new Schema({
+            id: String,
+            name: String,
+            surname: String,
+            age: Number,
+            alias: String,
+            avatar: String,
+    });
 
-    static #dataBase = myknex;
-
-    static createTable(tableName){
-        this.#dataBase.schema.hasTable(tableName).then( exists =>{
-            if(exists){
-                console.log("table already exists");
-            }
-            else{
-                this.#dataBase.schema.createTable(tableName, table => {
-                    table.increments('id');
-                    table.string('user');
-                    table.text('content');
-                    table.string('socketId');
-                    table.bigint('date').unsigned();
-                })
-                    .then(  _ => console.log("table created"))
-                    .catch( (err) => {console.log(err); throw err});
-
-            }
-        })
-    } 
+    static mongoSchema = () => 
+        new Schema({
+            id: Types.ObjectId,
+            author: { type: this.authorSchema(), default: {} },
+            text: String,
+    });
+    
 }
 
 export default Message;
