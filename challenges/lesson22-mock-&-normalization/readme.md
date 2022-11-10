@@ -1,19 +1,48 @@
-# Nuestra Primera Base de Datos
+# MOCKS
 
 **Formato**: link a un repositorio en Github con el proyecto cargado.  
 **Sugerencia**: no incluir los node_modules
 
-## Consigna:
-Tomando como base las clases Contenedor en memoria y en archivos, desarrollar un
-nuevo contenedor con idénticos métodos pero que funcione sobre bases de datos, utilizando Knex para
-la conexión. Esta clase debe recibir en su constructor el objeto de configuración de Knex y el nombre de
-la tabla sobre la cual trabajará. Luego, modificar el desafío entregable de la clase 11”Chat con
-Websocket”, y:
-- cambiar la persistencia de los mensajes de filesystem a base de datos SQLite3.
-- cambiar la persistencia de los productos de memoria a base de datos MariaDB.  
+## Consigna 1:
+Sobre el desafío entregable de la clase 16, crear una vista en forma de tabla que consuma desde la ruta ‘/api/productos-test’ del servidor una lista con 5 **productos** generados al azar utilizando **Faker.js** como generador de información aleatoria de test (en lugar de tomarse desde la base de datos). Elegir apropiadamente los temas para conformar el objeto ‘producto’ (nombre, precio y foto).
 
-Desarrollar también un script que utilizando knex cree las tablas necesarias para la persistencia en
-cuestión (tabla mensajes en sqlite3 y tabla productos en mariaDb).
+## Consigna 1:
+Ahora, vamos a reformar el formato de los mensajes y la forma de comunicación del chat(centro de mensajes).  
+El nuevo formato de mensaje será:
+```json
+{
+author: {
+    id: 'mail del usuario' ,
+    nombre: 'nombre del usuario' ,
+    apellido: 'apellido del usuario' ,
+    edad: 'edad del usuario' ,
+    alias: 'alias del usuario' ,
+    avatar: 'url avatar (foto, logo) del usuario'
+},
+    text: 'mensaje del usuario'
+}
+```
 
+## Aspectos a incluir en el entregable:
+1. Modificar la persistencia de los mensajes para que utilicen un contenedor que permita guardar objetos anidados (archivos, mongodb, firebase).
+2. El mensaje se envía del frontend hacia el backend, el cual lo almacenará en la base de datos elegida. Luego cuando el cliente se conecte o envie un mensaje, recibirá un array de mensajes a representar en su vista.
+3. El array que se devuelve debe estar normalizado con normalizr, conteniendo una entidad de autores. Considerar que el array tiene sus autores con su correspondiente id (mail del usuario), pero necesita incluir para el proceso de normalización un id para todo el array en su conjunto (podemos asignarle nosotros un valor fijo).  
+Ejemplo: { id: ‘mensajes’, mensajes: [ ] }
+4. El frontend debería poseer el mismo esquema de normalización que el backend, para que este pueda desnormalizar y presentar la información adecuada en la vista.
+5. Considerar que se puede cambiar el nombre del id que usa normalizr, agregando un tercer parametro a la función schema.Entity, por ejemplo:  
+    ```javascript
+    const schemaAuthor = new schema.Entity('author',{...},{idAttribute: 'email'});
+    ```
+    En este schema cambia el nombre del id con que se normaliza el nombre de los autores a 'email'. Más info en la web oficial.
+6. Presentar en el frontend (a modo de test) el porcentaje de compresión de los mensajes
+recibidos. Puede ser en el título del centro de mensajes.
 ## Notas:
-- Definir una carpeta DB para almacenar la base datos SQLite3 llamada ecommerce
+- incluir en el frontend el script de normalizr de la siguiente cdn:
+    https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js  
+    Así podremos utilizar los mismos métodos de normalizr que en el backend. Por ejemplo: 
+    ```javascript 
+    new normalizr.schema.Entity , normalizr.denormalize(...,...,...)
+    ```
+## Ejemplo
+
+![example](./example.jpg)
