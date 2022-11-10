@@ -36,9 +36,8 @@ class Container {
 
     async #inserDocument(obj){
         // Insert object as a row into table
-        const { id, ...objData } = obj;
         try{
-            const newModel = new this.model(objData)
+            const newModel = new this.model(obj)
             let objSave = await newModel.save();
             return objSave._id;
         }

@@ -1,8 +1,22 @@
+///// Author Mock /////
+const authorMock = 
+{
+    email: 'mock@gmail.com',
+    name:'John',
+    surname: 'Doe',
+    age: 123,
+    alias: 'JohDoe',
+    avatar: 'https://static.wikia.nocookie.net/creepypasta-files/images/5/58/A52146fdaaa9e402bb2f3af0537d0dbc.png/revision/latest?cb=20180819210625',
+    text: 'Lorem ipsum asd asdf'
+}
 
+
+///// Log In control /////
 let userEmail = null;
 const setEmail = email => userEmail = email;
 const userLogged = _ => userEmail !== null;
 let socketChat;
+
 const setUpChat = (userEmail) => {
     socketChat = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
 
@@ -34,7 +48,7 @@ const setUpChat = (userEmail) => {
             });
         };
     
-        socketChat.emit('welcome-answer', {message:'Gracias por recibirme' , userEmail})
+        socketChat.emit('welcome-answer', {...authorMock, text:`User ${userEmail} has joined the chat`})
     })
     
     socketChat.on('server-broadcast', data => {
@@ -46,8 +60,7 @@ const setUpChat = (userEmail) => {
     })
 }
 
-
-
+//// Log in event ////
 let login = document.querySelector("#login");
 login.addEventListener("submit", e =>{
     e.preventDefault();
@@ -55,6 +68,7 @@ login.addEventListener("submit", e =>{
     setUpChat(email);
 })
 
+//// Send message event ////
 let MSGform = document.querySelector("#chat");
 MSGform.addEventListener("submit", e =>{
     e.preventDefault();
@@ -62,8 +76,8 @@ MSGform.addEventListener("submit", e =>{
         alert("ingrese su correo para usar el chat")
     }
     else{
-        const message = e.target.querySelector("#msg").value;
-        socketChat.emit("chat", {message, userEmail});
+        const text = e.target.querySelector("#msg").value;
+        socketChat.emit("chat", {...authorMock, text});
     }
 })
 

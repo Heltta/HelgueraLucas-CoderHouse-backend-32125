@@ -97,9 +97,7 @@ io.on('connection', (socket) => {
             // Chat events
             socket.on('welcome-answer', data => {
                 const msg = new Message(
-                    socket.id,
-                    data.message,
-                    data.userEmail,
+                    data
                 )
         
                 //Guarda en el servidor el nuevo mensaje
@@ -111,11 +109,10 @@ io.on('connection', (socket) => {
             socket.on("chat", data=>{
                 //Guarda en el servidor el nuevo mensaje
                 const msg = new Message(
-                    socket.id,
-                    data.message,
-                    data.userEmail,
+                    data
                 )
-                
+        
+                //Guarda en el servidor el nuevo mensaje
                 messagesTable.save(msg);
                 // Emite un mensaje a todos los usuarios conectados
                 io.sockets.emit('server-broadcast', msg);
