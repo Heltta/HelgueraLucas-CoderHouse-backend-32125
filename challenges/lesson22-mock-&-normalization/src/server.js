@@ -1,4 +1,5 @@
 import express, { json, urlencoded, static as serveStatic } from 'express';
+import normalizr  from 'normalizr';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Error from './models/error.js';
@@ -92,7 +93,17 @@ io.on('connection', (socket) => {
         else if(data === 'chat'){
             // Send chat history to new client
             // socket.emit('welcome', msgHistory);
-            messagesTable.getAll().then( chatHistory => socket.emit('welcome', chatHistory));
+            messagesTable.getAll().then( chatHistory => {
+
+                const authorSchema = new normalizr.schema.Entity('author');
+                const messageSchema = new normalizr.schema.Array( {
+                    author:  authorSchema ,
+                })
+                const normChat = normalizr.normalize(chatHistory, messageSchema);
+                // Test if denormalize gives the same array as chatHistory 
+                // normalizr.denormalize(normChat.result, messageSchema, normChat.entities);
+                socket.emit('welcome', chatHistory)
+            });
 
             // Chat events
             socket.on('welcome-answer', data => {
