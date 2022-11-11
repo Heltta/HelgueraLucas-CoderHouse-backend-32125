@@ -10,6 +10,15 @@ const authorMock =
     text: 'Lorem ipsum asd asdf'
 }
 
+///// Normalizr schemas/////
+const authorSchema = new normalizr.schema.Entity('author');
+const messageSchema = new normalizr.schema.Array( {
+    author:  authorSchema ,
+})
+
+// const normChat = normalizr.normalize(chatHistory, messageSchema);
+// Test if denormalize gives the same array as chatHistory 
+// normalizr.denormalize(normChat.result, messageSchema, normChat.entities);
 
 ///// Log In control /////
 let userEmail = null;
@@ -41,7 +50,8 @@ const setUpChat = (userEmail) => {
             console.log(data.length);
             //Write Chat History if not empty
             const chatBox = document.querySelector("#messages");
-            data.forEach( msg => {
+            const desData = normalizr.denormalize(data.result, messageSchema, data.entities);
+            desData.forEach( msg => {
                 chatBox.innerHTML = chatBox.innerHTML.concat(
                     parseIntoList(msg)
                 )

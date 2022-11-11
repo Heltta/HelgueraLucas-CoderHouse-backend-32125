@@ -102,7 +102,7 @@ io.on('connection', (socket) => {
                 const normChat = normalizr.normalize(chatHistory, messageSchema);
                 // Test if denormalize gives the same array as chatHistory 
                 // normalizr.denormalize(normChat.result, messageSchema, normChat.entities);
-                socket.emit('welcome', chatHistory)
+                socket.emit('welcome', normChat)
             });
 
             // Chat events
