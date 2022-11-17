@@ -1,4 +1,5 @@
 import express, { json, urlencoded, static as serveStatic } from 'express';
+import session from 'express-session';
 import normalizr  from 'normalizr';
 import cookieParser from 'cookie-parser';
 import { dirname } from 'path';
@@ -32,6 +33,11 @@ app.use(json());
 app.use(urlencoded({ extended:true }));
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
+app.use(session({
+    secret: 'secreto',
+    resave: true,
+    saveUninitialized: true,
+}))
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import chat from './routes/chat.js';
