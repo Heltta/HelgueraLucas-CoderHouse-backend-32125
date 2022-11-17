@@ -27,7 +27,10 @@ const userLogged = _ => userEmail !== null;
 let socketChat;
 
 const setUpChat = (userEmail) => {
-    socketChat = io(); // Ya podemos empezar a usar los sockets desde el cliente :)
+    socketChat = websocket; // Ya podemos empezar a usar los sockets desde el cliente :)
+        console.log(`chat-api websocket connection started`);
+        // Send API type to server
+        socketItems.emit('chat-api');
 
     setEmail(userEmail);
 
@@ -40,9 +43,12 @@ const setUpChat = (userEmail) => {
     }
         
     // Identify functionality needs to server
-    socketChat.on('req-api-type', _ => {
-        socketChat.emit('res-api-type', 'chat');
-    })
+    socketChat.on('connect', _ => {
+        // Print client socket ID at the start of a new connection
+        console.log(`chat-api websocket connection started`);
+        // Send API type to server
+        socketItems.emit('chat-api');
+    });
     
     socketChat.on('welcome', data => {
     
@@ -68,6 +74,11 @@ const setUpChat = (userEmail) => {
             parseIntoList(data)
         )
     })
+
+    socketChat.onAny((eventName, ...args) => {
+        console.log('eventName');
+        console.log(eventName);
+    });
 }
 
 //// Log in event ////

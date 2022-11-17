@@ -37,7 +37,7 @@ block content
         div(class="row mb-3")
             label(for="title"  class="form-label") Correo de usuario
             input(type="email" class="form-control" id="userMail")
-        input(type="submit" class="btn btn-primary")
+        input(type="submit" value="Log In" class="btn btn-primary")
     //- Chat input box
     form(action="#" method="post" class="p-5" id="chat")
         div(class="row mb-3")
@@ -48,5 +48,6 @@ block content
     //- Chat history
     ol(id="messages" class="mx-5")
 
+    script(src="/websocket/startSocket.js")
     script(src="/websocket/itemList.js")
     script(src="/websocket/chat.js")
