@@ -1,5 +1,6 @@
 import express, { json, urlencoded, static as serveStatic } from 'express';
 import normalizr  from 'normalizr';
+import cookieParser from 'cookie-parser';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Error from './models/error.js';
@@ -29,6 +30,8 @@ app.set('view engine', 'ejs'); // register pug
 //-- Express middleware ---------//
 app.use(json());
 app.use(urlencoded({ extended:true }));
+//-- Cookie, session, storage ---//
+app.use(cookieParser());
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import chat from './routes/chat.js';
