@@ -41,8 +41,10 @@ app.use(session({
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import chat from './routes/chat.js';
+import sessionAPI from './routes/sessionAPI.js'
 app.use('/api/products', products);
 app.use('/chat', chat);
+app.use('/session', sessionAPI);
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
