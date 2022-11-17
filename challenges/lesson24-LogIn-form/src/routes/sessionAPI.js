@@ -17,4 +17,19 @@ router.get('/counter', (req, res) => {
         res.send('Welcome new visitor');
     }
 })
+
+router.get('/logout', (req, res) => {
+    req.session.destroy( err => {
+        if( !err ) {
+            res.send('Logout ok!');
+        }
+        else{
+            res.status(500).send(new Error({
+                code: 500, 
+                description:'Session Logout has failed'
+            }));
+        }
+    })
+})
+
 export default router;
