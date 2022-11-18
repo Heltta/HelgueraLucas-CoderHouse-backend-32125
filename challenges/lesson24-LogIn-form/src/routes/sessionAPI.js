@@ -32,4 +32,18 @@ router.get('/logout', (req, res) => {
     })
 })
 
+router.post('/login', (req, res) => {
+    const { username, password } = req.query;
+    if(username !== 'pepe' || password !== 'pepepass'){
+        return res.status(500).send(new Error({
+            code: 500,
+            description:'login failed'
+        }));
+    }
+
+    req.session.user = username;
+    req.session.admin = true;
+    res.status(200).send('Login success!');
+})
+
 export default router;
