@@ -3,6 +3,9 @@ import {
 } from "express";
 import session from "express-session";
 import Error from "../models/error.js";
+import {
+    authAdmin
+} from "../middleware/authenticatorMW.js";
 
 const router = Router();
 
@@ -44,6 +47,10 @@ router.post('/login', (req, res) => {
     req.session.user = username;
     req.session.admin = true;
     res.status(200).send('Login success!');
+})
+
+router.get('/admin/check', authAdmin, (req, res) =>{
+    res.status(200).send('User is logged as admin');    
 })
 
 export default router;
