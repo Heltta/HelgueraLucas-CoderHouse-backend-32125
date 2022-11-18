@@ -1,6 +1,7 @@
 import express, { json, urlencoded, static as serveStatic } from 'express';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
+import MongoStore from 'connect-mongo';
 import normalizr  from 'normalizr';
 import cookieParser from 'cookie-parser';
 import { dirname } from 'path';
