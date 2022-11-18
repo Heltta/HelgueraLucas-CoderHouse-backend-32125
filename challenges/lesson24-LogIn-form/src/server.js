@@ -59,8 +59,12 @@ app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
-// renderizo una vista de home
+// renderizo una vista de login
 app.get('/',  (req, res) => {
+    res.render('./login.pug');
+});
+// renderizo una vista de home
+app.get('/home',  (req, res) => {
     res.render('./home.pug');
 });
 

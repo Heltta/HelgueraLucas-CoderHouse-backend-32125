@@ -13,6 +13,16 @@ function authAdmin(req, res, next){
     }))
 }
 
+function checkUserLogged(req, res, next){
+    if(
+        req.session?.user === 'pepe'
+    ){
+        return res.redirect('/home')
+    }
+    return next();
+}
+
 export {
-    authAdmin
+    authAdmin,
+    checkUserLogged,
 };

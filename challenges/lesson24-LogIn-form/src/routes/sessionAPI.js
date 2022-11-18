@@ -4,7 +4,8 @@ import {
 import session from "express-session";
 import Error from "../models/error.js";
 import {
-    authAdmin
+    authAdmin,
+    checkUserLogged,
 } from "../middleware/authenticatorMW.js";
 
 const router = Router();
@@ -35,7 +36,7 @@ router.get('/logout', (req, res) => {
     })
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', checkUserLogged, (req, res) => {
     const { username, password } = req.query;
     if(username !== 'pepe' || password !== 'pepepass'){
         return res.status(500).send(new Error({

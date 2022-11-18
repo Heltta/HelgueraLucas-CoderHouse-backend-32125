@@ -12,13 +12,6 @@ block headerScripts
 block content
     //- form subir archivo 
     +title("Ingresar productos")
-
-    form(action="#" method="post" class="p-5" id="session_login")
-        h2 Log in
-        div(class="row mb-3")
-            label(for="title"  class="form-label") Username
-            input(type="text" class="form-control" id="userName")
-        input(type="submit" value="Log In" class="btn btn-primary")
     
     form(action="/api/products" method="post" class="p-5" id="addProdForm")
         div(class="row mb-3")

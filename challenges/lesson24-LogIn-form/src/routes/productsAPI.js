@@ -4,6 +4,9 @@ import Error from '../models/error.js';
 import adminRights from '../config/admin.js';
 import express from 'express';
 import {faker} from '@faker-js/faker';
+import {
+    authAdmin
+} from "../middleware/authenticatorMW.js";
 const { Router } = express;
 
 const router = Router();
