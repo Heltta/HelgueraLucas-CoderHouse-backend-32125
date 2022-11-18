@@ -25,7 +25,7 @@ router.get('/counter', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy( err => {
         if( !err ) {
-            res.send('Logout ok!');
+            res.redirect('/');
         }
         else{
             res.status(500).send(new Error({
