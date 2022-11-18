@@ -36,6 +36,11 @@ app.use(urlencoded({ extended:true }));
 app.use(cookieParser());
 const FileStore = sessionFileStore(session);
 app.use(session({
+    store: new FileStore({
+        path: './data/sessions',
+        ttl: 300,
+        retries: 0,
+    }),
     secret: 'secreto',
     resave: true,
     saveUninitialized: true,
