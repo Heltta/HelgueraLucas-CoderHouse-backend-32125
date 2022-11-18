@@ -1,5 +1,6 @@
 import express, { json, urlencoded, static as serveStatic } from 'express';
 import session from 'express-session';
+import sessionFileStore from 'session-file-store';
 import normalizr  from 'normalizr';
 import cookieParser from 'cookie-parser';
 import { dirname } from 'path';
@@ -33,6 +34,7 @@ app.use(json());
 app.use(urlencoded({ extended:true }));
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
+const FileStore = sessionFileStore(session);
 app.use(session({
     secret: 'secreto',
     resave: true,
