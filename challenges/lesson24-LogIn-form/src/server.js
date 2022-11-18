@@ -35,12 +35,10 @@ app.use(json());
 app.use(urlencoded({ extended:true }));
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
-const FileStore = sessionFileStore(session);
+// const FileStore = sessionFileStore(session);
 app.use(session({
-    store: new FileStore({
-        path: './data/sessions',
-        ttl: 300,
-        retries: 0,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/sessions',
     }),
     secret: 'secreto',
     resave: true,
