@@ -15,7 +15,7 @@ function authAdmin(req, res, next){
 
 function checkUserLogged(req, res, next){
     if(
-        req.session?.user === 'pepe'
+        req.session?.user
     ){
         return res.redirect('/home')
     }

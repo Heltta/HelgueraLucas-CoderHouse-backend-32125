@@ -47,7 +47,7 @@ router.post('/login', checkUserLogged, (req, res) => {
 
     req.session.user = username;
     req.session.admin = true;
-    res.status(200).send('Login success!');
+    res.status(200).redirect('/home');
 })
 
 router.get('/admin/check', authAdmin, (req, res) =>{
