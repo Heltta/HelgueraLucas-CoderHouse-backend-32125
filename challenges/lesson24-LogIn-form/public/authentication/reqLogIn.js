@@ -9,7 +9,9 @@ login.addEventListener("submit", e =>{
         redirect: 'follow',
     })
     .then( res =>{
-        window.location.href = res.url;
+        if(res.redirected){
+            window.location.href = res.url;
+        }
     })
     .catch(function(err) {
         console.log(err);
