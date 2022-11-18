@@ -36,9 +36,11 @@ app.use(urlencoded({ extended:true }));
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
 // const FileStore = sessionFileStore(session);
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost/sessions',
+        mongoUrl: 'mongodb+srv://SuperUser:m45yU7PCMuMh7Ojr@coderhousebackend.eu1a5zv.mongodb.net/?retryWrites=true&w=majority',
+        mongoOptions: advancedOptions,
     }),
     secret: 'secreto',
     resave: true,
