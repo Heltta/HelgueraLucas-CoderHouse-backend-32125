@@ -64,7 +64,8 @@ app.get('/',  (req, res) => {
     res.render('./login.pug');
 });
 // renderizo una vista de home
-app.get('/home',  (req, res) => {
+import { logInNeeded } from './middleware/authenticatorMW.js';
+app.get('/home', logInNeeded,  (req, res) => {
     res.render('./home.pug');
 });
 
