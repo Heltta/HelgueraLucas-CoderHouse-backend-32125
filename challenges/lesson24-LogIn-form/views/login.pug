@@ -10,10 +10,9 @@ block headerScripts
 
 block content
     //- form subir archivo 
-    +title("Ingresar productos")
+    +title("Log in")
 
     form(action="/session/login?username=pepe&password=pepepass" method="post" class="p-5" id="session_login")
-        h2 Log in
         div(class="row mb-3")
             label(for="title"  class="form-label") Username
             input(type="text" class="form-control" id="userName")

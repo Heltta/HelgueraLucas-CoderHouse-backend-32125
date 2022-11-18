@@ -3,6 +3,7 @@ extends ./layouts/index.pug
 //- partials (mixins)
 include partials/pageTitle.pug
 include partials/redirectBtn.pug
+include partials/logOutBtn.pug
 
 block headerScripts
     <script src="/socket.io/socket.io.js"></script>
@@ -12,7 +13,7 @@ block headerScripts
 block content
     //- form subir archivo 
     +title("Ingresar productos")
-    
+    +logOut()
     form(action="/api/products" method="post" class="p-5" id="addProdForm")
         div(class="row mb-3")
             label(for="name"  class="form-label") Title
@@ -52,3 +53,4 @@ block content
     script(src="/websocket/startSocket.js")
     script(src="/websocket/itemList.js")
     script(src="/websocket/chat.js")
+    script(src="/authentication/logOut.js")
