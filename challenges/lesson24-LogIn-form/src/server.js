@@ -41,6 +41,7 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://SuperUser:m45yU7PCMuMh7Ojr@coderhousebackend.eu1a5zv.mongodb.net/?retryWrites=true&w=majority',
         mongoOptions: advancedOptions,
+        ttl: 60 // = 60 seconds
     }),
     secret: 'secreto',
     resave: true,
