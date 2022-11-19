@@ -58,7 +58,7 @@ class Container {
             }
             console.log(obj);
             const rows = await 
-                this.model
+                this.model.updateOne(objCondition,obj)
 
             return rows;
         }
@@ -92,7 +92,7 @@ class Container {
         // Update fields inside row with given id.
         // objData parameter contains the keys of the fields
         // and the new content of those.
-        return await this.#uptadeRows({id:id}, objData);
+        return await this.#uptadeRows({_id:id}, objData);
     }
     
     async getById(id){

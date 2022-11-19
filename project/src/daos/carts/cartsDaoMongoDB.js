@@ -1,9 +1,10 @@
-import ContainerFS from "../../controllers/containerFileSystem.js";
+import ContainerMongoDB from "../../controllers/containerMongoDB.js";
+import ProductModel from "../../models/cart.js"
 
-class ProductsDaoMongoDB extends ContainerFS {
+class CartsDaoMongoDB extends ContainerMongoDB {
     constructor(){
-        super('data/carts.json')
+        super('carts', ProductModel)
     }
 }
 
-export default ProductsDaoMongoDB;
+export default CartsDaoMongoDB;

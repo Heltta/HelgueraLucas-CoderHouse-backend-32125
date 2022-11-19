@@ -32,7 +32,7 @@ router.post('/', (req, res) =>{
 router.delete('/:id', (req, res) => {
     // Delete a cart which id is send as parameter
     res.status(102);
-    storedCarts.deleteById(parseInt(req.params.id))
+    storedCarts.deleteById(req.params.id)
         .then( () =>res.status(200).send())
         .catch( error => console.log(error));
 })
@@ -40,7 +40,7 @@ router.delete('/:id', (req, res) => {
 router.get('/:id/products', async (req, res) => {
     // Get all products stored in a cart wich id is send as parameter
     try{
-        const cart = await storedCarts.getById(parseInt(req.params.id));
+        const cart = await storedCarts.getById(req.params.id);
         if(cart.length === 0){
             res.status(404).send(new Error({
                 code:404,
@@ -73,7 +73,7 @@ router.post('/:id/products', async (req, res) =>{
     }
 
     try{
-        const cartID = parseInt(req.params.id);
+        const cartID = req.params.id;
         const cart = await storedCarts.getById(cartID);
 
         // Cart must exist
@@ -97,7 +97,7 @@ router.post('/:id/products', async (req, res) =>{
             // and Promise.all packs them into a unique promise
             const newProducts = await Promise.all(req.body.map(async ID => {
                 try{
-                    const prod = await prodDB.getById(parseInt(ID));
+                    const prod = await prodDB.getById(ID);
                     return prod[0];
                 }
                 catch (error) { console.log(error) }
@@ -127,8 +127,8 @@ router.post('/:id/products', async (req, res) =>{
 router.delete('/:id/products/:id_prod', async (req, res) => {
     // Delete a cart which id is send as parameter
 
-    const cartID = parseInt(req.params.id);
-    const prodID = parseInt(req.params.id_prod);
+    const cartID = (req.params.id);
+    const prodID = (req.params.id_prod);
 
     // Check for correct parameters 
     if(!(cartID && prodID)){
