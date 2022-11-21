@@ -1,0 +1,56 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include partials/pageTitle.pug
+include partials/redirectBtn.pug
+include partials/logOutBtn.pug
+
+block headerScripts
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    
+
+block content
+    //- form subir archivo 
+    +title("Ingresar productos")
+    +logOut()
+    form(action="/api/products" method="post" class="p-5" id="addProdForm")
+        div(class="row mb-3")
+            label(for="name"  class="form-label") Title
+            input(type="text" name="name" id="title" class="form-control")
+
+        div(class="row mb-3")
+            label(for="price"  class="form-label") Price
+            input(type="text" name="price" id="price" class="form-control")
+
+        div(class="row mb-3")
+            label(for="photoURL"  class="form-label") thumbnail
+            input(type="text" name="photoURL" id="thumbnail" class="form-control")
+
+        div
+            button(type="submit" class="btn btn-primary") Subir
+    
+    //- Products table
+    section(class="p-5" id="products")
+
+    h2(class="px-5") Centro de mensajes
+    //- Chat log in
+    form(action="#" method="post" class="p-5" id="login")
+        div(class="row mb-3")
+            label(for="title"  class="form-label") Correo de usuario
+            input(type="email" class="form-control" id="userMail")
+        input(type="submit" value="Log In" class="btn btn-primary")
+    //- Chat input box
+    form(action="#" method="post" class="p-5" id="chat")
+        div(class="row mb-3")
+            label(for="message"  class="form-label") mensaje
+            input(type="text" name="message" class="form-control" id="msg")
+        input(type="submit" value="send" class="btn btn-primary")
+
+    //- Chat history
+    ol(id="messages" class="mx-5")
+
+    script(src="/websocket/startSocket.js")
+    script(src="/websocket/itemList.js")
+    script(src="/websocket/chat.js")
+    script(src="/authentication/logOut.js")
