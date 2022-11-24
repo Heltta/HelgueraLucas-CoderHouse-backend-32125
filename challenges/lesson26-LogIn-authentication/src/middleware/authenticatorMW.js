@@ -2,7 +2,7 @@ import Error from "../models/error.js";
 
 function authAdmin(req, res, next){
     if(
-        req.session?.user === 'pepe' &&
+        req.session?.user === 'pepe@gmail.com' &&
         req.session?.admin
     ){
         return next();

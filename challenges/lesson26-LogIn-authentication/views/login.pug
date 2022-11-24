@@ -2,20 +2,15 @@
 extends ./layouts/index.pug
 //- partials (mixins)
 include partials/pageTitle.pug
+include partials/formInputField.pug
 
 block headerScripts
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
     
 
 block content
     //- form subir archivo 
     +title("Log in")
 
-    form(action="/session/login?username=pepe&password=pepepass" method="post" class="p-5" id="session_login")
-        div(class="row mb-3")
-            label(for="title"  class="form-label") Username
-            input(type="text" class="form-control" id="userName")
-        input(type="submit" value="Log In" class="btn btn-primary")
+    include partials/loginForm.pug
     
     script(src="/authentication/reqLogIn.js")

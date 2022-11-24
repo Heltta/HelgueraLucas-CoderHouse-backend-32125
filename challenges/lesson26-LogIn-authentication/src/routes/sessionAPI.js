@@ -38,7 +38,7 @@ router.get('/logout', (req, res) => {
 
 router.post('/login', checkUserLogged, (req, res) => {
     const { username, password } = req.query;
-    if(username !== 'pepe' || password !== 'pepepass'){
+    if(username !== 'pepe@gmail.com' || password !== 'pepepass'){
         return res.status(500).send(new Error({
             code: 500,
             description:'login failed'

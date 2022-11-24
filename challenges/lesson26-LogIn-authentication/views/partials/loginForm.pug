@@ -1,0 +1,14 @@
+include formInputField.pug
+
+form(action="/session/login?username=pepe&password=pepepass" method="post" class="p-5" id="session_login")
+    +formInputField(
+        'Email',
+        'userEmail',
+        'email'
+    )
+    +formInputField(
+        'Password',
+        'userPassword',
+        'password'
+    )
+    input(type="submit" value="Log In" class="btn btn-primary")
