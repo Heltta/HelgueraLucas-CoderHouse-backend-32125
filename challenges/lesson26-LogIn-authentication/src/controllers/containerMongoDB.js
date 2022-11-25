@@ -100,6 +100,12 @@ class Container {
         const content = await this.#selectRows({_id: id}); 
         return content
     }
+    
+    async findOne(condition){
+        //Recibe un id y devuelve el objeto con ese id, o [] si no está.
+        const content = await this.#selectRows(condition); 
+        return content
+    }
 
     async getAll(){
         //Devuelve un array con los objetos presentes en el archivo.
