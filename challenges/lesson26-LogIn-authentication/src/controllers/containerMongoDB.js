@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { connect } from "mongoose";
 
 
 class Container {
@@ -25,9 +25,9 @@ class Container {
         // Select all rows from table stored at DB that pass a condition.
         // If not condition is passed, then return all table's rows.
         try{
-            const documents = await 
+            const rows = await 
                 this.model.find(objCondition);
-            return documents.map( doc => ({author: doc.author._doc, text: doc.text}));
+            return rows
         }
         catch(error) {
             console.log(error); throw error;
@@ -36,8 +36,9 @@ class Container {
 
     async #inserDocument(obj){
         // Insert object as a row into table
+        const { id, ...objData } = obj;
         try{
-            const newModel = new this.model(obj)
+            const newModel = new this.model(objData)
             let objSave = await newModel.save();
             return objSave._id;
         }
@@ -57,7 +58,7 @@ class Container {
             }
             console.log(obj);
             const rows = await 
-                this.model
+                this.model.updateOne(objCondition,obj)
 
             return rows;
         }
@@ -91,7 +92,7 @@ class Container {
         // Update fields inside row with given id.
         // objData parameter contains the keys of the fields
         // and the new content of those.
-        return await this.#uptadeRows({id:id}, objData);
+        return await this.#uptadeRows({_id:id}, objData);
     }
     
     async getById(id){
