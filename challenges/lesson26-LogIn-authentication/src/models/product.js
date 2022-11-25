@@ -1,4 +1,8 @@
 import myknex from '../config/mariaDB.js';
+import { 
+    Schema,
+    Types
+} from 'mongoose';
 
 class Product {
     constructor({id, name, description, code, photoURL, price, stock}){
@@ -47,6 +51,17 @@ class Product {
             }
         })
     }  
+
+    static mongoSchema = () => new Schema({
+        id: Types.ObjectId,
+        timestamp: { type: Date, default: Date.now },
+        name:   String,
+        description: String,
+        code:   String,
+        photo:  String,
+        price:  Number,
+        stock:  Number,
+    })
 }
 
 // export default Container;
