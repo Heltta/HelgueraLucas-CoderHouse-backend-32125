@@ -31,12 +31,13 @@ app.set('view engine', 'ejs'); // register pug
 
 
 //////////// Middleware ///////////////
+
 //-- Express middleware ---------//
 app.use(json());
 app.use(urlencoded({ extended:true }));
+
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
-// const FileStore = sessionFileStore(session);
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
     store: MongoStore.create({
@@ -70,21 +71,64 @@ import sessionAPI from './routes/sessionAPI.js'
 app.use('/api/products', products);
 app.use('/chat', chat);
 app.use('/session', sessionAPI);
+
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
-// renderizo una vista de login
-app.get('/',  (req, res) => {
+//////////// Other routes /////////////
+
+//-- LogIn Routes --/
+app.get('/login',  (req, res) => {
     res.render('./login.pug');
 });
-// renderizo una vista de home
+
+app.post('/login',
+    passport.authenticate(
+        'login',
+        { failureRedirect: '/faillogin' }
+    ), 
+    (req, res) => {
+        res.render('./login.pug');
+    }
+);
+
+app.get('/faillogin', (req, res) => {
+    res.render('./login.pug');
+});
+
+
+//-- SignIn Routes --/
+app.get('/signup',  (req, res) => {
+    res.render('./signup.pug');
+});
+
+app.post('/signup',
+    passport.authenticate(
+        'signup',
+        { failureRedirect: '/failsignup' }
+    ), 
+    (req, res) => {
+        res.render('./signup.pug');
+    }
+);
+
+app.get('/failsignup', (req, res) => {
+    res.render('./signup.pug');
+});
+
+
+//-- SignIn Routes --/
+app.get('/logout', _ => {return});
+
+//-- Home routes --/
 import { logInNeeded } from './middleware/authenticatorMW.js';
 app.get('/home', logInNeeded,  (req, res) => {
     res.render('./home.pug');
 });
 
+//-- test with faker.js --/
 app.get('/api/products-test', (req, res) => {
     const fakeProducts = [];
     for(let i=0;i<5;i++){
