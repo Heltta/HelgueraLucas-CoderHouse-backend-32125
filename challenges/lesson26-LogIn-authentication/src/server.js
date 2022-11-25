@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Error from './models/error.js';
+import passport from "passport";
 
 import { Server as HttpServer } from 'http';
 import { Server as IOServer }  from 'socket.io';
@@ -47,6 +48,21 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
+app.use(session({
+    secret: "keyboard cat",
+    cookie: {
+      httpOnly: false,
+      secure: false,
+      maxAge: 60000,
+    },
+    rolling: true,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+//-- Authentication ---//
+app.use(passport.initialize());
+app.use(passport.session());
 //-- Custom APIs ---------------//
 import products from './routes/productsAPI.js';
 import chat from './routes/chat.js';
