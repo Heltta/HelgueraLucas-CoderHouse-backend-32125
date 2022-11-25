@@ -1,0 +1,15 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include partials/pageTitle.pug
+include partials/formInputField.pug
+
+block headerScripts
+    
+
+block content
+    //- form subir archivo 
+    +title("Log in")
+
+    include partials/signupForm.pug
+
