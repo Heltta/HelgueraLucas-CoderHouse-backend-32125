@@ -1,4 +1,6 @@
 import Error from "../models/error.js";
+import User from "../models/user.js"
+import ContainerMongo from '../controllers/containerMongoDB.js';
 
 function authAdmin(req, res, next){
     if(
@@ -31,6 +33,7 @@ function logInNeeded(req, res, next){
     return res.redirect('/');
 }
 
+const userContainer = new ContainerMongo('users', User);
 export {
     authAdmin,
     checkUserLogged,
