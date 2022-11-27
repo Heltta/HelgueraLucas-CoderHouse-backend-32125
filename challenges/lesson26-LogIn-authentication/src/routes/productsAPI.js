@@ -4,10 +4,6 @@ import Error from '../models/error.js';
 import adminRights from '../config/admin.js';
 import express from 'express';
 import {faker} from '@faker-js/faker';
-import {
-    authAdmin,
-    logInNeeded,
-} from "../middleware/authenticatorMW.js";
 const { Router } = express;
 
 const router = Router();
@@ -17,7 +13,7 @@ const products = new Container('products', Product);
 
 /////// HTTP request methods routing //////
 
-router.get('/', logInNeeded, (req, res) => {
+router.get('/', (req, res) => {
     products.getAll()
         .then((products)=>(products)?
             res.status(302).send(products) : 
@@ -34,7 +30,7 @@ router.get('/', logInNeeded, (req, res) => {
         });
 })
 
-router.get('/:id', logInNeeded, (req, res) => {
+router.get('/:id', (req, res) => {
     products.getById(parseInt(req.params.id))
         .then((product)=>(product.length === 0)?
             res.status(404).send(new Error({
@@ -51,7 +47,7 @@ router.get('/:id', logInNeeded, (req, res) => {
         });
 })
 
-router.post('/', logInNeeded, (req, res) => {
+router.post('/', (req, res) => {
     if(!(req.body)){
         res.status(400).send(new Error({
             code:400,
@@ -79,7 +75,7 @@ router.post('/', logInNeeded, (req, res) => {
         });
 })
 
-router.put('/:id', logInNeeded, (req, res) => {
+router.put('/:id', (req, res) => {
     if(!(req.body)){
         res.status(400).send(new Error({
             code:400,
@@ -107,7 +103,7 @@ router.put('/:id', logInNeeded, (req, res) => {
         });
 })
 
-router.delete('/:id', logInNeeded, (req, res) => {
+router.delete('/:id', (req, res) => {
     if(!adminRights){
         res.status(403).send(new Error({
             code:400,
