@@ -1,25 +1,42 @@
-import express, { json, urlencoded, static as serveStatic } from 'express';
-import session from 'express-session';
-import sessionFileStore from 'session-file-store';
-import MongoStore from 'connect-mongo';
-import normalizr  from 'normalizr';
-import cookieParser from 'cookie-parser';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import Error from './models/error.js';
-import passport from "passport";
+import 
+    express, 
+    { 
+        static as serveStatic,
+        json,
+        urlencoded,
+    }
+from 'express';
 
 import { Server as HttpServer } from 'http';
 import { Server as IOServer }  from 'socket.io';
 
 import pug from 'pug';
-import Container from './controllers/container.js';
-import ContainerMongo from './controllers/containerMongoDB.js';
+import { faker } from '@faker-js/faker';
+
+//////////// Static config libraries ////
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+//////////// Parsers libraries //////////
+import normalizr  from 'normalizr';
+import cookieParser from 'cookie-parser';
+
+//////////// Session libraries //////////
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+
+//////////// (other) Middleware /////////
+import passport from 'passport';
+
+//////////// Model imports ////////////
+import Error from './models/error.js';
 import Product from './models/product.js';
 import Message from './models/message.js';
 
-import {faker} from '@faker-js/faker';
+//////////// Controllers imports //////
+import ContainerMongo from './controllers/containerMongoDB.js';
 
+/////////// Server config /////////////
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -40,17 +57,12 @@ app.use(urlencoded({ extended:true }));
 app.use(cookieParser());
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
+    secret: "keyboard cat",
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://SuperUser:m45yU7PCMuMh7Ojr@coderhousebackend.eu1a5zv.mongodb.net/?retryWrites=true&w=majority',
         mongoOptions: advancedOptions,
         ttl: 60 // = 60 seconds
     }),
-    secret: 'secreto',
-    resave: true,
-    saveUninitialized: true,
-}))
-app.use(session({
-    secret: "keyboard cat",
     cookie: {
       httpOnly: false,
       secure: false,
@@ -61,16 +73,18 @@ app.use(session({
     saveUninitialized: false,
   })
 );
+
+//-- Custom APIs ---------------//
+import productsRoutes from './routes/productsAPI.js';
+import chatRoutes from './routes/chat.js';
+import sessionAPI from './routes/sessionAPI.js'
+app.use('/api/products', productsRoutes);
+app.use('/chat', chatRoutes);
+app.use('/session', sessionAPI);
+
 //-- Authentication ---//
 app.use(passport.initialize());
 app.use(passport.session());
-//-- Custom APIs ---------------//
-import products from './routes/productsAPI.js';
-import chat from './routes/chat.js';
-import sessionAPI from './routes/sessionAPI.js'
-app.use('/api/products', products);
-app.use('/chat', chat);
-app.use('/session', sessionAPI);
 
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
@@ -184,7 +198,7 @@ io.on('connection', (socket) => {
         itemContainer.getAll()
             .then( rawItems => 
                 pug.renderFile('./views/partials/productsTable.pug',
-                    {items: rawItems, listExists: _ => products.length !== 0})
+                    {items: rawItems, listExists: _ => productsRoutes.length !== 0})
             )
             .then( items => {
                 socket.emit('update-product-list', items)
