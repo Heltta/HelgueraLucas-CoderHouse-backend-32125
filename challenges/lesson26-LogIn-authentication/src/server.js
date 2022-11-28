@@ -26,7 +26,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
 //////////// (other) Middleware /////////
-import passport from 'passport';
+import passport from './lib/passportSetUp.js';
 
 //////////// Model imports ////////////
 import Error from './models/error.js';
