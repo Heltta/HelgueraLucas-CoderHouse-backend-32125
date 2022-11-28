@@ -93,48 +93,9 @@ app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 //////////// Other routes /////////////
 
-//-- LogIn Routes --/
-app.get('/login',  (req, res) => {
-    res.render('./login.pug');
-});
-
-app.post('/login',
-    passport.authenticate(
-        'login',
-        { failureRedirect: '/faillogin' }
-    ), 
-    (req, res) => {
-        res.render('./login.pug');
-    }
-);
-
-app.get('/faillogin', (req, res) => {
-    res.render('./login.pug');
-});
-
-
-//-- SignIn Routes --/
-app.get('/signup',  (req, res) => {
-    res.render('./signup.pug');
-});
-
-app.post('/signup',
-    passport.authenticate(
-        'signup',
-        { failureRedirect: '/failsignup' }
-    ), 
-    (req, res) => {
-        res.render('./signup.pug');
-    }
-);
-
-app.get('/failsignup', (req, res) => {
-    res.render('./signup.pug');
-});
-
-
-//-- SignIn Routes --/
-app.get('/logout', _ => {return});
+//-- Authenticator routes --/
+import authenticatorRouter from './routes/authenticator.js';
+app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
 import { logInNeeded } from './middleware/authenticatorMW.js';
