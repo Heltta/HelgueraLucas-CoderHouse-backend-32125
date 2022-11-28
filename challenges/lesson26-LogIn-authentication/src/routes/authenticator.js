@@ -16,12 +16,9 @@ logInRouter.post('/',
     passport.authenticate(
         'login',
         {
-            failureRedirect: '/faillogin'
+            failureMessage: true
         }
-    ), 
-    (req, res) => {
-        res.render('./login.pug');
-    }
+    )
 );
 
 logInRouter.get('/fail', (req, res) => {
@@ -42,7 +39,7 @@ signUpRouter.post('/',
     )
 );
 
-signUpRouter.get('/signup', (req, res) => {
+signUpRouter.get('/fail', (req, res) => {
     res.render('./signup.pug');
 });
 
