@@ -61,9 +61,9 @@ const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
     secret: "keyboard cat",
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://SuperUser:m45yU7PCMuMh7Ojr@coderhousebackend.eu1a5zv.mongodb.net/?retryWrites=true&w=majority',
+        mongoUrl: 'mongodb://localhost/test',
         mongoOptions: advancedOptions,
-        ttl: 60 // = 60 seconds
+        ttl: 60 * 5 //  seconds
     }),
     cookie: {
       httpOnly: false,
