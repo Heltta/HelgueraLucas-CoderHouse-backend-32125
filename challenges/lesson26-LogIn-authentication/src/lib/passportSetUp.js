@@ -59,11 +59,9 @@ passport.use(
     "signup-local",
     new LocalStrategy(
         {
-        passReqToCallback: true
+            passReqToCallback: true
         },
-        new LocalStrategy(
-            signUp
-        )
+        signUp
     )
 );
 
