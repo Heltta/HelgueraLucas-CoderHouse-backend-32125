@@ -16,7 +16,7 @@ logInRouter.post('/',
     passport.authenticate(
         'login',
         {
-            failureMessage: true
+            failureFlash: true,
         }
     )
 );
@@ -33,8 +33,8 @@ signUpRouter.get('/', (req, res) => {
 signUpRouter.post('/',
     passport.authenticate(
         'signup-local',
-        { 
-            failureMessage: true
+        {
+            failureFlash: true
         }
     )
 );

@@ -26,6 +26,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 
 //////////// (other) Middleware /////////
+import flash from 'express-flash';
 import passport from './lib/passportSetUp.js';
 
 //////////// Model imports ////////////
@@ -55,6 +56,7 @@ app.use(urlencoded({ extended:true }));
 
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
+app.use(flash());
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
     secret: "keyboard cat",
