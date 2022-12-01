@@ -17,6 +17,8 @@ logInRouter.post('/',
         'login',
         {
             failureFlash: true,
+            successRedirect: '/home',
+            failureRedirect: '/login'
         }
     )
 );
