@@ -27,7 +27,8 @@ class Container {
         try{
             const rows = await 
                 this.model.find(objCondition);
-            return rows
+            if(rows.length === 0) return null
+            else return rows[0]._doc
         }
         catch(error) {
             console.log(error); throw error;
