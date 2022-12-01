@@ -100,8 +100,7 @@ import authenticatorRouter from './routes/authenticator.js';
 app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
-import { logInNeeded } from './middleware/authenticatorMW.js';
-app.get('/home', logInNeeded,  (req, res) => {
+app.get('/home',  (req, res) => {
     res.render('./home.pug');
 });
 
