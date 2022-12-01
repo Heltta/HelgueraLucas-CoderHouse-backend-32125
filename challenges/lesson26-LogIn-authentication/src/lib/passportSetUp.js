@@ -4,7 +4,8 @@ import passportLocal from 'passport-local';
 import { userContainer } from './manageUsers.js';
 
 const isValidPassword = (user, password) => {
-    return bcrypt.compareSync(password, user.password)
+    return (password === user.passwordHash)
+    // return bcrypt.compareSync(password, user.password)
 }
 
 function createHash(password) {
