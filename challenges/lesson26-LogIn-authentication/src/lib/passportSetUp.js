@@ -51,6 +51,10 @@ const LocalStrategy = passportLocal.Strategy
 passport.use(
     "login",
     new LocalStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'passwordHash'
+        },
         logIn
     )
 );
