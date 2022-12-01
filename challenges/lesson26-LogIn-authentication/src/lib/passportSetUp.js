@@ -1,7 +1,6 @@
-import passport from 'passport';
 import bcrypt from 'bcrypt';
-import passportLocal from 'passport-local';
 import { userContainer } from './manageUsers.js';
+/////////// Authentication methods ////////////
 
 const isValidPassword = (user, password) => {
     return (password === user.passwordHash)
@@ -43,6 +42,9 @@ function signUp (req, res, next) {
 }
 
 /////////// Create stategies ////////////
+
+import passport from 'passport';
+import passportLocal from 'passport-local';
 
 const LocalStrategy = passportLocal.Strategy
 
