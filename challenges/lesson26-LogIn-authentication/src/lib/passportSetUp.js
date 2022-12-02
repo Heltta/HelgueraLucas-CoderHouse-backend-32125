@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
 import { userContainer } from './manageUsers.js';
-/////////// Authentication methods ////////////
+import User from '../models/user.js';
+
+
+/////////// Authentication helpers ////////////
 
 const isValidPassword = (user, password) => {
     return (password === user.passwordHash)
@@ -15,14 +18,16 @@ function createHash(password) {
             );  
 }
 
-function logIn(userName, password, done) {
-    userContainer.findOne({ userName: userName })
+/////////// Authentication methods ////////////
+
+function logIn(userEmail, passwordHash, done) {
+    userContainer.findOne({ email: userEmail })
         .then( user => {
             if (!user) {
-                console.log('User Not Found with username ' + userName);
+                console.log('User Not Found with username ' + userEmail);
                 return done(null, false);
             }
-            if (!isValidPassword(user, password)) {
+            if (!isValidPassword(user, passwordHash)) {
                 console.log('Invalid Password');
                 return done(null, false);
             }
@@ -31,14 +36,39 @@ function logIn(userName, password, done) {
         .catch( (err) => done(err));
 }
 
-function signUp (req, res, next) {
-    console.log('entré a signUp de passport');
-    return next();
+async function signUp (req, userEmail, password, done) {
+    try{
+        const existingUser = await userContainer.findOne({ email: userEmail });
+        if(existingUser){
+            // User is already registered
+            // Then, error is null and user is false
+            console.log('Error, user already exists')
+            return done(null, false);
+        }
 
-        // .catch( err => {
-        //     console.log("Error in SignUp: " + err);
-        //     return done(err);
-        // });
+        // User is not registered
+        // Then, create a new one and save at DB
+        const newUser = new User({
+            userName: req.body.userName,
+            email: userEmail,
+            passwordHash: password,
+        });
+
+        try{
+            await userContainer.save(newUser);
+            console.log(newUser);
+            console.log('New user registration successful');
+            return done(null, newUser);
+        }
+        catch(err){
+            console.log(`Error in saving user: ${err}`);
+            return done(err);
+        }
+    }
+    catch(err) {
+        console.log(`Error in signUp: ${err}`);
+        return done(err);
+    }
 }
 
 /////////// Create stategies ////////////
@@ -63,11 +93,15 @@ passport.use(
     "signup-local",
     new LocalStrategy(
         {
-            passReqToCallback: true
+            usernameField: 'email',
+            passwordField: 'passwordHash',
+            passReqToCallback: true,
         },
         signUp
     )
 );
+
+/////////// User serialization //////////
 
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
