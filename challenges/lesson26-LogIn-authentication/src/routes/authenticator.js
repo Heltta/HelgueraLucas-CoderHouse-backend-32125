@@ -36,7 +36,9 @@ signUpRouter.post('/',
     passport.authenticate(
         'signup-local',
         {
-            failureFlash: true
+            failureFlash: true,
+            successRedirect: '/home',
+            failureRedirect: '/signup',
         }
     )
 );
