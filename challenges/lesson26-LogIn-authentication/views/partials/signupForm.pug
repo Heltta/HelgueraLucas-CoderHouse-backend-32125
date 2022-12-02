@@ -3,7 +3,7 @@ include formInputField.pug
 form(action="/auth/signup" method="post" class="p-5" id="session_signup")
     +formInputField(
         'Email',
-        'userEmail',
+        'email',
         'email'
     )
     +formInputField(
@@ -13,7 +13,7 @@ form(action="/auth/signup" method="post" class="p-5" id="session_signup")
     )
     +formInputField(
         'Set password',
-        'userPassword',
+        'passwordHash',
         'password'
     )
     +formInputField(
