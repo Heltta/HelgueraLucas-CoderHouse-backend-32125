@@ -1,8 +1,8 @@
 //- main layout
 extends ./layouts/index.pug
 //- partials (mixins)
-include partials/pageTitle.pug
-include partials/formInputField.pug
+include mixins/pageTitle.pug
+include mixins/redirectBtn.pug
 
 block headerScripts
     
@@ -12,4 +12,6 @@ block content
     +title("Log in")
 
     include partials/signupForm.pug
+
+    +rdirBtn("Already have an account? Log in!", "./login")
 
