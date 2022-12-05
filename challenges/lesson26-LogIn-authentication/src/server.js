@@ -111,7 +111,7 @@ app.get('/home', isAuth, (req, res) => {
         {
             loggedUser: req.user.username
         }
-        );
+    );
 });
 
 //-- test with faker.js --/

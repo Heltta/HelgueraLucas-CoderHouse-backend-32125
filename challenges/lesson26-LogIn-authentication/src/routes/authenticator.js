@@ -34,7 +34,7 @@ logInRouter.post(
         {
             failureFlash: true,
             successRedirect: '/home',
-            failureRedirect: '/login'
+            failureRedirect: './login/fail'
         }
     )
 );
@@ -43,8 +43,8 @@ logInRouter.get('/fail', (req, res) => {
     res.render(
         './error.pug',{
         error: new Error({
-            code: 500,
-            description: "Unexpected log in error",
+            code: 300,
+            description: "Log in error",
         })}
     );
 });
@@ -60,7 +60,7 @@ signUpRouter.post('/', islogged,
         {
             failureFlash: true,
             successRedirect: '/home',
-            failureRedirect: '/signup',
+            failureRedirect: './signup/fail',
         }
     )
 );
@@ -69,8 +69,8 @@ signUpRouter.get('/fail', (req, res) => {
     res.render(
         './error.pug',{
         error: new Error({
-            code: 500,
-            description: "Unexpected sign up error",
+            code: 300,
+            description: "Sign up error",
         })}
     );
 });
