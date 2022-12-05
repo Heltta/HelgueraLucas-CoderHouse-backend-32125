@@ -1,5 +1,6 @@
 import { Router }  from 'express';
 import passport from '../lib/passportSetUp.js';
+import Error from '../models/error.js';
 
 // Define parent router
 const authenticatorRouter = Router()
@@ -39,7 +40,13 @@ logInRouter.post(
 );
 
 logInRouter.get('/fail', (req, res) => {
-    res.render('./login.pug');
+    res.render(
+        './error.pug',{
+        error: new Error({
+            code: 500,
+            description: "Unexpected log in error",
+        })}
+    );
 });
 
 //-- SignIn Routes --/
@@ -59,7 +66,13 @@ signUpRouter.post('/', islogged,
 );
 
 signUpRouter.get('/fail', (req, res) => {
-    res.render('./signup.pug');
+    res.render(
+        './error.pug',{
+        error: new Error({
+            code: 500,
+            description: "Unexpected sign up error",
+        })}
+    );
 });
 
 //-- SignIn Routes --/
