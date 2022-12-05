@@ -6,8 +6,7 @@ import User from '../models/user.js';
 /////////// Authentication helpers ////////////
 
 const isValidPassword = (user, password) => {
-    return (password === user.passwordHash)
-    // return bcrypt.compareSync(password, user.password)
+    return bcrypt.compareSync(password, user.passwordHash);
 }
 
 function createHash(password) {
@@ -51,7 +50,7 @@ async function signUp (req, userEmail, password, done) {
         const newUser = new User({
             userName: req.body.userName,
             email: userEmail,
-            passwordHash: password,
+            passwordHash: createHash(password),
         });
 
         try{
