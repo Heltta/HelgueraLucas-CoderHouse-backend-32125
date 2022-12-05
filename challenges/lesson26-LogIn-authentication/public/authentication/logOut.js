@@ -3,7 +3,7 @@
 let logOut = document.querySelector("#log_out");
 logOut.addEventListener("click", e =>{
     e.preventDefault();
-    fetch(`http://localhost:8080/session/logout`,{
+    fetch(`http://localhost:8080/auth/logout`,{
         method: 'GET',
         redirect: 'follow',
     })
