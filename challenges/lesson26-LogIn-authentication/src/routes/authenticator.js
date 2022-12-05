@@ -6,13 +6,28 @@ const authenticatorRouter = Router()
 // Define children routers
 const  logInRouter = Router();
 const  signUpRouter = Router();
+const  logOutRouter = Router();
+
+const isAuth = (req,res,next) => {
+    if(req.isAuthenticated()) next();
+    else res.redirect("/auth/login");
+}
+const islogged = (req,res,next) => {
+    if(req.isAuthenticated()) res.redirect("/home");
+    else next();
+}
 
 //-- LogIn Routes --/
-logInRouter.get('/', (req, res) => {
+logInRouter.get(
+    '/',
+    islogged,
+    (req, res) => {
     res.render('./login.pug');
 });
 
-logInRouter.post('/',
+logInRouter.post(
+    '/',
+    islogged,
     passport.authenticate(
         'login',
         {
@@ -28,11 +43,11 @@ logInRouter.get('/fail', (req, res) => {
 });
 
 //-- SignIn Routes --/
-signUpRouter.get('/', (req, res) => {
+signUpRouter.get('/', islogged, (req, res) => {
     res.render('./signup.pug');
 });
 
-signUpRouter.post('/',
+signUpRouter.post('/', islogged,
     passport.authenticate(
         'signup-local',
         {
@@ -47,8 +62,17 @@ signUpRouter.get('/fail', (req, res) => {
     res.render('./signup.pug');
 });
 
+//-- SignIn Routes --/
+logOutRouter.get('/', (req, res) =>{
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/auth/login');
+    });
+})
+
 // Set up children routes
 authenticatorRouter.use('/login', logInRouter)
 authenticatorRouter.use('/signup', signUpRouter)
+authenticatorRouter.use('/logout', logOutRouter);
 
 export default authenticatorRouter;

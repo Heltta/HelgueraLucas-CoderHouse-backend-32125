@@ -95,12 +95,17 @@ app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 //////////// Other routes /////////////
 
+const isAuth = (req,res,next) => {
+  if(req.isAuthenticated()) next()
+  else res.redirect("/auth/login");
+}
+
 //-- Authenticator routes --/
 import authenticatorRouter from './routes/authenticator.js';
 app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
-app.get('/home',  (req, res) => {
+app.get('/home', isAuth, (req, res) => {
     res.render('./home.pug');
 });
 
