@@ -45,7 +45,7 @@ const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
 //////////// Template engine //////////
-app.set('view engine', 'ejs'); // register pug
+// app.set('view engine', 'ejs'); // register pug
 
 
 //////////// Middleware ///////////////
@@ -106,7 +106,12 @@ app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
 app.get('/home', isAuth, (req, res) => {
-    res.render('./home.pug');
+    res.render(
+        './home.pug',
+        {
+            loggedUser: req.user.username
+        }
+        );
 });
 
 //-- test with faker.js --/

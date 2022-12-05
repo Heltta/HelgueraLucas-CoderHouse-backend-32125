@@ -13,6 +13,7 @@ block headerScripts
 block content
     //- form subir archivo 
     +title("Ingresar productos")
+    div(class="p-5") Welcome #{loggedUser}
     +logOut()
     form(action="/api/products" method="post" class="p-5" id="addProdForm")
         div(class="row mb-3")

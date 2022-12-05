@@ -23,7 +23,7 @@ logInRouter.get(
     '/',
     islogged,
     (req, res) => {
-    res.render('./login.pug');
+        res.render('./login.pug');
 });
 
 logInRouter.post(
