@@ -27,7 +27,8 @@ class Container {
         try{
             const rows = await 
                 this.model.find(objCondition);
-            return rows
+            if(rows.length === 0) return null
+            else return rows.map( model => model._doc );
         }
         catch(error) {
             console.log(error); throw error;
@@ -99,6 +100,13 @@ class Container {
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
         const content = await this.#findDocuments({_id: id}); 
         return content
+    }
+    
+    async findOne(condition){
+        //Recibe un id y devuelve el objeto con ese id, o [] si no está.
+        const content = await this.#findDocuments(condition)[0];
+        if(content) return content;
+        else return [];
     }
 
     async getAll(){
