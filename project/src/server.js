@@ -1,28 +1,96 @@
-import express, { json, urlencoded, static as serveStatic } from 'express';
+import 
+    express, 
+    { 
+        static as serveStatic,
+        json,
+        urlencoded,
+    }
+from 'express';
+
+import { Server as HttpServer } from 'http';
+import { Server as IOServer }  from 'socket.io';
+
+import { SERVER_PORT as DefaultPORT } from './config/dotEnVar.js'
+
+//////////// Template engine //////////
+import pug from 'pug';
+
+//////////// Dev. libraries /////////////
+import { faker } from '@faker-js/faker';
+
+//////////// Static config libraries ////
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import Error from './models/error.js';
-import { SERVER_PORT as DefaultPORT } from './config/dotEnVar.js'
-import { Server as HttpServer } from 'http';
 
+//////////// Parsers libraries //////////
+import normalizr  from 'normalizr';
+import cookieParser from 'cookie-parser';
+
+//////////// Session libraries //////////
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+
+//////////// (other) Middleware /////////
+import flash from 'express-flash';
+import passport from './lib/passportSetUp.js';
+
+//////////// Model imports ////////////
+import Error from './models/error.js';
+import Product from './models/product.js';
+import Message from './models/message.js';
+
+//////////// Controllers imports //////
+import ContainerMongo from './controllers/containerMongoDB.js';
+
+
+/////////// Server config /////////////
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const httpServer = new HttpServer(app);
-
-//////////// Template engine //////////
-app.set('view engine', 'ejs'); // register pug
+const io = new IOServer(httpServer);
 
 
 //////////// Middleware ///////////////
+
 //-- Express middleware ---------//
 app.use(json());
 app.use(urlencoded({ extended:true }));
+
+//-- Cookie, session, storage ---//
+app.use(cookieParser());
+app.use(flash());
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
+app.use(session({
+    secret: "keyboard cat",
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/test',
+        mongoOptions: advancedOptions,
+        ttl: 60 * 5 //  seconds
+    }),
+    cookie: {
+      httpOnly: false,
+      secure: false,
+      maxAge: 60000,
+    },
+    rolling: true,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
 //-- Custom APIs ---------------//
-import products from './routes/productsAPI.js';
+import productsRoutes from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
-app.use('/api/products', products);
+import sessionAPI from './routes/sessionAPI.js'
+app.use('/api/products', productsRoutes);
 app.use('/api/cart', cart);
+app.use('/session', sessionAPI);
+
+//-- Authentication ---//
+app.use(passport.initialize());
+app.use(passport.session());
+
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
