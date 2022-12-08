@@ -21,9 +21,9 @@ class Container {
         console.log(`Conection with MongoDB starter for ${this.coll} collection `);
     }
 
-    async #selectRows(objCondition = {}){
-        // Select all rows from table stored at DB that pass a condition.
-        // If not condition is passed, then return all table's rows.
+    async #findDocuments(objCondition = {}){
+        // Seach all docs from container collection stored at DB that pass a condition.
+        // If not condition is passed, then return all docs inside the collection.
         try{
             const rows = await 
                 this.model.find(objCondition);
@@ -34,7 +34,7 @@ class Container {
         };
     }
 
-    async #inserDocument(obj){
+    async #insertDocument(obj){
         // Insert object as a row into table
         const { id, ...objData } = obj;
         try{
@@ -47,7 +47,7 @@ class Container {
         };
     }
 
-    async #uptadeRows(objCondition,obj){
+    async #updateDocuments(objCondition,obj){
         // Update all rows from table stored at DB that pass a condition
         // from a data object and return updated fields
         try{
@@ -81,7 +81,7 @@ class Container {
     async save(data){
         // Store object data as a row into table
         try{
-            return await this.#inserDocument(data)
+            return await this.#insertDocument(data)
         }
         catch(error) {
             console.log(error);
@@ -92,18 +92,18 @@ class Container {
         // Update fields inside row with given id.
         // objData parameter contains the keys of the fields
         // and the new content of those.
-        return await this.#uptadeRows({_id:id}, objData);
+        return await this.#updateDocuments({_id:id}, objData);
     }
     
     async getById(id){
         //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#selectRows({_id: id}); 
+        const content = await this.#findDocuments({_id: id}); 
         return content
     }
 
     async getAll(){
         //Devuelve un array con los objetos presentes en el archivo.
-        return await this.#selectRows();
+        return await this.#findDocuments();
     }
 
     async deleteById(id){
