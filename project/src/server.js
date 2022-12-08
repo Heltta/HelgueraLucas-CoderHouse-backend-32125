@@ -95,6 +95,46 @@ app.use(passport.session());
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
+
+//////////// Other routes /////////////
+
+const isAuth = (req,res,next) => {
+  if(req.isAuthenticated()) next();
+  else res.redirect("/auth/login");
+};
+
+//-- Authenticator routes --/
+import authenticatorRouter from './routes/authenticator.js';
+app.use('/auth', authenticatorRouter);
+
+//-- Home routes --/
+app.get('/home', isAuth, (req, res) => {
+    res.render(
+        './home.pug',
+        {
+            loggedUser: req.user.username
+        }
+    );
+});
+
+//-- test with faker.js --/
+app.get('/api/products-test', (req, res) => {
+    const fakeProducts = [];
+    for(let i=0;i<5;i++){
+        const fakeProd = new Product({
+            id: faker.datatype.number(),
+            name: faker.commerce.productName(),
+            description: faker.commerce.productDescription(),
+            code: faker.datatype.uuid(),
+            photoURL: faker.image.imageUrl(),
+            price: faker.commerce.price(),
+            stock: faker.datatype.number({ min: 100, max: 8000})
+        })
+        fakeProducts.push(fakeProd);
+    };
+    res.status(302).send(fakeProducts);
+})
+
 //-- Handle Not Implemented requests --/
 app.all('/*', (req, res) => {
     res.status(501).send(new Error({
