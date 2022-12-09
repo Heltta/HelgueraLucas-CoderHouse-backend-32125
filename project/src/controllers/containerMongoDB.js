@@ -25,10 +25,10 @@ class Container {
         // Seach all docs from container collection stored at DB that pass a condition.
         // If not condition is passed, then return all docs inside the collection.
         try{
-            const rows = await 
+            const modelList = await 
                 this.model.find(objCondition);
-            if(rows.length === 0) return null
-            else return rows.map( model => model._doc );
+            if(modelList.length === 0) return null
+            else return modelList.map( model => model._doc );
         }
         catch(error) {
             console.log(error); throw error;
@@ -105,7 +105,7 @@ class Container {
     async findOne(condition){
         //Recibe un id y devuelve el objeto con ese id, o null si no está.
         try{
-            const content = await this.#findDocuments(condition)[0];
+            const content = (await this.#findDocuments(condition))[0];
             if(content) return content;
             else return null;
         }
