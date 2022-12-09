@@ -37,7 +37,6 @@ import passport from './lib/passportSetUp.js';
 //////////// Model imports ////////////
 import Error from './models/error.js';
 import Product from './models/product.js';
-import Message from './models/message.js';
 
 //////////// Controllers imports //////
 import ContainerMongo from './controllers/containerMongoDB.js';
@@ -82,10 +81,8 @@ app.use(session({
 //-- Custom APIs ---------------//
 import productsRoutes from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
-import sessionAPI from './routes/sessionAPI.js'
 app.use('/api/products', productsRoutes);
 app.use('/api/cart', cart);
-app.use('/session', sessionAPI);
 
 //-- Authentication ---//
 app.use(passport.initialize());
