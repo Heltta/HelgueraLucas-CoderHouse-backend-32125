@@ -1,0 +1,16 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include mixins/pageTitle.pug
+include mixins/redirectBtn.pug
+
+block headerScripts
+    
+
+block content
+    //- form subir archivo 
+    +title("Log in")
+
+    include partials/loginForm.pug
+
+    +rdirBtn("Create new account", "./signup")

@@ -1,0 +1,14 @@
+include ../mixins/formInputField.pug
+
+form(action="/auth/login" method="post" class="p-5" id="session_login")
+    +formInputField(
+        'Email',
+        'email',
+        'email'
+    )
+    +formInputField(
+        'Password',
+        'passwordHash',
+        'password'
+    )
+    input(type="submit" value="Log In" class="btn btn-primary")

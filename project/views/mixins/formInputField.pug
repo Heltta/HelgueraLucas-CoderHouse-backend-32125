@@ -1,0 +1,4 @@
+mixin formInputField(labelText, tagID, inputType)
+    div(class="row mb-3")
+        label(for=tagID  class="form-label") #{labelText}
+        input(type=inputType class="form-control" name=tagID id=tagID)
