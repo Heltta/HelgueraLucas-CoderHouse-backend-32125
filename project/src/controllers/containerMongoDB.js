@@ -103,10 +103,15 @@ class Container {
     }
     
     async findOne(condition){
-        //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#findDocuments(condition)[0];
-        if(content) return content;
-        else return [];
+        //Recibe un id y devuelve el objeto con ese id, o null si no está.
+        try{
+            const content = await this.#findDocuments(condition)[0];
+            if(content) return content;
+            else return null;
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 
     async getAll(){
