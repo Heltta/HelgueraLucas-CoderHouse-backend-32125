@@ -20,6 +20,10 @@ const app = express();
 app.use(json());
 app.use(urlencoded({ extended:true }));
 
+//////////// Routing //////////////////
+import baseRoute from "./routes/main.routes.js";
+app.use('', baseRoute);
+
 /////////// Turn on server ///////////
 const PORT = 8080
 const server = app.listen(PORT, () => {
