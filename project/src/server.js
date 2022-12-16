@@ -15,9 +15,6 @@ import { SERVER_PORT as DefaultPORT } from './config/dotEnVar.js'
 //////////// Template engine //////////
 import pug from 'pug';
 
-//////////// Dev. libraries /////////////
-import { faker } from '@faker-js/faker';
-
 //////////// Static config libraries ////
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -83,6 +80,10 @@ import productsRoutes from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
 app.use('/api/products', productsRoutes);
 app.use('/api/cart', cart);
+//-- Tests routes --/
+import testsRouter from './routes/tests.js';
+app.use('/test', testsRouter);
+
 
 //-- Authentication ---//
 app.use(passport.initialize());
@@ -113,24 +114,6 @@ app.get('/home', isAuth, (req, res) => {
         }
     );
 });
-
-//-- test with faker.js --/
-app.get('/api/products-test', (req, res) => {
-    const fakeProducts = [];
-    for(let i=0;i<5;i++){
-        const fakeProd = new Product({
-            id: faker.datatype.number(),
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            code: faker.datatype.uuid(),
-            photoURL: faker.image.imageUrl(),
-            price: faker.commerce.price(),
-            stock: faker.datatype.number({ min: 100, max: 8000})
-        })
-        fakeProducts.push(fakeProd);
-    };
-    res.status(302).send(fakeProducts);
-})
 
 //-- Handle Not Implemented requests --/
 app.all('/*', (req, res) => {
