@@ -18,7 +18,7 @@ class Container {
             useNewUrlParser: true, 
             useUnifiedTopology: true 
         })
-        console.log(`Conection with MongoDB starter for ${this.coll} collection `);
+        console.log(`Conection with MongoDB started for ${this.coll} collection `);
     }
 
     async #findDocuments(objCondition = {}){
