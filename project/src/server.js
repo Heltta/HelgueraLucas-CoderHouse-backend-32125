@@ -80,6 +80,9 @@ import productsRoutes from './routes/productsAPI.js';
 import cart from './routes/cartsAPI.js';
 app.use('/api/products', productsRoutes);
 app.use('/api/cart', cart);
+//-- Info routes --/
+import infoRouter from './routes/processInfo.js';
+app.use('/info', infoRouter);
 //-- Tests routes --/
 import testsRouter from './routes/tests.js';
 app.use('/test', testsRouter);
