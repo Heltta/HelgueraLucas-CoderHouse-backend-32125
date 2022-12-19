@@ -39,6 +39,14 @@ import Product from './models/product.js';
 import ContainerMongo from './controllers/containerMongoDB.js';
 
 
+//////////// CLI Args & dotENV ////////
+import { 
+    SERVER_PORT as auxiliarServerPort
+} from './config/dotEnVar.js'
+import yargs from 'yargs';
+const CLIArguments = yargs(process.argv.slice(2)).argv;
+
+
 /////////// Server config /////////////
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -130,7 +138,7 @@ app.all('/*', (req, res) => {
 })
 
 //////////// Turn on server ///////////
-const PORT = DefaultPORT || 8080
+const PORT = CLIArguments.server_port || DefaultPORT || 8080
 const server = httpServer.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
 });
