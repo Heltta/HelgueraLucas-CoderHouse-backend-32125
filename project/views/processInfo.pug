@@ -1,0 +1,26 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include mixins/pageTitle.pug
+include mixins/redirectBtn.pug
+
+block headerScripts
+    
+
+block content
+    //- form subir archivo 
+    +title("Server Process information")
+
+    section(id="informationDisplay")
+
+    script(src="ejs.js")
+    script(src="views/renderTemplate.js")
+    script.
+        dataToRenderedTemplate (
+            'informationDisplay',
+            'views/templates/serverProcessInfo.ejs',
+            '/info/api',
+            'processInfo'
+        )
+
+    section(class="p-5")

@@ -1,0 +1,20 @@
+<ul class="px-5 list-group">
+    <% Object.keys(processInfo).forEach(infokey => { %>
+        <li class="list-group-item">
+            <%= infokey %>
+            <% if (typeof processInfo[infokey] === 'object') { %>
+                <ul class="list-group">
+                    <% Object.keys(processInfo[infokey])
+                        .forEach(infoChildProp => { %>
+                        <li class="list-group-item">
+                            <%= infoChildProp %> :
+                            <%= processInfo[infokey][infoChildProp] %>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% }else{ %> 
+                : <%= processInfo[infokey] %>
+            <% } %>
+        </li>
+    <% }) %>
+</ul>

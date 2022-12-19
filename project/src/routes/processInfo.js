@@ -4,7 +4,10 @@ import {
 
 const infoRouter = Router();
 
-infoRouter.get('/', (req, res) =>{
+infoRouter.get('/', (req, res) => {
+    res.render('./processInfo.pug');
+})
+infoRouter.get('/api/', (req, res) =>{
     res.status(200).send({
         arguments: process.argv,
         operatingSystem: process.platform,
