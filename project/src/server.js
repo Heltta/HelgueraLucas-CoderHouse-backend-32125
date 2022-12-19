@@ -10,8 +10,6 @@ from 'express';
 import { Server as HttpServer } from 'http';
 import { Server as IOServer }  from 'socket.io';
 
-import { SERVER_PORT as DefaultPORT } from './config/dotEnVar.js'
-
 //////////// Template engine //////////
 import pug from 'pug';
 
@@ -40,11 +38,18 @@ import ContainerMongo from './controllers/containerMongoDB.js';
 
 
 //////////// CLI Args & dotENV ////////
-import { 
-    SERVER_PORT as auxiliarServerPort
+import {
+    SESSION_SECRET,
+    SESSION_STORE_TTL,
+    SESSION_STORE_MONGOURL,
+    SESSION_COOKIE_HTTPONLY,
+    SESSION_COOKIE_SECURE,
+    SESSION_COOKIE_MAXAGE,
+    SERVER_PORT as auxiliarServerPort,
 } from './config/dotEnVar.js'
-import yargs from 'yargs';
-const CLIArguments = yargs(process.argv.slice(2)).argv;
+import { 
+    server_port as primaryServerPort
+} from './config/CLIarguments.js';
 
 
 /////////// Server config /////////////
@@ -66,16 +71,16 @@ app.use(cookieParser());
 app.use(flash());
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
 app.use(session({
-    secret: "keyboard cat",
+    secret: SESSION_SECRET,
     store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost/test',
+        mongoUrl: SESSION_STORE_MONGOURL,
         mongoOptions: advancedOptions,
-        ttl: 60 * 5 //  seconds
+        ttl: SESSION_STORE_TTL
     }),
     cookie: {
-      httpOnly: false,
-      secure: false,
-      maxAge: 60000,
+      httpOnly: SESSION_COOKIE_HTTPONLY,
+      secure: SESSION_COOKIE_SECURE,
+      maxAge: SESSION_COOKIE_MAXAGE,
     },
     rolling: true,
     resave: true,
@@ -138,7 +143,7 @@ app.all('/*', (req, res) => {
 })
 
 //////////// Turn on server ///////////
-const PORT = CLIArguments.server_port || DefaultPORT || 8080
+const PORT = primaryServerPort || auxiliarServerPort || 8080
 const server = httpServer.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
 });
