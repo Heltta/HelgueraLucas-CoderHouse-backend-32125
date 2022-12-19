@@ -86,6 +86,9 @@ app.use('/info', infoRouter);
 //-- Tests routes --/
 import testsRouter from './routes/tests.js';
 app.use('/test', testsRouter);
+//-- Random routes --/
+import randomApiRouter from './routes/randomAPI.js';
+app.use('/api/random', randomApiRouter);
 
 
 //-- Authentication ---//
