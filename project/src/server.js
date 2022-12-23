@@ -90,18 +90,21 @@ app.use(session({
 
 //-- Custom APIs ---------------//
 import productsRoutes from './routes/productsAPI.js';
-import cart from './routes/cartsAPI.js';
 app.use('/api/products', productsRoutes);
+
+import cart from './routes/cartsAPI.js';
 app.use('/api/cart', cart);
+
+import randomApiRouter from './routes/randomAPI.js';
+app.use('/api/random', randomApiRouter);
+
 //-- Info routes --/
 import infoRouter from './routes/processInfo.js';
 app.use('/info', infoRouter);
+
 //-- Tests routes --/
 import testsRouter from './routes/tests.js';
 app.use('/test', testsRouter);
-//-- Random routes --/
-import randomApiRouter from './routes/randomAPI.js';
-app.use('/api/random', randomApiRouter);
 
 
 //-- Authentication ---//
@@ -114,18 +117,18 @@ app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 //////////// Other routes /////////////
-
-const isAuth = (req,res,next) => {
-  if(req.isAuthenticated()) next();
-  else res.redirect("/auth/login");
-};
+import routeProtector from './middleware/routeProtection.js';
+import assert from 'assert';
 
 //-- Authenticator routes --/
 import authenticatorRouter from './routes/authenticator.js';
 app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
-app.get('/home', isAuth, (req, res) => {
+app.get(
+    '/home',
+    routeProtector.onlyAuthenticated,
+    (req, res) => {
     res.render(
         './home.pug',
         {
