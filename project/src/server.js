@@ -127,6 +127,16 @@ app.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
 app.get(
+    '/',
+    (req, res) => {
+    res.render(
+        './home.pug',
+        {
+            loggedUser: req.user?.username
+        }
+    );
+});
+app.get(
     '/home',
     routeProtector.onlyAuthenticated,
     (req, res) => {

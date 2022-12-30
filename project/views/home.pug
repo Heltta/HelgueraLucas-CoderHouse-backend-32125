@@ -1,0 +1,30 @@
+//- main layout
+extends ./layouts/index.pug
+//- partials (mixins)
+include mixins/pageTitle.pug
+include mixins/redirectBtn.pug
+include mixins/logOutBtn.pug
+
+block headerScripts
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+    
+
+block content
+    //- form subir archivo 
+    +title("Home page desafíos backend")
+    - const userName = (loggedUser)? loggedUser : "new user"
+    div(class="p-5") Welcome #{userName}
+    section(class="px-5 py-1")
+        span(class="pr-1")
+            +rdirBtn("Log in", "./auth/login")
+        span(class="px-1")
+            +rdirBtn("Create new account", "./auth/signup")
+        span(class="px-1")
+            +rdirBtn("Main page", "./home")
+    section(class="px-5 py-1")
+        span(class="pr-1")
+            +rdirBtn("Process info", "./info")
+        section
+            +logOut()
+    script(src="/authentication/logOut.js")
