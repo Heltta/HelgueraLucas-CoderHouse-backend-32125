@@ -88,37 +88,38 @@ app.use(session({
   })
 );
 
-//-- Custom APIs ---------------//
-import productsRoutes from './routes/productsAPI.js';
-app.use('/api/products', productsRoutes);
-
-import cart from './routes/cartsAPI.js';
-app.use('/api/cart', cart);
-
-import randomApiRouter from './routes/randomAPI.js';
-app.use('/api/random', randomApiRouter);
-
-//-- Info routes --/
-import infoRouter from './routes/processInfo.js';
-app.use('/info', infoRouter);
-
-//-- Tests routes --/
-import testsRouter from './routes/tests.js';
-app.use('/test', testsRouter);
-
-
 //-- Authentication ---//
 app.use(passport.initialize());
 app.use(passport.session());
+import routeProtector from './middleware/routeProtection.js';
 
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
 app.use(serveStatic(__dirname + '/../node_modules/bootstrap/dist'));
 app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
-//////////// Other routes /////////////
-import routeProtector from './middleware/routeProtection.js';
-import assert from 'assert';
+
+////////// Routers (APIs & others) ////
+
+//-- Products router --/
+import productsRoutes from './routes/productsAPI.js';
+app.use('/api/products', productsRoutes);
+
+//-- Cart router --/
+import cart from './routes/cartsAPI.js';
+app.use('/api/cart', cart);
+
+//-- Random Api router --/
+import randomApiRouter from './routes/randomAPI.js';
+app.use('/api/random', randomApiRouter);
+
+//-- Info router --/
+import infoRouter from './routes/processInfo.js';
+app.use('/info', infoRouter);
+
+//-- Tests router --/
+import testsRouter from './routes/tests.js';
+app.use('/test', testsRouter);
 
 //-- Authenticator routes --/
 import authenticatorRouter from './routes/authenticator.js';
@@ -144,6 +145,7 @@ app.all('/*', (req, res) => {
         description:'Error: The server does not support the functionality required to fulfill the request'
     }))
 })
+
 
 //////////// Turn on server ///////////
 const PORT = primaryServerPort || auxiliarServerPort || 8080
