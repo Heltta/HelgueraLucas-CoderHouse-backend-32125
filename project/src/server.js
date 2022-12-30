@@ -131,7 +131,7 @@ app.get(
     routeProtector.onlyAuthenticated,
     (req, res) => {
     res.render(
-        './home.pug',
+        './main.pug',
         {
             loggedUser: req.user.username
         }
