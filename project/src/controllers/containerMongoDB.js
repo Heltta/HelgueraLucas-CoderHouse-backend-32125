@@ -1,4 +1,5 @@
 import mongoose, { connect } from "mongoose";
+import { MONGO_URL } from "../config/dotEnVar.js";
 
 
 class Container {
@@ -13,7 +14,7 @@ class Container {
     }
 
     #connectDB(){
-        const URL = 'mongodb://localhost:27017';
+        const URL = MONGO_URL;
         mongoose.connect(URL, { 
             useNewUrlParser: true, 
             useUnifiedTopology: true 
