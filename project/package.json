@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/server.js --server_port 8080",
+    "start": "node ./src/server.js",
+    "startDefaultPort": "node ./src/server.js --server_port 8080",
     "devStart": "nodemon --ignore ./uploads/ ./src/server.js"
   },
   "repository": {
