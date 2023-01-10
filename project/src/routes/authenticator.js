@@ -62,11 +62,12 @@ signUpRouter.post('/', islogged,
 );
 
 signUpRouter.get('/fail', (req, res) => {
-    res.render(
+    const flashError = req.flash('error');
+    res.status(400).render(
         './error.pug',{
         error: new Error({
-            code: 300,
-            description: "Sign up error",
+            code: 400,
+            description: flashError,
         })}
     );
 });

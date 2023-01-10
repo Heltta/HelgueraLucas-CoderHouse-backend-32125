@@ -42,6 +42,7 @@ async function signUp (req, userEmail, password, done) {
             // User is already registered
             // Then, error is null and user is false
             console.log('Error, user already exists')
+            req.flash('error', `User already exists`);
             return done(null, false);
         }
 
@@ -61,11 +62,13 @@ async function signUp (req, userEmail, password, done) {
         }
         catch(err){
             console.log(`Error in saving user: ${err}`);
+            req.flash('error', `Error in saving user: ${err}`);
             return done(err);
         }
     }
     catch(err) {
         console.log(`Error in signUp: ${err}`);
+        req.flash('error', `Error in signUp: ${err}`);
         return done(err);
     }
 }
