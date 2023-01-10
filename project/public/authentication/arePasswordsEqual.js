@@ -1,5 +1,5 @@
 
-const passwordOriginal = document.querySelector("#passwordHash");
+const passwordOriginal = document.querySelector("#inputPassword");
 const passwordConfirm = document.querySelector("#confirmPassword");
 
 const signup = document.querySelector("#session_signup");

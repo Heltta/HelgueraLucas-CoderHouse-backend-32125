@@ -1,19 +1,21 @@
 include ../mixins/formInputField.pug
 
 form(action="/auth/signup" method="post" class="p-5" id="session_signup")
+    //- Email fields
     +formInputField(
         'Email',
-        'email',
+        'inputEmail',
         'email'
     )
     +formInputField(
-        'Username',
-        'userName',
-        'text'
+        'Email',
+        'confirmEmail',
+        'email'
     )
+    //- Password fields
     +formInputField(
         'Set password',
-        'passwordHash',
+        'inputPassword',
         'password'
     )
     +formInputField(
@@ -21,4 +23,29 @@ form(action="/auth/signup" method="post" class="p-5" id="session_signup")
         'confirmPassword',
         'password'
     )
-    input(type="submit" value="Sign In" class="btn btn-primary")
+    //- Personal information fields
+    +formInputField(
+        'Name',
+        'name',
+        'text'
+    )
+    +formInputField(
+        'Home address',
+        'homeAddress',
+        'text'
+    )
+    +formInputField(
+        'Age',
+        'age',
+        'number'
+    )
+    +formInputField(
+        'Phone number',
+        'phoneNumber',
+        'tel'
+    )
+    div(class="row mb-3")
+        label(for="avatar"  class="form-label") Profile picture
+        input(type="file" id="avatar" name="avatar" accept="image/png, image/jpeg")
+
+    input(type="submit" value="Sign up" class="btn btn-primary")

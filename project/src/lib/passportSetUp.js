@@ -92,8 +92,8 @@ passport.use(
     "signup-local",
     new LocalStrategy(
         {
-            usernameField: 'email',
-            passwordField: 'passwordHash',
+            usernameField: 'inputEmail',
+            passwordField: 'inputPassword',
             passReqToCallback: true,
         },
         signUp
