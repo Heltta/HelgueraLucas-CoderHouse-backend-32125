@@ -92,7 +92,6 @@ app.use(session({
 //-- Authentication ---//
 app.use(passport.initialize());
 app.use(passport.session());
-import routeProtector from './middleware/routeProtection.js';
 
 //-- Client files (mw: static) --//
 app.use(serveStatic(__dirname + '/../public')) ;
@@ -102,60 +101,8 @@ app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 ////////// Routers (APIs & others) ////
 
-//-- Products router --/
-import productsRoutes from './routes/productsAPI.js';
-app.use('/api/products', productsRoutes);
-
-//-- Cart router --/
-import cart from './routes/cartsAPI.js';
-app.use('/api/cart', cart);
-
-//-- Random Api router --/
-import randomApiRouter from './routes/randomAPI.js';
-app.use('/api/random', randomApiRouter);
-
-//-- Info router --/
-import infoRouter from './routes/processInfo.js';
-app.use('/info', infoRouter);
-
-//-- Tests router --/
-import testsRouter from './routes/tests.js';
-app.use('/test', testsRouter);
-
-//-- Authenticator routes --/
-import authenticatorRouter from './routes/authenticator.js';
-app.use('/auth', authenticatorRouter);
-
-//-- Home routes --/
-app.get(
-    '/',
-    (req, res) => {
-    res.render(
-        './home.pug',
-        {
-            loggedUser: req.user?.username
-        }
-    );
-});
-app.get(
-    '/home',
-    routeProtector.onlyAuthenticated,
-    (req, res) => {
-    res.render(
-        './main.pug',
-        {
-            loggedUser: req.user.username
-        }
-    );
-});
-
-//-- Handle Not Implemented requests --/
-app.all('/*', (req, res) => {
-    res.status(501).send(new Error({
-        code:501,
-        description:'Error: The server does not support the functionality required to fulfill the request'
-    }))
-})
+import primaryRouter from './routes/primaryRouter.js';
+app.use('/', primaryRouter);
 
 
 //////////// Turn on server ///////////
