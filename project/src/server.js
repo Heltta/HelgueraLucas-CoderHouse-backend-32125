@@ -7,6 +7,8 @@ import
     }
 from 'express';
 
+import logger from './config/logger.js';
+
 import { Server as HttpServer } from 'http';
 import { Server as IOServer }  from 'socket.io';
 
@@ -100,9 +102,9 @@ app.use(serveStatic(__dirname + '/../node_modules/ejs'));
 
 
 ////////// Routers (APIs & others) ////
-
+import { requestInfo } from './middleware/logger.middleware.js';
 import primaryRouter from './routes/primaryRouter.js';
-app.use('/', primaryRouter);
+app.use('/', requestInfo, primaryRouter);
 
 
 //////////// Turn on server ///////////

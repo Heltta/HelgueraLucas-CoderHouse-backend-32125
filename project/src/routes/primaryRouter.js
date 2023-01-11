@@ -62,7 +62,8 @@ primaryRouter.get(
 );
 
 //-- Handle Not Implemented requests --/
-primaryRouter.all('*', (req, res) => {
+import { reqNotImplementedWarn } from '../middleware/logger.middleware.js';
+primaryRouter.all('*', reqNotImplementedWarn, (req, res) => {
     res.status(501).send(new Error({
         code:501,
         description:'Error: The server does not support the functionality required to fulfill the request'
