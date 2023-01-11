@@ -8,7 +8,7 @@ export const DATA_STORAGE_TYPE =
     'MongoDB';
 export const MONGO_URL = 
     process.env.MONGO_URL ||
-    'mongodb://localhost:27017';
+    'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/test';
 
 
 
@@ -21,7 +21,7 @@ export const SESSION_STORE_TTL =
     60 * 5; // seconds
 export const SESSION_STORE_MONGOURL =
     process.env.SESSION_STORE_MONGOURL ||
-    'mongodb://localhost/test';
+    'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/test';
 export const SESSION_COOKIE_HTTPONLY =
     process.env.SESSION_COOKIE_HTTPONLY ||
     false; 
