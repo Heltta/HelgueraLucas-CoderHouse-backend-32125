@@ -41,12 +41,22 @@ if (process.env.NODE_ENV !== 'production') {
             format.simple()
         )
     }));
-    logger.log('silly',   "Winston test log (NODE_ENV !== 'production') - log silly")
-    logger.log('debug',   "Winston test log (NODE_ENV !== 'production') - log debug")
-    logger.log('verbose', "Winston test log (NODE_ENV !== 'production') - log verbose")
-    logger.log('info',    "Winston test log (NODE_ENV !== 'production') - log info")
-    logger.log('warn',    "Winston test log (NODE_ENV !== 'production') - log warn")
-    logger.log('error',   "Winston test log (NODE_ENV !== 'production') - log error")
+  }
+  
+/**
+ * Runs a series of logs for testing.
+ * 
+ * Executes one log method of the logger for each log level, each method logs a simple String Literals.
+ * 
+ * @param {winston.logger} logger The logger object created with winston library.
+ */
+function testLogger(logger){
+  logger.log('silly',   "Winston test log - log silly")
+  logger.log('debug',   "Winston test log - log debug")
+  logger.log('verbose', "Winston test log - log verbose")
+  logger.log('info',    "Winston test log - log info")
+  logger.log('warn',    "Winston test log - log warn")
+  logger.log('error',   "Winston test log - log error")
 }
 
 
@@ -54,3 +64,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 export default logger;
+export {
+  testLogger,
+}
