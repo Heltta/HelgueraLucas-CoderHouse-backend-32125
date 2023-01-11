@@ -1,5 +1,6 @@
 // import * as fs from 'node:fs';
 import { promises } from 'fs';
+import logger from '../config/logger.js';
 
 class Container {
     constructor(filePath){
@@ -17,7 +18,7 @@ class Container {
             return parsedContent;
         }
         catch(error) {
-            console.log(error);
+            logger.log(error);
         }
     }
 
@@ -31,7 +32,7 @@ class Container {
             )
         }
         catch(error) {
-            console.log(error);
+            logger.log(error);
         }
     }
 
@@ -51,7 +52,7 @@ class Container {
             return objId
         }
         catch(error) {
-            console.log(error);
+            logger.log(error);
         }
     }
 

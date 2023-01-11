@@ -1,4 +1,5 @@
 import myknex  from '../config/mariaDB.js';
+import logger from '../config/logger.js';
 
 class Container {
     constructor(tableName, modelClass){
@@ -24,7 +25,7 @@ class Container {
             return rows
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -36,7 +37,7 @@ class Container {
             return id[0];
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -49,7 +50,7 @@ class Container {
                     delete obj[prop];
                 }
             }
-            console.log(obj);
+            
             const rows = await 
                 this.db.from(this.tbl)
                     .update(obj)
@@ -58,7 +59,7 @@ class Container {
             return rows;
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -69,7 +70,7 @@ class Container {
             return id;
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -79,7 +80,7 @@ class Container {
             return await this.#insertRow(data)
         }
         catch(error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 

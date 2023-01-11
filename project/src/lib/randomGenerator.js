@@ -1,4 +1,5 @@
 import yargs from "yargs";
+import logger from "../config/logger";
 
 function createNRandomNumbers (quantity) {
     //Returns a given quantity of random numbers
@@ -15,7 +16,7 @@ function createNRandomNumbers (quantity) {
 }
 
 process.on('message', msg => {
-    console.log(`Father message: ${msg}`);
+    logger.info(`Father message: ${msg}`);
     const parsedArguments = yargs(process.argv.slice(2)).argv;
     const quantity = (typeof parsedArguments.quantity === 'number')?
         parsedArguments.quantity :

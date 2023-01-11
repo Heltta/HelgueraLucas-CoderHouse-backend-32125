@@ -2,6 +2,7 @@ import Container from '../daos/cartsDao.js';
 import Cart from '../models/cart.js';
 import Error from '../models/error.js';
 import express from 'express';
+import logger from '../config/logger.js';
 const { Router } = express;
 
 const router = Router();
@@ -26,7 +27,7 @@ router.post('/', (req, res) =>{
     res.status(102);
     storedCarts.save(cart)
         .then((id)=> res.status(201).send({ id }))
-        .catch( error => console.log(error));
+        .catch( error => logger.error(error));
 })
 
 router.delete('/:id', (req, res) => {
@@ -34,7 +35,7 @@ router.delete('/:id', (req, res) => {
     res.status(102);
     storedCarts.deleteById(req.params.id)
         .then( () =>res.status(200).send())
-        .catch( error => console.log(error));
+        .catch( error => logger.error(error));
 })
 
 router.get('/:id/products', async (req, res) => {
@@ -56,7 +57,7 @@ router.get('/:id/products', async (req, res) => {
                 }));
         }
     } 
-    catch (error) { console.log(error) }
+    catch (error) { logger.error(error) }
 })
 
 router.post('/:id/products', async (req, res) =>{
@@ -100,7 +101,7 @@ router.post('/:id/products', async (req, res) =>{
                     const prod = await prodDB.getById(ID);
                     return prod[0];
                 }
-                catch (error) { console.log(error) }
+                catch (error) { logger.error(error) }
             }));
 
             // Don't add products if some are duplicated
@@ -121,7 +122,7 @@ router.post('/:id/products', async (req, res) =>{
             }
         }
     } 
-    catch (error) { console.log(error) }
+    catch (error) { logger.error(error) }
 })
 
 router.delete('/:id/products/:id_prod', async (req, res) => {
@@ -182,7 +183,7 @@ router.delete('/:id/products/:id_prod', async (req, res) => {
                     code:500,
                     description:'Error: Internal Server Error'
                 }));
-                console.log(error); 
+                logger.error(error); 
             }
         }
     }
@@ -191,11 +192,11 @@ router.delete('/:id/products/:id_prod', async (req, res) => {
             code:500,
             description:'Error: Internal Server Error'
         }));
-        console.log(error); 
+        logger.error(error); 
     }
     // storedCarts.deleteById(cartID)
     //     .then( () =>res.status(200).send())
-    //     .catch( error => console.log(error));
+    //     .catch( error => logger.error(error));
 })
 
 export default router;

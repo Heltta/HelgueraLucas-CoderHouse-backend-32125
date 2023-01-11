@@ -33,7 +33,6 @@ export const SESSION_COOKIE_MAXAGE =
     60000; // miliseconds
 
 //-- Server connection settings --//
-console.log(`Railway PORT es ${process.env.PORT} con interface ${ process.env.SERVER_INTERFACE}`);
 export const SERVER_INTERFACE =
     process.env.SERVER_INTERFACE ||
     '127.0.0.1';

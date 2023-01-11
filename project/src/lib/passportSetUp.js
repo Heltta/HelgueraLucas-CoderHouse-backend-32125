@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { userContainer } from './manageUsers.js';
 import User from '../models/user.js';
+import logger from '../config/logger.js';
 
 
 /////////// Authentication helpers ////////////
@@ -23,11 +24,11 @@ function logIn(userEmail, passwordHash, done) {
     userContainer.findOne({ email: userEmail })
         .then( user => {
             if (!user) {
-                console.log('User Not Found with username ' + userEmail);
+                logger.info('User Not Found with username ' + userEmail);
                 return done(null, false);
             }
             if (!isValidPassword(user, passwordHash)) {
-                console.log('Invalid Password');
+                logger.info('Invalid Password');
                 return done(null, false);
             }
             return done(null, user);
@@ -41,7 +42,7 @@ async function signUp (req, userEmail, password, done) {
         if(existingUser){
             // User is already registered
             // Then, error is null and user is false
-            console.log('Error, user already exists')
+            logger.error('Error, user already exists');
             req.flash('error', `User already exists`);
             return done(null, false);
         }
@@ -56,18 +57,18 @@ async function signUp (req, userEmail, password, done) {
 
         try{
             await userContainer.save(newUser);
-            console.log(newUser);
-            console.log('New user registration successful');
+            logger.info(newUser);
+            logger.info('New user registration successful');
             return done(null, newUser);
         }
         catch(err){
-            console.log(`Error in saving user: ${err}`);
+            logger.error(`Error in saving user: ${err}`);
             req.flash('error', `Error in saving user: ${err}`);
             return done(err);
         }
     }
     catch(err) {
-        console.log(`Error in signUp: ${err}`);
+        logger.error(`Error in signUp: ${err}`);
         req.flash('error', `Error in signUp: ${err}`);
         return done(err);
     }

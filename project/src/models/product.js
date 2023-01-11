@@ -3,6 +3,7 @@ import {
     Schema,
     Types
 } from 'mongoose';
+import logger from '../config/logger.js';
 
 class Product {
     constructor({id, name, description, code, photoURL, price, stock}){
@@ -32,7 +33,7 @@ class Product {
     static createTable(tableName){
         this.#dataBase.schema.hasTable(tableName).then( exists =>{
             if(exists){
-                console.log("table already exists");
+                logger.warn("table already exists");
             }
             else{
                 this.#dataBase.schema.createTable(tableName, table => {
@@ -45,8 +46,8 @@ class Product {
                     table.integer('price');
                     table.integer('stock');
                 })
-                    .then(  _ => console.log("table created"))
-                    .catch( (err) => {console.log(err); throw err});
+                    .then(  _ => logger.info("table created"))
+                    .catch( (err) => {logger.error(err); throw err});
 
             }
         })

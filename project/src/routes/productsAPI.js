@@ -4,6 +4,7 @@ import Error from '../models/error.js';
 import adminRights from '../config/admin.js';
 import express from 'express';
 const { Router } = express;
+import logger from '../config/logger.js';
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.get('/', (req, res) => {
                 code:500,
                 description:'Error: Internal Server Error'
             }))
-            console.log(error)
+            logger.log('error', JSON.stringify(error))
         });
 })
 
@@ -42,7 +43,7 @@ router.get('/:id', (req, res) => {
                 code:500,
                 description:'Error: Internal Server Error'
             }))
-            console.log(error)
+            logger.log('error', JSON.stringify(error))
         });
 })
 
@@ -70,7 +71,7 @@ router.post('/', (req, res) => {
                 code:500,
                 description:'Error: Internal Server Error'
             }))
-            console.log(error)
+            logger.log('error', JSON.stringify(error))
         });
 })
 
@@ -98,7 +99,7 @@ router.put('/:id', (req, res) => {
                 code:500,
                 description:'Error: Internal Server Error'
             }))
-            console.log(error)
+            logger.log('error', JSON.stringify(error))
         });
 })
 
@@ -118,7 +119,7 @@ router.delete('/:id', (req, res) => {
                 code:500,
                 description:'Error: Internal Server Error'
             }))
-            console.log(error)
+            logger.log('error', JSON.stringify(error))
         });
 })
 

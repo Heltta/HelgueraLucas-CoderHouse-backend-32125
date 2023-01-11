@@ -1,5 +1,6 @@
 import mongoose, { connect } from "mongoose";
 import { MONGO_URL } from "../config/dotEnVar.js";
+import logger from '../config/logger.js';
 
 
 class Container {
@@ -19,7 +20,7 @@ class Container {
             useNewUrlParser: true, 
             useUnifiedTopology: true 
         })
-        console.log(`Conection with MongoDB started for ${this.coll} collection `);
+        logger.info(`Conection with MongoDB started for ${this.coll} collection `);
     }
 
     async #findDocuments(objCondition = {}){
@@ -32,7 +33,7 @@ class Container {
             else return modelList.map( model => model._doc );
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -45,7 +46,7 @@ class Container {
             return objSave._id;
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -58,14 +59,14 @@ class Container {
                     delete obj[prop];
                 }
             }
-            console.log(obj);
+            
             const rows = await 
                 this.model.updateOne(objCondition,obj)
 
             return rows;
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -76,7 +77,7 @@ class Container {
             return request.deletedCount;
         }
         catch(error) {
-            console.log(error); throw error;
+            logger.error(error); throw error;
         };
     }
 
@@ -86,7 +87,7 @@ class Container {
             return await this.#insertDocument(data)
         }
         catch(error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
@@ -111,7 +112,7 @@ class Container {
             else return null;
         }
         catch(err) {
-            console.log(err);
+            logger.error(err);
         }
     }
 
