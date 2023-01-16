@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Info: running all tests\" && node --test ./__tests__/",
     "start": "node ./src/server.js",
     "startDefaultPort": "node ./src/server.js --server_port 8080",
     "devStart": "nodemon --ignore ./uploads/ ./src/server.js"
@@ -33,6 +33,7 @@
     "knex": "^2.4.0",
     "mongoose": "6.7.1",
     "mysql": "2.18.1",
+    "nodemailer": "^6.9.0",
     "normalizr": "3.6.2",
     "passport": "0.6.0",
     "passport-local": "1.0.0",
