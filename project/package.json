@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Info: running all tests\" && node --test ./__tests__/",
+    "test": "echo \"Info: running all tests\" && node --test ./__tests__/ > ./__tests__/__result.txt",
     "start": "node ./src/server.js",
     "startDefaultPort": "node ./src/server.js --server_port 8080",
     "devStart": "nodemon --ignore ./uploads/ ./src/server.js"
