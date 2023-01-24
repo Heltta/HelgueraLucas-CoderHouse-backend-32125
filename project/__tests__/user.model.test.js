@@ -1,4 +1,4 @@
-import test from "node:test"
+import {describe, expect, test} from '@jest/globals';
 import assert from 'node:assert/strict';
 import { faker } from "@faker-js/faker";
 
@@ -31,47 +31,16 @@ const newUserConstParameters = {
  */
 const userExample = new User(newUserConstParameters);
 
-test("Users model properties tests", async (t) => {
+describe("Users model properties tests", () => {
 
-    await t.test("No User property is undefined if no null parameter is given", _ => {
-        assert.strictEqual(
-            userExample?.id === undefined,
-            false,
-            "Assert if is \"id\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.email === undefined,
-            false,
-            "Assert if is \"email\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.firstName === undefined,
-            false,
-            "Assert if is \"firstName\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.lastName === undefined,
-            false,
-            "Assert if is \"lastName\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.age === undefined,
-            false,
-            "Assert if is \"age\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.password === undefined,
-            false,
-            "Assert if is \"password\" not undefined"
-        );
-        assert.strictEqual(
-            userExample?.privilegesCategory === undefined,
-            false,
-            "Assert if is \"privilegesCategory\" not undefined"
-        );
+    test("No User property is undefined if no null parameter is given", ()  => {
+        // Test for each of the parameters
+        Object.keys(userExample).forEach(key => {
+            expect(userExample[key]).not.toBeUndefined()
+        });
     })
 
-    await t.test("Constructor throws error if any parameter is nullish", _ => {
+    test("Constructor throws error if any parameter is nullish", () => {
 
         // Test for all parameters (empty object)
         assert.throws(
@@ -94,7 +63,7 @@ test("Users model properties tests", async (t) => {
 
 })
 
-test("User class method functionality tests", _ => {
+test("User class method functionality tests", () => {
 
     assert.strictEqual(
         typeof userExample.fullName,

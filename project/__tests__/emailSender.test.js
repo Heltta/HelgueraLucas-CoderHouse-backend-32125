@@ -1,11 +1,12 @@
-import test from "node:test"
-import assert from 'node:assert/strict';
+import {describe, expect, test} from '@jest/globals';
+// import assert from 'node:assert/strict';
 import { mailTemplateUserReg } from '../src/lib/emailSender.js';
 import { faker } from "@faker-js/faker";
 
-test('mailTemplateUserReg({}) does not include \"undefined\"', _ => {
+
+test('mailTemplateUserReg({}) does not include \"undefined\"', () => {
     const mailContent = mailTemplateUserReg({});
-    assert.strictEqual(mailContent.includes("undefined"), false)
+    expect(mailContent.includes("undefined")).toBe(false)
 })
 
 const mockRegistration = {
@@ -20,7 +21,7 @@ const mockRegistration = {
 };
 
 
-test('mailTemplateUserReg(RegMock) includes each data field', _ => {
+test('mailTemplateUserReg(RegMock) includes each data field', () => {
     const mailContent = mailTemplateUserReg(mockRegistration);
-    assert.strictEqual(mailContent.includes("no data"), false)
+    expect(mailContent.includes("no data")).toBe(false)
 })
