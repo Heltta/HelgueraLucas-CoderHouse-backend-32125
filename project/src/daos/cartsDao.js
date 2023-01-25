@@ -20,10 +20,18 @@ else if(storageType === 'FileSystem'){
     BaseClass = CartsDaoFileSystem;
 }
 
+let instance = null; //needed for a singleton class
+
 class CartsGeneralDao extends BaseClass{
     constructor(){
         super();
     }
+	static getInstance(){
+		if(!instance){
+			instance = new CartsGeneralDao()
+		}
+		return instance
+	}
 }
 
 export default CartsGeneralDao
