@@ -8,7 +8,7 @@ const { Router } = express;
 const router = Router();
 
 /////// Containers ////////////////////////
-const storedCarts = new Container();
+const storedCarts = Container.getInstance();
 import {products as prodDB} from './productsAPI.js'
 
 

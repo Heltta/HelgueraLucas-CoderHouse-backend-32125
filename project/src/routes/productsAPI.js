@@ -8,7 +8,7 @@ import logger from '../config/logger.js';
 
 const router = Router();
 
-const products = new Container();
+const products = Container.getInstance();
 
 
 /////// HTTP request methods routing //////

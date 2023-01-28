@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import { userContainer } from './manageUsers.js';
 import User from '../models/user.js';
 import logger from '../config/logger.js';
+import UsersGeneralDao from '../daos/usersDao.js';
 
-
+const userContainer = UsersGeneralDao.getInstance();
 /////////// Authentication helpers ////////////
 
 const isValidPassword = (user, password) => {
