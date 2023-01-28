@@ -48,5 +48,7 @@ describe("Singleton patron", () => {
                 typeof classInstance.coll
             ).toBe("string");
         })
+        afterAll(()=>{ singletonClass.disconnectDB();}); //prevents openHandles
+
     });
 });
