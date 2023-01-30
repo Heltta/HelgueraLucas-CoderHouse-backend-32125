@@ -5,9 +5,10 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
-    "start": "node ./src/server.js",
-    "startDefaultPort": "node ./src/server.js --server_port 8080",
+    "test": "echo \"Info: running all tests\" && jest",
+    "start": "echo \"App started with PM2 cluster mode\" && pm2 start -i 5 ./src/server.js",
+    "clusterDeleteAll": "pm2 delete all",
+    "artillery": "artillery quick --count 50 -n 40 http://localhost:8080?max=100000",
     "devStart": "nodemon --ignore ./uploads/ ./src/server.js"
   },
   "jest": {
