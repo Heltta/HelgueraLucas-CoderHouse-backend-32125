@@ -1,14 +1,18 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
-
 //-- Data storage settings --//
 export const DATA_STORAGE_TYPE = 
     process.env.DATA_STORAGE_TYPE ||
     'MongoDB';
 export const MONGO_URL = 
     process.env.MONGO_URL ||
-    'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/test';
+    (
+        (process.env.MONGO_DEPLOY ||
+        'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/') + 
+        (process.env.MONGO_DATABASE ||
+        'test')
+    );
 
 
 
@@ -21,7 +25,12 @@ export const SESSION_STORE_TTL =
     60 * 5; // seconds
 export const SESSION_STORE_MONGOURL =
     process.env.SESSION_STORE_MONGOURL ||
-    'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/test';
+    (
+        (process.env.SESSION_STORE_MONGO_DEPLOY ||
+        'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/') + 
+        (process.env.SESSION_STORE_MONGO_DATABASE ||
+        'test')
+    );
 export const SESSION_COOKIE_HTTPONLY =
     process.env.SESSION_COOKIE_HTTPONLY ||
     false; 
