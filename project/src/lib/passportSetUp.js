@@ -7,7 +7,7 @@ const userContainer = UsersGeneralDao.getInstance();
 /////////// Authentication helpers ////////////
 
 const isValidPassword = (user, password) => {
-    return bcrypt.compareSync(password, user.passwordHash);
+    return bcrypt.compareSync(password, user.password);
 }
 
 function createHash(password) {
@@ -50,9 +50,9 @@ async function signUp (req, userEmail, password, done) {
         // User is not registered
         // Then, create a new one and save at DB
         const newUser = new User({
-            userName: req.body.userName,
+            ...req.body,
             email: userEmail,
-            passwordHash: createHash(password),
+            password: createHash(password),
         });
 
         try{
@@ -108,10 +108,12 @@ passport.use(
 
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
-      return cb(null, {
-        id: user.id,
-        username: user.userName,
-      });
+        const parsedUser = new User(user);
+        return cb(null, {
+            id: parsedUser.id,
+            email: parsedUser.email,
+            username: parsedUser.fullName,
+        });
     });
   });
   

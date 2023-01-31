@@ -1,8 +1,15 @@
-import {describe, expect, test} from '@jest/globals';
+import {
+    describe,
+    expect,
+    test
+} from '@jest/globals';
 import assert from 'node:assert/strict';
 import { faker } from "@faker-js/faker";
 
 import User from "../src/models/user.js";
+import {
+    Types
+} from 'mongoose';
 
 const newUserConstParameters = {
     id: faker.database.mongodbObjectId(),
@@ -31,7 +38,7 @@ const newUserConstParameters = {
  */
 const userExample = new User(newUserConstParameters);
 
-describe("Users model properties tests", () => {
+describe("Users model properties", () => {
 
     test("No User property is undefined if no null parameter is given", ()  => {
         // Test for each of the parameters
@@ -40,30 +47,79 @@ describe("Users model properties tests", () => {
         });
     })
 
-    test("Constructor throws error if any parameter is nullish", () => {
+    describe("Constructor is given some falsy parameter", () => {
 
-        // Test for all parameters (empty object)
-        assert.throws(
-            _=>new User({}),
-            Error,
-            "Throws error with empty object"
-        );
-        
-        // Test for each of the parameters
-        Object.keys(newUserConstParameters).forEach(key => {
+        test("Throws error with empty object", () =>{
+
+            // Test for all parameters (empty object)
             assert.throws(
-                _=>new User({[key]: newUserConstParameters[key] }),
-                Error,
-                `Throws error only if ${key} is given`
+                _=>new User({}),
+                Error
             );
-            newUserConstParameters[key]
-        });
+        })
+
+
+        // Test for each of the parameters        
+        describe.each(
+            Object.keys(newUserConstParameters)
+        )(`%s paramemeter`, (key) => {
+
+            if(key === "id"){
+
+                // id is not given if User was not fetched from DB
+                test(`Resolves if only ${key} is not given`, () =>{
+
+                    expect(
+                        () => new User({
+                            ...newUserConstParameters,
+                            [key]: undefined
+                        })
+                    ).not.toThrow();
+                });
+
+                test(`Creates object with default value for ${key}`, () =>{
+
+                    expect(
+                        new User({
+                            ...newUserConstParameters,
+                            [key]: undefined
+                        })
+                    ).toHaveProperty(key);
+
+                    expect(
+                        new User({
+                            ...newUserConstParameters,
+                            [key]: undefined
+                        })[key]
+                    ).toBeInstanceOf(Types.ObjectId);
+                });
+            }
+            else{
+
+                test(`Throws error if only ${key} is given`, () => {
+
+                    expect(
+                        () => new User({[key]: newUserConstParameters[key] })
+                    ).toThrow()
+                })
+            }
+        })
+
+        // deprecated test code using assert
+        // Object.keys(newUserConstParameters).forEach(key => {
+        //     assert.throws(
+        //         _=>new User({[key]: newUserConstParameters[key] }),
+        //         Error,
+        //         `Throws error if only ${key} is given`
+        //     );
+        //     newUserConstParameters[key]
+        // });
         
     })
 
 })
 
-test("User class method functionality tests", () => {
+test("Method functionality tests", () => {
 
     assert.strictEqual(
         typeof userExample.fullName,

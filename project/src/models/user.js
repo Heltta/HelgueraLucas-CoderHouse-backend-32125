@@ -12,12 +12,12 @@ class User {
         email,
         firstName,
         lastName,
+        homeAddres,
         age,
         phone,
         password
     }) {
         if(!(
-           id &&
            email &&
            firstName &&
            lastName &&
@@ -25,16 +25,18 @@ class User {
            phone &&
            password )
         ){
-            throw new Error('Some parameter of User contructor is nullish')
+            throw new Error(`Some parameter of User contructor is falsy`)
         }
-        this.id = id;
+        this.id = id || Types.ObjectId();
         this.email = email || "";
         this.firstName = firstName || "";
         this.lastName = lastName || "";
+        this.homeAddres = homeAddres || "";
         this.age = age || "";
         this.password = password || "";
         this.phone = phone || "";
         this.privilegesCategory = "user";
+        this.photo = "";
     }
 
     get fullName(){
@@ -47,11 +49,14 @@ class User {
 
     static mongoSchema = () => new Schema({
         id: Types.ObjectId,
-        userName: String,
         email: String,
-        passwordHash: String,
-        photo: String,
+        firstName: String,
+        lastName: String,
+        age: Number,
+        password: String,
+        phone: String,
         privilegesCategory: String,
+        photo: String,
     })
 
 }
