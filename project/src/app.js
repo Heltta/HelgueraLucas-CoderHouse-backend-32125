@@ -7,8 +7,6 @@ import
     }
 from 'express';
 
-import { Server as HttpServer } from 'http';
-import { Server as IOServer }  from 'socket.io';
 
 //////////// Template engine //////////
 import pug from 'pug';
@@ -45,8 +43,6 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
 
 
 //////////// Middleware ///////////////
@@ -103,7 +99,5 @@ app.use('/', requestInfo, primaryRouter);
 
 export {
     app,
-    httpServer,
-    io,
 };
 export default app;

@@ -1,6 +1,14 @@
 //////////// Winston logger ///////////
 import logger from './config/logger.js';
 
+//////////// Express srv app //////////
+import { app } from './app.js';
+import { Server as HttpServer } from 'http';
+import { Server as IOServer }  from 'socket.io';
+
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
+
 //////////// CLI Args & dotENV ////////
 import {
     SERVER_INTERFACE,
@@ -10,8 +18,6 @@ import {
     server_port as primaryServerPort
 } from './config/CLIarguments.js';
 
-//////////// Express srv app //////////
-import { httpServer } from './app.js';
 
 //////////// Turn on server ///////////
 const PORT = primaryServerPort || auxiliarServerPort;
