@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+export const ENVIRONMENT  = process.env.NODE_ENV;
 //-- Data storage settings --//
 export const DATA_STORAGE_TYPE = 
     process.env.DATA_STORAGE_TYPE ||

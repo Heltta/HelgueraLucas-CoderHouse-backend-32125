@@ -38,6 +38,7 @@ import {
     SESSION_COOKIE_HTTPONLY,
     SESSION_COOKIE_SECURE,
     SESSION_COOKIE_MAXAGE,
+    ENVIRONMENT,
 } from './config/dotEnVar.js'
 
 /////////// Server config /////////////
@@ -57,14 +58,11 @@ app.use(urlencoded({ extended:true }));
 //-- Cookie, session, storage ---//
 app.use(cookieParser());
 app.use(flash());
+
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true};
-app.use(session({
+
+const sessionConfig = {
     secret: SESSION_SECRET,
-    store: MongoStore.create({
-        mongoUrl: SESSION_STORE_MONGOURL,
-        mongoOptions: advancedOptions,
-        ttl: SESSION_STORE_TTL
-    }),
     cookie: {
       httpOnly: SESSION_COOKIE_HTTPONLY,
       secure: SESSION_COOKIE_SECURE,
@@ -73,7 +71,18 @@ app.use(session({
     rolling: true,
     resave: true,
     saveUninitialized: false,
-  })
+  }
+  
+if(ENVIRONMENT !== "test"){
+    sessionConfig.store =
+        MongoStore.create({
+            mongoUrl: SESSION_STORE_MONGOURL,
+            mongoOptions: advancedOptions,
+            ttl: SESSION_STORE_TTL
+        });
+}
+
+app.use(session(sessionConfig)
 );
 
 //-- Authentication ---//
