@@ -1,4 +1,5 @@
 import {
+    describe,
     expect,
     test,
     afterAll,
@@ -38,4 +39,65 @@ afterAll((done) => {
 test('should pass the test', () => {
     expect(2).toBe(2);
 });
+
+describe.skip("/api/products", () =>{
+
+    describe.skip("GET", ()=>{
+
+    });
+
+    describe.skip("POST", ()=>{
+
+    });
+
+    describe.skip("PUT", ()=>{
+
+    });
+
+    describe.skip("DELETE", ()=>{
+
+    });
+
+});
+
+describe.skip("/api/cart", () =>{
+
+    describe.skip("GET", ()=>{
+
+    });
+
+    describe.skip("POST", ()=>{
+
+    });
+
+    describe.skip("PUT", ()=>{
+
+    });
+
+    describe.skip("DELETE", ()=>{
+
+    });
+
+});
+
+describe.skip("/api/random", () =>{
+
+    describe.skip("GET", ()=>{
+
+    });
+
+    describe.skip("POST", ()=>{
+
+    });
+
+    describe.skip("PUT", ()=>{
+
+    });
+
+    describe.skip("DELETE", ()=>{
+
+    });
+
+});
+
 
