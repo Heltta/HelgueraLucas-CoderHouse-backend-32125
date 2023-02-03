@@ -26,10 +26,20 @@ test('should pass the test', async () => {
     ).toHaveProperty("statusCode", 200);
 });
 
-describe.skip("/api/products", () =>{
+describe("/api/products", () =>{
 
-    describe.skip("GET", ()=>{
+    describe("GET", ()=>{
+        // should respond with a 302 code and a json of all products stored at the DataBase
+        // if no products are found, should respond with a 404 error with the message "Error: no products found"
+        // if an internal error happends, should respond with a 500 error with the message "Error: Internal Server Error"
+        // should specify json in the content type header
 
+        test("Should responde with a 302 status code", async () => {
+            const response = await supertest(app).get("/api/products")
+            expect(
+                response
+            ).toHaveProperty("statusCode", 302);
+        });
     });
 
     describe.skip("POST", ()=>{
