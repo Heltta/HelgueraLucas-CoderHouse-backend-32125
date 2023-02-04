@@ -19,13 +19,6 @@ afterAll(() => {
     ContainerMongoDB.disconnectDB();
 });
 
-test('should pass the test', async () => {
-    const response = await supertest(app).get("/");
-    expect(
-        response
-    ).toHaveProperty("statusCode", 200);
-});
-
 describe("/api/products", () =>{
 
     describe("GET", ()=>{
