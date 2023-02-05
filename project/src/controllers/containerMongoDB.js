@@ -76,7 +76,7 @@ class Container {
         // Insert object as a row into table
         const { id, ...objData } = obj;
         try{
-            const newModel = new this.model(objData)
+            const newModel = new this.model({ _id: id , ...objData});
             let objSave = await newModel.save();
             return objSave._id;
         }
