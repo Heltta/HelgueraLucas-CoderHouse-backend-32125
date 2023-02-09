@@ -27,7 +27,7 @@ class User {
         ){
             throw new Error(`Some parameter of User contructor is falsy`)
         }
-        this.id = id || Types.ObjectId();
+        this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
         this.email = email || "";
         this.firstName = firstName || "";
         this.lastName = lastName || "";
