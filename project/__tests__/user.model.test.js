@@ -77,7 +77,7 @@ describe("Users model properties", () => {
                     ).not.toThrow();
                 });
 
-                test(`Creates object with default value for ${key}`, () =>{
+                test(`Creates object with defined ${key} property`, () =>{
 
                     expect(
                         new User({
@@ -85,13 +85,29 @@ describe("Users model properties", () => {
                             [key]: undefined
                         })
                     ).toHaveProperty(key);
+                });
 
+                test(`Creates object with a string property named ${key}`, () => {
+            
                     expect(
-                        new User({
-                            ...newUserConstParameters,
-                            [key]: undefined
-                        })[key]
-                    ).toBeInstanceOf(Types.ObjectId);
+                        typeof
+                            new User({
+                                ...newUserConstParameters,
+                                [key]: undefined
+                            })[key]
+                    ).toBe("string");
+                });
+            
+                test(`Creates object with a valid mongo Id property named ${key}`, () => {
+            
+                    expect(
+                        Types.ObjectId.isValid(
+                            new User({
+                                ...newUserConstParameters,
+                                [key]: undefined
+                            })[key]
+                        )
+                    ).toBe(true);
                 });
             }
             else{
@@ -100,21 +116,10 @@ describe("Users model properties", () => {
 
                     expect(
                         () => new User({[key]: newUserConstParameters[key] })
-                    ).toThrow()
-                })
+                    ).toThrow();
+                });
             }
-        })
-
-        // deprecated test code using assert
-        // Object.keys(newUserConstParameters).forEach(key => {
-        //     assert.throws(
-        //         _=>new User({[key]: newUserConstParameters[key] }),
-        //         Error,
-        //         `Throws error if only ${key} is given`
-        //     );
-        //     newUserConstParameters[key]
-        // });
-        
+        })        
     })
 
 })
