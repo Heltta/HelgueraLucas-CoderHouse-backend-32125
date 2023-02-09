@@ -18,8 +18,16 @@ class Product {
         this.stock = stock  || "";
     }
 
+    /**
+     * MySQL database for products
+     */
     static #dataBase = myknex;
 
+    /**
+     * Create Table for an SQL database
+     * 
+     * @param {String} tableName 
+     */
     static createTable(tableName){
         this.#dataBase.schema.hasTable(tableName).then( exists =>{
             if(exists){
@@ -43,6 +51,11 @@ class Product {
         })
     }  
 
+    /**
+     * Creates schema for MongoDB
+     * 
+     * @returns Schema
+     */
     static mongoSchema = () => new Schema({
         id: Types.ObjectId,
         timestamp: { type: Date, default: Date.now },
