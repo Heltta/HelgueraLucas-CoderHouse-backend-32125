@@ -17,17 +17,6 @@ class Product {
         this.price = price  || "";
         this.stock = stock  || "";
     }
-    
-    static tableFields = [
-        {key:'id', type: 'increments'},
-        {key: 'timestamp', type: 'unsigned biginteger'},
-        {key: 'name', type: 'string'},
-        {key: 'description', type: 'text'},
-        {key: 'code', type: 'string'},
-        {key: 'photo', type:'string'},
-        {key: 'price', type: 'integer'},
-        {key: 'stock', type: 'integer'}
-    ]
 
     static #dataBase = myknex;
 
