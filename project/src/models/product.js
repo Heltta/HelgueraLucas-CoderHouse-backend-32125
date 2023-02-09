@@ -6,9 +6,10 @@ import {
 import logger from '../config/logger.js';
 
 class Product {
+
     constructor({id, name, description, code, photoURL, price, stock}){
-        this.id = id || "";
-        this.timestamp = Date.now();
+        this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
+        this.timestamp = new Date();
         this.name = name  || "";
         this.description = description  || "";
         this.code = code  || "";
