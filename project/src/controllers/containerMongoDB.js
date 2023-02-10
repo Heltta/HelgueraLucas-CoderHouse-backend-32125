@@ -134,9 +134,9 @@ class Container {
     }
     
     async getById(id){
-        //Recibe un id y devuelve el objeto con ese id, o [] si no está.
-        const content = await this.#findDocuments({_id: id}); 
-        return content
+        //Recibe un id y devuelve el objeto con ese id, o undefined si no está.
+        const content = await this.#findDocuments({_id: id});
+        return content[0]
     }
     
     async findOne(condition){

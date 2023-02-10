@@ -237,7 +237,7 @@ describe("/api/products", () =>{
                 ).toBeInstanceOf(Object);
             });
 
-            test.only("Should respond with a saved product with the requested id in the http body", () => {
+            test("Should respond with a saved product with the requested id in the http body", () => {
 
                 expect(
                     response.body

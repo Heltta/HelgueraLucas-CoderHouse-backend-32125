@@ -32,12 +32,12 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     products.getById(req.params.id)
-        .then((product)=>(product.length === 0)?
+        .then((product)=>(product)?
+            res.status(302).send(product) :
             res.status(404).send(new Error({
                 code:404,
                 description:'Error: no matches found'
-            })) :
-            res.status(302).send(product))
+            })))
         .catch( error => {
             res.status(500).send(new Error({
                 code:500,
