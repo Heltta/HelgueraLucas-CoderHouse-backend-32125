@@ -194,8 +194,31 @@ describe("/api/products", () =>{
         
             });
 
-            describe.skip("POST", ()=>{
-        
+            describe("POST", ()=>{
+                // should responde with a 501 code
+                // should carry an error message of 'Error: The server does not support the functionality required to fulfill the request'    
+
+                let response;
+                beforeAll(async () => {
+    
+                    // send and save http POST request
+                    response = await supertest(app)
+                        .post(`/api/products/${exampleProduct.id}`)
+                        .send(exampleProduct);
+                })
+
+                afterAll( async () => {
+    
+                    // delete saved product from database
+                    await supertest(app).del(`/api/products/${exampleProduct.id}`)
+                })
+    
+                test("Should respond with a 501 status code", () => {
+    
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 501);
+                });
             });
             
             describe.skip("PUT", ()=>{
