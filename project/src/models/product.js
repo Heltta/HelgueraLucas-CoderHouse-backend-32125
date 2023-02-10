@@ -7,13 +7,13 @@ import logger from '../config/logger.js';
 
 class Product {
 
-    constructor({id, name, description, code, photoURL, price, stock}){
+    constructor({id, name, description, code, photo, price, stock}){
         this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
         this.timestamp = new Date();
         this.name = name  || "";
         this.description = description  || "";
         this.code = code  || "";
-        this.photo = photoURL  || "";
+        this.photo = photo  || "";
         this.price = price  || "";
         this.stock = stock  || "";
     }
