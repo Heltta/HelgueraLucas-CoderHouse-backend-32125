@@ -190,45 +190,105 @@ describe("/api/products", () =>{
 
     describe('/:id', ()=>{
         
-            describe.skip("GET", ()=>{
-        
-            });
-        describe.skip("GET", ()=>{
+        describe("GET", ()=>{
+            // should responde with a 302 code
+            // if no products are found, should respond with a 404 error with the message "Error: no products found"
+            // if an internal error happends, should respond with a 500 error with the message "Error: Internal Server Error"
+            // should specify json in the content type header
 
-            describe("POST", ()=>{
-                // should responde with a 501 code
-                // should carry an error message of 'Error: The server does not support the functionality required to fulfill the request'    
+            let response;
+            beforeAll(async () => {
 
-                let response;
-                beforeAll(async () => {
-    
-                    // send and save http POST request
-                    response = await supertest(app)
-                        .post(`/api/products/${exampleProduct.id}`)
-                        .send(exampleProduct);
-                })
+                // save product at DB for testing
+                const postResponse = await supertest(app)
+                    .post("/api/products")
+                    .send(exampleProduct);
 
-                afterAll( async () => {
-    
-                    // delete saved product from database
-                    await supertest(app).del(`/api/products/${exampleProduct.id}`)
-                })
-    
-                test("Should respond with a 501 status code", () => {
-    
-                    expect(
-                        response
-                    ).toHaveProperty("statusCode", 501);
-                });
+                // send and save http GET request
+                response = await supertest(app)
+                    .get(`/api/products/${exampleProduct.id}`)
+                    .send(exampleProduct);
             });
-            
-            describe.skip("PUT", ()=>{
-        
+
+            afterAll( async () => {
+
+                // delete saved product from database
+                await supertest(app).del(`/api/products/${exampleProduct.id}`)
             });
-        
-            describe.skip("DELETE", ()=>{
-        
+
+            test("Should respond with a 302 status code", () => {
+
+                expect(
+                    response
+                ).toHaveProperty("statusCode", 302);
             });
+
+            test("Should specify json as the content type in the http header", () => {
+                
+                expect(
+                    response.headers['content-type']
+                ).toEqual(expect.stringContaining('json'));
+            });
+
+            test("Should respond with an Object in the http body", () => {
+
+                expect(
+                    response.body
+                ).toBeInstanceOf(Object);
+            });
+
+            test.only("Should respond with a saved product with the requested id in the http body", () => {
+
+                expect(
+                    response.body
+                ).toEqual(
+                    expect.objectContaining({
+                        _id: exampleProduct.id,
+                        name: exampleProduct.name,
+                        description: exampleProduct.description,
+                        code: exampleProduct.code,
+                        photo: exampleProduct.photo,
+                        price: exampleProduct.price,
+                        stock: exampleProduct.stock,
+                    })
+                );
+            });
+        });
+
+        describe("POST", ()=>{
+            // should respond with a 501 code
+            // should carry an error message of 'Error: The server does not support the functionality required to fulfill the request'    
+
+            let response;
+            beforeAll(async () => {
+
+                // send and save http POST request
+                response = await supertest(app)
+                    .post(`/api/products/${exampleProduct.id}`)
+                    .send(exampleProduct);
+            })
+
+            afterAll( async () => {
+
+                // delete saved product from database
+                await supertest(app).del(`/api/products/${exampleProduct.id}`)
+            })
+
+            test("Should respond with a 501 status code", () => {
+
+                expect(
+                    response
+                ).toHaveProperty("statusCode", 501);
+            });
+        });
+        
+        describe.skip("PUT", ()=>{
+    
+        });
+    
+        describe.skip("DELETE", ()=>{
+    
+        });
 
     });
 
