@@ -193,6 +193,7 @@ describe("/api/products", () =>{
             describe.skip("GET", ()=>{
         
             });
+        describe.skip("GET", ()=>{
 
             describe("POST", ()=>{
                 // should responde with a 501 code
