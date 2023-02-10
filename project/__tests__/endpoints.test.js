@@ -19,14 +19,14 @@ import {
     isValidObjectId,
 } from 'mongoose'
 
-const exampleProduct =new Product({
+const exampleProduct = new Product({
     id: faker.database.mongodbObjectId(),
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
     code: faker.random.alphaNumeric(),
     photo: faker.image.imageUrl({randomize: true}),
-    price: faker.commerce.price(),
-    stock: faker.finance.amount(),
+    price: faker.datatype.number(),
+    stock: faker.datatype.number(),
 });
 
 afterAll(() => {
