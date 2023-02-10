@@ -16,7 +16,6 @@ import {
 import ContainerMongoDB from '../src/controllers/containerMongoDB.js';
 import Product from '../src/models/product.js';
 import {
-    ObjectId,
     isValidObjectId,
 } from 'mongoose'
 
@@ -45,21 +44,22 @@ describe("/api/products", () =>{
             // should specify json in the content type header
 
             let response;
-            let expectedProduct;
             beforeAll(async () => {
-                // send and save http request
 
-                const savedProduct = {
-                    ...exampleProduct,
-                    id: faker.database.mongodbObjectId(),
-                }
-                const putResponse = await supertest(app)
+                // save product at DB for testing
+                await supertest(app)
                     .post("/api/products")
-                    .send(savedProduct);
-                const { id, ...objData } = savedProduct;
-                expectedProduct = { _id: id , ...objData, __v:0 };
+                    .send(exampleProduct);
+
+                // send and save http GET request
                 response = await supertest(app)
                     .get("/api/products");
+            })
+
+            afterAll( async () => {
+
+                // delete saved product from database
+                await supertest(app).del(`/api/products/${exampleProduct.id}`)
             })
 
             test("Should respond with a 302 status code", () => {
@@ -88,8 +88,8 @@ describe("/api/products", () =>{
                 expect(response.body).toEqual(          
                     expect.arrayContaining([      
                         expect.objectContaining({
-                            _id: expectedProduct._id,
-                            code: expectedProduct.code,
+                            _id: exampleProduct.id,
+                            code: exampleProduct.code,
                         })
                     ])
                 );
@@ -108,6 +108,12 @@ describe("/api/products", () =>{
                 response = await supertest(app)
                     .post("/api/products")
                     .send(exampleProduct);
+            })
+
+            afterAll( async () => {
+
+                // delete saved product from database
+                await supertest(app).del(`/api/products/${exampleProduct.id}`)
             })
 
             test("Should respond with a 201 status code", () => {
@@ -136,7 +142,7 @@ describe("/api/products", () =>{
                 expect(
                     response.body.id
                 ).toBe(exampleProduct.id);
-            })
+            });
         });
     
         describe("PUT", ()=>{
@@ -182,7 +188,7 @@ describe("/api/products", () =>{
 
     })
 
-    describe.skip('/:id', ()=>{
+    describe('/:id', ()=>{
         
             describe.skip("GET", ()=>{
         
