@@ -108,6 +108,13 @@ describe.each([
             typeof productExample[key]
         ).toBe("string");
     });
+
+    test(`Should be equal to constructor param.${key}`, () => {
+
+        expect(
+            productExample[key]
+        ).not.toHaveLength(0);
+    });
 });
 
 describe.each([
