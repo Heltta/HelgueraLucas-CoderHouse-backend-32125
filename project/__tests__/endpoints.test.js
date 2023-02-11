@@ -287,7 +287,18 @@ describe("/api/products", () =>{
         });
     
         describe.skip("DELETE", ()=>{
-    
+
+            describe("Request lacks admin rights", () => {
+               
+                test.todo("Should respond with error code 403");
+                test.todo("Should respond with message \"Error: Client has no admin rights\"");
+            });
+
+            describe("Good request", () => {
+
+                test.todo("Should respond with error code 200");
+                test.todo("Should have an empty body http header");
+            });
         });
 
     });
