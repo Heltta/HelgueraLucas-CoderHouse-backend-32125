@@ -191,67 +191,76 @@ describe("/api/products", () =>{
     describe('/:id', ()=>{
         
         describe("GET", ()=>{
-            // should responde with a 302 code
+            // should respond with a 302 code
             // if no products are found, should respond with a 404 error with the message "Error: no products found"
             // if an internal error happends, should respond with a 500 error with the message "Error: Internal Server Error"
             // should specify json in the content type header
 
-            let response;
-            beforeAll(async () => {
-
-                // save product at DB for testing
-                const postResponse = await supertest(app)
-                    .post("/api/products")
-                    .send(exampleProduct);
-
-                // send and save http GET request
-                response = await supertest(app)
-                    .get(`/api/products/${exampleProduct.id}`)
-                    .send(exampleProduct);
-            });
-
-            afterAll( async () => {
-
-                // delete saved product from database
-                await supertest(app).del(`/api/products/${exampleProduct.id}`)
-            });
-
-            test("Should respond with a 302 status code", () => {
-
-                expect(
-                    response
-                ).toHaveProperty("statusCode", 302);
-            });
-
-            test("Should specify json as the content type in the http header", () => {
+            describe("No product match for id", () =>{
                 
-                expect(
-                    response.headers['content-type']
-                ).toEqual(expect.stringContaining('json'));
+                test.todo("Should respond with error code 404");
+                test.todo("Should respond with message \"Error: No product found");
             });
 
-            test("Should respond with an Object in the http body", () => {
+            describe("Good request", ()=>{
 
-                expect(
-                    response.body
-                ).toBeInstanceOf(Object);
-            });
-
-            test("Should respond with a saved product with the requested id in the http body", () => {
-
-                expect(
-                    response.body
-                ).toEqual(
-                    expect.objectContaining({
-                        _id: exampleProduct.id,
-                        name: exampleProduct.name,
-                        description: exampleProduct.description,
-                        code: exampleProduct.code,
-                        photo: exampleProduct.photo,
-                        price: exampleProduct.price,
-                        stock: exampleProduct.stock,
-                    })
-                );
+                let response;
+                beforeAll(async () => {
+    
+                    // save product at DB for testing
+                    const postResponse = await supertest(app)
+                        .post("/api/products")
+                        .send(exampleProduct);
+    
+                    // send and save http GET request
+                    response = await supertest(app)
+                        .get(`/api/products/${exampleProduct.id}`)
+                        .send(exampleProduct);
+                });
+    
+                afterAll( async () => {
+    
+                    // delete saved product from database
+                    await supertest(app).del(`/api/products/${exampleProduct.id}`)
+                });
+    
+                test("Should respond with a 302 status code", () => {
+    
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 302);
+                });
+    
+                test("Should specify json as the content type in the http header", () => {
+                    
+                    expect(
+                        response.headers['content-type']
+                    ).toEqual(expect.stringContaining('json'));
+                });
+    
+                test("Should respond with an Object in the http body", () => {
+    
+                    expect(
+                        response.body
+                    ).toBeInstanceOf(Object);
+                });
+    
+                test("Should respond with a saved product with the requested id in the http body", () => {
+    
+                    expect(
+                        response.body
+                    ).toEqual(
+                        expect.objectContaining({
+                            _id: exampleProduct.id,
+                            name: exampleProduct.name,
+                            description: exampleProduct.description,
+                            code: exampleProduct.code,
+                            photo: exampleProduct.photo,
+                            price: exampleProduct.price,
+                            stock: exampleProduct.stock,
+                        })
+                    );
+                });
             });
         });
 
