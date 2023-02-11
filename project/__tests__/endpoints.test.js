@@ -283,7 +283,32 @@ describe("/api/products", () =>{
         });
         
         describe.skip("PUT", ()=>{
-    
+
+            describe("Empty request body", () =>{
+
+                test.todo("Should respond with error code 400");
+                test.todo("Should respond with message \"Error: body is empty\"");
+            });
+
+            describe("Request lacks admin rights", () => {
+               
+                test.todo("Should respond with error code 403");
+                test.todo("Should respond with message \"Error: Client has no admin rights\"");
+            });
+
+            describe("No product match for id", () =>{
+                
+                test.todo("Should respond with error code 404");
+                test.todo("Should respond with message \"Error: No product found");
+            });
+
+            describe("Good request", () => {
+
+                test.todo("Should respond with error code 200");
+                test.todo("Should specify json as the content type in the http header");
+                test.todo("Should respond with an array in the http body");
+                test.todo("Should respond with a list of the updated fields in the http body");
+            });
         });
     
         describe.skip("DELETE", ()=>{
