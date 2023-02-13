@@ -127,10 +127,21 @@ class Container {
     }
     
     async overwriteById(id, objData){
-        // Update fields inside row with given id.
+        // Update a document given id.
         // objData parameter contains the keys of the fields
         // and the new content of those.
-        return await this.#updateDocuments({_id:id}, objData);
+        // returns undefined if no match for id was found
+        const updateResult = await this.#updateDocuments({_id:id}, objData);
+        if( updateResult?.matchedCount === 0){
+            return;
+        }
+        else if(!updateResult?.acknowledged){
+            logger.warn("Update petition was not acknowledged by MongoDB");
+            return;
+        }
+        else {
+            return updateResult.matchedCount;
+        }
     }
     
     async getById(id){

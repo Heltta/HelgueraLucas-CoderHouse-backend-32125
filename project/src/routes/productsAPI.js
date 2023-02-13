@@ -75,8 +75,8 @@ router.post('/', (req, res) => {
         });
 })
 
-router.put('/:id', (req, res) => {
-    if(!(req.body)){
+router.put('/:id', async (req, res) => {
+    if(!(req.body && Object.keys(req.body).length)){
         res.status(400).send(new Error({
             code:400,
             description:'Error: body is empty'
@@ -92,15 +92,28 @@ router.put('/:id', (req, res) => {
     }
     const prod = new Product(req.body);
     res.status(202);
-    products.overwriteById(req.params.id, prod)
-        .then( _ =>res.status(200).send())
-        .catch( error => {
-            res.status(500).send(new Error({
-                code:500,
-                description:'Error: Internal Server Error'
-            }))
-            logger.log('error', JSON.stringify(error))
-        });
+
+    try {
+        const updateResult = await products.overwriteById(req.params.id, prod);
+        if(updateResult !== undefined){
+            res.status(200).send({matches: updateResult});
+        }
+        else {
+            res.status(404).send(new Error({
+                code:404,
+                description:'Error: No product found'
+            }));
+            return
+        }
+    }
+    catch (error) {
+
+        res.status(500).send(new Error({
+            code:500,
+            description:'Error: Internal Server Error'
+        }));
+        logger.log('error', JSON.stringify(error))
+    }
 })
 
 router.delete('/:id', (req, res) => {
