@@ -45,9 +45,7 @@ describe("timestamp", ()=>{
         ).toBeInstanceOf(Date);
     });
 
-    test.skip("Should have ISO 8601 format for dates", () => {
-        
-    });
+    test.todo("Should have ISO 8601 format for dates");
 });
 
 describe("id", () => {
