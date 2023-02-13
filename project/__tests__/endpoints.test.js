@@ -266,7 +266,7 @@ describe("/api/products", () =>{
 
         describe("POST", ()=>{
             // should respond with a 501 code
-            // should carry an error message of 'Error: The server does not support the functionality required to fulfill the request'    
+            // should carry an error message of 'Error: The server does not support the functionality required to fulfill the request'
 
             let response;
             beforeAll(async () => {
@@ -430,7 +430,7 @@ describe("/api/products", () =>{
             });
         });
     
-        describe.skip("DELETE", ()=>{
+        describe("DELETE", ()=>{
 
             describe("Request lacks admin rights", () => {
                
@@ -440,8 +440,31 @@ describe("/api/products", () =>{
 
             describe("Good request", () => {
 
-                test.todo("Should respond with error code 200");
-                test.todo("Should have an empty body http header");
+                let response;
+                beforeAll(async () => {
+                    
+                    await supertest(app)
+                        .post(`/api/products/`)
+                        .send(exampleProduct);
+
+                    // send and save http POST request
+                    response = await supertest(app)
+                        .delete(`/api/products/${exampleProduct.id}`)
+                })
+
+                test("Should respond with http code 200", () => {
+
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 200);
+                });
+
+                test("Should have an empty body http header", () => {
+                    
+                    expect(
+                        response.body
+                    ).toEqual({})
+                });
             });
         });
 
