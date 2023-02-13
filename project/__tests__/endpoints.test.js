@@ -291,32 +291,142 @@ describe("/api/products", () =>{
             });
         });
         
-        describe.skip("PUT", ()=>{
+        describe("PUT", ()=>{
+            // updates a product in the database
 
             describe("Empty request body", () =>{
 
-                test.todo("Should respond with error code 400");
-                test.todo("Should respond with message \"Error: body is empty\"");
+                let response;
+                beforeAll(async () => {
+
+                    // send and save http GET request
+                    response = await supertest(app)
+                        .put(`/api/products/${exampleProduct.id}`)
+                        .send();
+                });
+
+                test("Should respond with error code 400", () => {
+
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 400);
+                });
+
+                test("Should specify json as the content type in the http header", () => {
+                    
+                    expect(
+                        response.headers['content-type']
+                    ).toEqual(expect.stringContaining('json'));
+                });
+
+                test("Should respond with message \"Error: body is empty\"", () => {
+
+                    expect(
+                        response.body
+                    ).toHaveProperty("description", "Error: body is empty");
+                });
             });
 
             describe("Request lacks admin rights", () => {
+
+                let response;
+                beforeAll(async () => {
+
+                    // send and save http GET request
+                    response = await supertest(app)
+                        .put(`/api/products/${exampleProduct.id}`)
+                        .send(exampleProduct);
+                });
+
+                afterAll( async () => {
+    
+                    // delete saved product from database
+                    await supertest(app).del(`/api/products/${exampleProduct.id}`)
+                })
                
                 test.todo("Should respond with error code 403");
                 test.todo("Should respond with message \"Error: Client has no admin rights\"");
             });
 
             describe("No product match for id", () =>{
+
+                let response;
+                const randomID = faker.database.mongodbObjectId();
+                beforeAll(async () => {
+                    
+                    
+                    // send and save http POST request
+                    response = await supertest(app)
+                        .put(`/api/products/${randomID}`)
+                        .send(exampleProduct);
+                })
+    
+                afterAll( async () => {
+    
+                    // delete saved product from database
+                    await supertest(app).del(`/api/products/${randomID}`)
+                })
                 
-                test.todo("Should respond with error code 404");
-                test.todo("Should respond with message \"Error: No product found");
+                test("Should respond with error code 404", () => {
+
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 404);
+                });
+                test("Should respond with message \"Error: No product found\"", () => {
+
+                    expect(
+                        response.body
+                    ).toHaveProperty("description", "Error: No product found");
+                });
             });
 
             describe("Good request", () => {
 
-                test.todo("Should respond with error code 200");
-                test.todo("Should specify json as the content type in the http header");
-                test.todo("Should respond with an array in the http body");
-                test.todo("Should respond with a list of the updated fields in the http body");
+                let response;
+                beforeAll(async () => {
+                    
+                    await supertest(app)
+                        .post(`/api/products/`)
+                        .send(exampleProduct);
+
+                    // send and save http POST request
+                    response = await supertest(app)
+                        .put(`/api/products/${exampleProduct.id}`)
+                        .send({
+                            name: faker.commerce.productName(),
+                            description: faker.commerce.productDescription(),
+                            code: faker.random.alphaNumeric(),
+                            photo: faker.image.imageUrl({randomize: true}),
+                            price: faker.datatype.number(),
+                            stock: faker.datatype.number(),
+                        });
+                })
+    
+                afterAll( async () => {
+    
+                    // delete saved product from database
+                    await supertest(app).del(`/api/products/${exampleProduct.id}`)
+                })
+
+                test("Should respond with an http code 200", () => {
+
+                    expect(
+                        response
+                    ).toHaveProperty("statusCode", 200);
+                });
+                test("Should specify json as the content type in the http header", () => {
+                    
+                    expect(
+                        response.headers['content-type']
+                    ).toEqual(expect.stringContaining('json'));
+                });
+                test("Should respond with the number of matches in the http body", () => {
+                    
+                    expect(
+                        response.body
+                    ).toHaveProperty("matches");
+                });
             });
         });
     
