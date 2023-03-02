@@ -1,6 +1,5 @@
 import { describe, expect, test, afterAll } from '@jest/globals';
 
-import ContainerMongoDB from '../src/controllers/containerMongoDB.js';
 import CartsGeneralDao from '../src/daos/cartsDao.js';
 import ProductsGeneralDao from '../src/daos/productsDao.js';
 import UsersGeneralDao from '../src/daos/usersDao.js';

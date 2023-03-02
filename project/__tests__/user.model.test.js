@@ -40,7 +40,7 @@ describe('Users model properties', () => {
     describe('Constructor is given some falsy parameter', () => {
         test('Throws error with empty object', () => {
             // Test for all parameters (empty object)
-            assert.throws((_) => new User({}), Error);
+            assert.throws(() => new User({}), Error);
         });
 
         // Test for each of the parameters

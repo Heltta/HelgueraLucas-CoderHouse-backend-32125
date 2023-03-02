@@ -159,7 +159,7 @@ describe('/api/products', () => {
                 let response;
                 beforeAll(async () => {
                     // save product at DB for testing
-                    const postResponse = await supertest(app)
+                    await supertest(app)
                         .post('/api/products')
                         .send(exampleProduct);
 
@@ -259,10 +259,9 @@ describe('/api/products', () => {
             });
 
             describe('Request lacks admin rights', () => {
-                let response;
                 beforeAll(async () => {
                     // send and save http GET request
-                    response = await supertest(app)
+                    await supertest(app)
                         .put(`/api/products/${exampleProduct.id}`)
                         .send(exampleProduct);
                 });
