@@ -3,3 +3,4 @@
 /*.txt
 /__tests__/__result.txt
 .env
+node_modules/
