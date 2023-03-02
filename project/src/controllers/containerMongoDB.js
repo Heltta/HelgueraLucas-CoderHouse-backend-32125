@@ -1,4 +1,4 @@
-import mongoose, { connect } from 'mongoose';
+import mongoose from 'mongoose';
 import { MONGO_URL } from '../config/dotEnVar.js';
 import logger from '../config/logger.js';
 
@@ -49,7 +49,7 @@ class Container {
 
     static disconnectDB() {
         if (this.isConnectedToDB) {
-            mongoose.disconnect((_) => {
+            mongoose.disconnect(() => {
                 logger.info(`Closed All connections with MongoDB`);
             });
             this.isConnectedToDB = false;
