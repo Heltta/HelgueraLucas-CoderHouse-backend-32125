@@ -7,10 +7,10 @@ const options = {
         user: 'root',
         password: '',
         database: 'test',
-        port : 3306,
+        port: 3306,
     },
 };
 
-const myknex = knex(options)
+const myknex = knex(options);
 
-export default myknex
+export default myknex;

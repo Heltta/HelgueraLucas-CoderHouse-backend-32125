@@ -8,21 +8,18 @@ const userContainer = UsersGeneralDao.getInstance();
 
 const isValidPassword = (user, password) => {
     return bcrypt.compareSync(password, user.password);
-}
+};
 
 function createHash(password) {
-    return bcrypt.hashSync(
-                password,
-                bcrypt.genSaltSync(10),
-                null
-            );  
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 }
 
 /////////// Authentication methods ////////////
 
 function logIn(userEmail, passwordHash, done) {
-    userContainer.findOne({ email: userEmail })
-        .then( user => {
+    userContainer
+        .findOne({ email: userEmail })
+        .then((user) => {
             if (!user) {
                 logger.info('User Not Found with username ' + userEmail);
                 return done(null, false);
@@ -33,13 +30,13 @@ function logIn(userEmail, passwordHash, done) {
             }
             return done(null, user);
         })
-        .catch( (err) => done(err));
+        .catch((err) => done(err));
 }
 
-async function signUp (req, userEmail, password, done) {
-    try{
+async function signUp(req, userEmail, password, done) {
+    try {
         const existingUser = await userContainer.findOne({ email: userEmail });
-        if(existingUser){
+        if (existingUser) {
             // User is already registered
             // Then, error is null and user is false
             logger.error('Error, user already exists');
@@ -55,19 +52,17 @@ async function signUp (req, userEmail, password, done) {
             password: createHash(password),
         });
 
-        try{
+        try {
             await userContainer.save(newUser);
             logger.info(newUser);
             logger.info('New user registration successful');
             return done(null, newUser);
-        }
-        catch(err){
+        } catch (err) {
             logger.error(`Error in saving user: ${err}`);
             req.flash('error', `Error in saving user: ${err}`);
             return done(err);
         }
-    }
-    catch(err) {
+    } catch (err) {
         logger.error(`Error in signUp: ${err}`);
         req.flash('error', `Error in signUp: ${err}`);
         return done(err);
@@ -79,21 +74,21 @@ async function signUp (req, userEmail, password, done) {
 import passport from 'passport';
 import passportLocal from 'passport-local';
 
-const LocalStrategy = passportLocal.Strategy
+const LocalStrategy = passportLocal.Strategy;
 
 passport.use(
-    "login",
+    'login',
     new LocalStrategy(
         {
             usernameField: 'email',
-            passwordField: 'passwordHash'
+            passwordField: 'passwordHash',
         },
         logIn
     )
 );
 
 passport.use(
-    "signup-local",
+    'signup-local',
     new LocalStrategy(
         {
             usernameField: 'inputEmail',
@@ -106,8 +101,8 @@ passport.use(
 
 /////////// User serialization //////////
 
-passport.serializeUser(function(user, cb) {
-    process.nextTick(function() {
+passport.serializeUser(function (user, cb) {
+    process.nextTick(function () {
         const parsedUser = new User(user);
         return cb(null, {
             id: parsedUser.id,
@@ -115,10 +110,10 @@ passport.serializeUser(function(user, cb) {
             username: parsedUser.fullName,
         });
     });
-  });
-  
-passport.deserializeUser(function(user, cb) {
-    process.nextTick(function() {
+});
+
+passport.deserializeUser(function (user, cb) {
+    process.nextTick(function () {
         return cb(null, user);
     });
 });

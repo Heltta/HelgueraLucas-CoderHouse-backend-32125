@@ -1,13 +1,11 @@
-import {
-    Router
-} from 'express';
+import { Router } from 'express';
 
 const infoRouter = Router();
 
 infoRouter.get('/', (req, res) => {
     res.render('./processInfo.pug');
-})
-infoRouter.get('/api/', (req, res) =>{
+});
+infoRouter.get('/api/', (req, res) => {
     res.status(200).send({
         arguments: process.argv,
         operatingSystem: process.platform,
@@ -16,8 +14,7 @@ infoRouter.get('/api/', (req, res) =>{
         executionPath: process.execPath,
         processID: process.pid,
         projectFolder: process.cwd(),
-    })
-
+    });
 });
 
 export default infoRouter;

@@ -1,6 +1,4 @@
-import {
-    Router
-} from 'express';
+import { Router } from 'express';
 
 import Error from '../models/error.js';
 
@@ -36,38 +34,28 @@ import authenticatorRouter from './authenticator.js';
 primaryRouter.use('/auth', authenticatorRouter);
 
 //-- Home routes --/
-primaryRouter.get(
-    '/',
-    (req, res) => {
-        res.render(
-            './home.pug',
-            {
-                loggedUser: req.user?.username
-            }
-        );
-    }
-);
+primaryRouter.get('/', (req, res) => {
+    res.render('./home.pug', {
+        loggedUser: req.user?.username,
+    });
+});
 
-primaryRouter.get(
-    '/home',
-    routeProtector.onlyAuthenticated,
-    (req, res) => {
-        res.render(
-            './main.pug',
-            {
-                loggedUser: req.user.username
-            }
-        );
-    }
-);
+primaryRouter.get('/home', routeProtector.onlyAuthenticated, (req, res) => {
+    res.render('./main.pug', {
+        loggedUser: req.user.username,
+    });
+});
 
 //-- Handle Not Implemented requests --/
 import { reqNotImplementedWarn } from '../middleware/logger.middleware.js';
 primaryRouter.all('*', reqNotImplementedWarn, (req, res) => {
-    res.status(501).send(new Error({
-        code:501,
-        description:'Error: The server does not support the functionality required to fulfill the request'
-    }))
-})
+    res.status(501).send(
+        new Error({
+            code: 501,
+            description:
+                'Error: The server does not support the functionality required to fulfill the request',
+        })
+    );
+});
 
 export default primaryRouter;

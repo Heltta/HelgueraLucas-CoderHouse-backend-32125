@@ -1,9 +1,9 @@
-import ContainerMongoDB from "../../controllers/containerMongoDB.js";
-import ProductModel from "../../models/product.js"
+import ContainerMongoDB from '../../controllers/containerMongoDB.js';
+import ProductModel from '../../models/product.js';
 
 class ProductsDaoMongoDB extends ContainerMongoDB {
-    constructor(){
-        super('products', ProductModel)
+    constructor() {
+        super('products', ProductModel);
     }
 }
 

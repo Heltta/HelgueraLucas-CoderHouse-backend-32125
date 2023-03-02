@@ -1,9 +1,9 @@
-import ContainerMariaDB from "../../controllers/containerMariaDB.js";
-import ProductModel from "../../models/product.js"
+import ContainerMariaDB from '../../controllers/containerMariaDB.js';
+import ProductModel from '../../models/product.js';
 
 class ProductsDaoFireBase extends ContainerMariaDB {
-    constructor(){
-        super('products', ProductModel)
+    constructor() {
+        super('products', ProductModel);
     }
 }
 

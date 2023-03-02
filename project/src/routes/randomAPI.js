@@ -1,6 +1,4 @@
-import {
-    Router
-} from 'express';
+import { Router } from 'express';
 
 //////////// Process imports //////////
 import { fork } from 'child_process';
@@ -15,17 +13,17 @@ const randomApiRouter = Router();
 
 randomApiRouter.get('/', (req, res) => {
     const quantity = req.query.cant;
-    const forked = fork(
-        `${__dirname}/../lib/randomGenerator.js`,
-        [`--quantity`, `${quantity}`]
-    );
-    forked.on('message', msg => {
-        if(msg === 'ready') forked.send('start');
+    const forked = fork(`${__dirname}/../lib/randomGenerator.js`, [
+        `--quantity`,
+        `${quantity}`,
+    ]);
+    forked.on('message', (msg) => {
+        if (msg === 'ready') forked.send('start');
         else {
             res.send(msg);
             console.log('Non blocking calculation counter request finished');
-        };
-    })
-})
+        }
+    });
+});
 
 export default randomApiRouter;

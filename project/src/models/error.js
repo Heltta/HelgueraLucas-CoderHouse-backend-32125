@@ -1,8 +1,7 @@
-
 class Error {
-    constructor({code, description}){
-        this.code = code || "";
-        this.description = description || "";
+    constructor({ code, description }) {
+        this.code = code || '';
+        this.description = description || '';
     }
 }
 
