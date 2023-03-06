@@ -3,9 +3,14 @@ import Product from './product.js';
 
 class Cart {
     constructor({ id, products }) {
-        this.id = id || '';
+        this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
         this.timestamp = Date.now();
-        this.products = [...products] || [];
+        products ?? (this.products = []);
+        if (products instanceof Array) {
+            this.products = [...products];
+        } else {
+            this.products = [];
+        }
     }
 
     static mongoSchema = () => {
