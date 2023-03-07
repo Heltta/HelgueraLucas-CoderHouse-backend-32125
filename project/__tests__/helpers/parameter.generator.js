@@ -19,16 +19,20 @@ export function generateProductParameters({ generateId = true } = {}) {
         return dataParam;
     }
 }
+
+export function generateArrayOfRandomProducts(iterations) {
+    const list = [];
+    for (let i = 0; i < iterations; i++) {
+        list.push(new Product(generateProductParameters()));
+    }
+    return list;
+}
 export function generateCartParameters() {
     return {
         id: faker.database.mongodbObjectId(),
-        products: ((iterations) => {
-            const list = [];
-            for (let i = 0; i < iterations; i++) {
-                list.push(new Product(generateProductParameters()));
-            }
-            return list;
-        })(Math.floor(Math.random() * 2) + 2),
+        products: generateArrayOfRandomProducts(
+            Math.floor(Math.random() * 2) + 2
+        ),
     };
 }
 export function randomMongoObjId() {
