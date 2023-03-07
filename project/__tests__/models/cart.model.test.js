@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
-import { generateCartParameters } from './helpers/parameter.generator.js';
+import { generateCartParameters } from '../helpers/parameter.generator.js';
 
-import Cart from '../src/models/cart.js';
-import Product from '../src/models/product.js';
+import Cart from '../../src/models/cart.js';
+import Product from '../../src/models/product.js';
 import { Types } from 'mongoose';
 
 const newCartConstParameters = generateCartParameters(

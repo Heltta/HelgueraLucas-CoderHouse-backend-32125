@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 import assert from 'node:assert/strict';
-import { generateUserParameters } from './helpers/parameter.generator.js';
+import { generateUserParameters } from '../helpers/parameter.generator.js';
 
-import User from '../src/models/user.js';
+import User from '../../src/models/user.js';
 import { Types } from 'mongoose';
 
 const newUserConstParameters = generateUserParameters();

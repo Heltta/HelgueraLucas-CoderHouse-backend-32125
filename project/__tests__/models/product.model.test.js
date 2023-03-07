@@ -1,7 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
-import { generateProductParameters } from './helpers/parameter.generator.js';
+import { generateProductParameters } from '../helpers/parameter.generator.js';
 
-import Product from '../src/models/product.js';
+import Product from '../../src/models/product.js';
 import { Types } from 'mongoose';
 
 const newProductConstParameters = generateProductParameters();
