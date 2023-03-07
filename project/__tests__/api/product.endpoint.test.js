@@ -189,7 +189,7 @@ describe('/api/products', () => {
                 test('Should respond with a saved product with the requested id in the http body', () => {
                     expect(response.body).toEqual(
                         expect.objectContaining({
-                            _id: exampleProduct.id,
+                            id: exampleProduct.id,
                             name: exampleProduct.name,
                             description: exampleProduct.description,
                             code: exampleProduct.code,
