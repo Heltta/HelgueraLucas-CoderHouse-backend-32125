@@ -1,23 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
 import assert from 'node:assert/strict';
-import { faker } from '@faker-js/faker';
+import { generateUserParameters } from './helpers/parameter.generator.js';
 
 import User from '../src/models/user.js';
 import { Types } from 'mongoose';
 
-const newUserConstParameters = {
-    id: faker.database.mongodbObjectId(),
-    email: faker.internet.email(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.fullName(),
-    age: faker.datatype.number({
-        min: 0,
-        max: 199,
-    }),
-    phone: faker.phone.number(),
-    password: faker.internet.password(),
-    privilegesCategory: faker.helpers.arrayElement(['user', 'admin']),
-};
+const newUserConstParameters = generateUserParameters();
 
 /**
  * Example of an "User" constructed with al parameters.

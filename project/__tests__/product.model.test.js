@@ -1,18 +1,10 @@
 import { describe, expect, test } from '@jest/globals';
-import { faker } from '@faker-js/faker';
+import { generateProductParameters } from './helpers/parameter.generator.js';
 
 import Product from '../src/models/product.js';
 import { Types } from 'mongoose';
 
-const newProductConstParameters = {
-    id: faker.database.mongodbObjectId(),
-    name: faker.commerce.productName(),
-    description: faker.commerce.productDescription(),
-    code: faker.random.alphaNumeric(),
-    photo: faker.image.imageUrl({ randomize: true }),
-    price: faker.datatype.number(),
-    stock: faker.datatype.number(),
-};
+const newProductConstParameters = generateProductParameters();
 
 /**
  * Example of an "Product" constructed with al parameters.

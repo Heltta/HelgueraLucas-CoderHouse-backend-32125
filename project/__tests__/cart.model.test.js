@@ -1,30 +1,13 @@
 import { describe, expect, test } from '@jest/globals';
-import { faker } from '@faker-js/faker';
+import { generateCartParameters } from './helpers/parameter.generator.js';
 
 import Cart from '../src/models/cart.js';
 import Product from '../src/models/product.js';
 import { Types } from 'mongoose';
 
-const newCartConstParameters = {
-    id: faker.database.mongodbObjectId(),
-    products: ((iterations) => {
-        const list = [];
-        for (let i = 0; i < iterations; i++) {
-            list.push(
-                new Product({
-                    id: faker.database.mongodbObjectId(),
-                    name: faker.commerce.productName(),
-                    description: faker.commerce.productDescription(),
-                    code: faker.random.alphaNumeric(),
-                    photo: faker.image.imageUrl({ randomize: true }),
-                    price: faker.datatype.number(),
-                    stock: faker.datatype.number(),
-                })
-            );
-        }
-        return list;
-    })(Math.floor(Math.random() * 6) + 1),
-};
+const newCartConstParameters = generateCartParameters(
+    Math.floor(Math.random() * 6) + 1
+);
 
 describe('constructor', () => {
     describe('is given a falsy in "products" parameter', () => {
