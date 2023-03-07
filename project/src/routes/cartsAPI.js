@@ -45,7 +45,7 @@ router.get('/:id/products', async (req, res) => {
     // Get all products stored in a cart wich id is send as parameter
     try {
         const cart = await storedCarts.getById(req.params.id);
-        if (cart.length === 0) {
+        if (cart === null || cart === undefined) {
             res.status(404).send(
                 new Error({
                     code: 404,
@@ -53,8 +53,8 @@ router.get('/:id/products', async (req, res) => {
                 })
             );
         } else {
-            cart[0].products
-                ? res.status(302).send(cart[0].products)
+            cart.products
+                ? res.status(200).send(cart.products)
                 : res.status(500).send(
                       new Error({
                           code: 500,
@@ -67,7 +67,7 @@ router.get('/:id/products', async (req, res) => {
     }
 });
 
-router.post('/:id/products', async (req, res) => {
+router.put('/:id/products', async (req, res) => {
     // Add products to a cart wich ID is send as parameter
     // Products are send inside request body as a list of its IDs
 
@@ -84,10 +84,20 @@ router.post('/:id/products', async (req, res) => {
 
     try {
         const cartID = req.params.id;
-        const cart = await storedCarts.getById(cartID);
-
+        let cart;
+        try {
+            cart = await storedCarts.getById(cartID);
+        } catch (error) {
+            logger.error(error);
+            res.status(500).send(
+                new Error({
+                    code: 500,
+                    description: 'Error: Internal error while searching cart',
+                })
+            );
+        }
         // Cart must exist
-        if (cart.length === 0) {
+        if (!cart) {
             res.status(404).send(
                 new Error({
                     code: 404,
@@ -96,7 +106,7 @@ router.post('/:id/products', async (req, res) => {
             );
         }
         // Avoid working with a nullish
-        else if (!cart[0].products) {
+        else if (!cart?.products) {
             res.status(500).send(
                 new Error({
                     code: 500,
@@ -104,20 +114,29 @@ router.post('/:id/products', async (req, res) => {
                 })
             );
         } else {
-            const cartProd = [...cart[0].products];
+            const cartProd = [...cart.products];
 
             // Map method returns an array of promises
             // and Promise.all packs them into a unique promise
-            const newProducts = await Promise.all(
-                req.body.map(async (ID) => {
-                    try {
+            let newProducts;
+            try {
+                newProducts = await Promise.all(
+                    req.body.map(async (ID) => {
                         const prod = await prodDB.getById(ID);
-                        return prod[0];
-                    } catch (error) {
-                        logger.error(error);
-                    }
-                })
-            );
+                        return prod;
+                    })
+                );
+            } catch (error) {
+                logger.error(error);
+                res.status(500).send(
+                    new Error({
+                        code: 500,
+                        description:
+                            'Error: There was a problem while fetching products',
+                    })
+                );
+                return;
+            }
 
             // Don't add products if some are duplicated
             if (
@@ -133,16 +152,22 @@ router.post('/:id/products', async (req, res) => {
                 );
             } else {
                 const updatedCart = new Cart({
-                    id: cart[0].id,
+                    id: cart.id,
                     products: [...cartProd, ...newProducts],
                 });
-                storedCarts.overwriteById(cart[0].id, updatedCart);
+                storedCarts.overwriteById(cart.id, updatedCart);
                 res.status(202);
-                res.status(200).send({ cartID });
+                res.status(200).send({ id: cartID });
             }
         }
     } catch (error) {
         logger.error(error);
+        res.status(500).send(
+            new Error({
+                code: 500,
+                description: 'Error: Internal Server Error',
+            })
+        );
     }
 });
 

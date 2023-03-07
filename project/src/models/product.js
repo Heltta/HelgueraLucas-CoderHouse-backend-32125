@@ -3,9 +3,18 @@ import { Schema, Types } from 'mongoose';
 import logger from '../config/logger.js';
 
 class Product {
-    constructor({ id, name, description, code, photo, price, stock }) {
+    constructor({
+        id,
+        name,
+        description,
+        code,
+        photo,
+        price,
+        stock,
+        timestamp,
+    }) {
         this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
-        this.timestamp = new Date();
+        this.timestamp = timestamp ? new Date(timestamp) : new Date();
         this.name = name || '';
         this.description = description || '';
         this.code = code || '';
@@ -40,7 +49,7 @@ class Product {
                         table.integer('price');
                         table.integer('stock');
                     })
-                    .then((_) => logger.info('table created'))
+                    .then(() => logger.info('table created'))
                     .catch((err) => {
                         logger.error(err);
                         throw err;

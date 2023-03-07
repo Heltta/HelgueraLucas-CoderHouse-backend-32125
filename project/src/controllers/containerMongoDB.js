@@ -140,7 +140,9 @@ class Container {
     async getById(id) {
         //Recibe un id y devuelve el objeto con ese id, o undefined si no está.
         const content = await this.#findDocuments({ _id: id });
-        return content[0];
+        // eslint-disable-next-line no-unused-vars
+        const { _id, __v, ...objData } = content[0];
+        return { id: _id, ...objData };
     }
 
     async findOne(condition) {

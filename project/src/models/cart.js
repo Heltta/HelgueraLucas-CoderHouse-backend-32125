@@ -2,9 +2,9 @@ import { Schema, Types } from 'mongoose';
 import Product from './product.js';
 
 class Cart {
-    constructor({ id, products }) {
+    constructor({ id, products, timestamp }) {
         this.id = (Types.ObjectId(id) || Types.ObjectId())?.toString();
-        this.timestamp = Date.now();
+        this.timestamp = timestamp ? new Date(timestamp) : new Date();
         products ?? (this.products = []);
         if (products instanceof Array) {
             this.products = [...products];
