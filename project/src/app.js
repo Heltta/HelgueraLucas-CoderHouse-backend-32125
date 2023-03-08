@@ -1,7 +1,5 @@
 import express, { static as serveStatic, json, urlencoded } from 'express';
 
-//////////// Template engine //////////
-
 //////////// Static config libraries ////
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -32,6 +30,10 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
+
+//////////// Template engine //////////
+app.set('views', './src/views');
+app.set('view engine', 'pug');
 
 //////////// Middleware ///////////////
 
