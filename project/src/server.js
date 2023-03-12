@@ -4,10 +4,10 @@ import logger from './config/logger.js';
 //////////// Express srv app //////////
 import { app } from './app.js';
 import { Server as HttpServer } from 'http';
-// import { Server as IOServer } from 'socket.io';
+import setUpSocketServer from './socket.js';
 
 const httpServer = new HttpServer(app);
-// const io = new IOServer(httpServer);
+setUpSocketServer(httpServer);
 
 //////////// CLI Args & dotENV ////////
 import {
