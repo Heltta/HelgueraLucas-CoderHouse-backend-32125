@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import Product from '../../src/models/product.js';
+import User from '../../src/models/user.js';
 
 export function randomMongoObjId() {
     return faker.database.mongodbObjectId();
@@ -55,4 +56,19 @@ export function generateUserParameters() {
         password: faker.internet.password(),
         privilegesCategory: faker.helpers.arrayElement(['user', 'admin']),
     };
+}
+
+export function generateMessageParameters({
+    generateId = true,
+    generateTimestamp = true,
+} = {}) {
+    const constructorParameters = {
+        user: new User(generateUserParameters()),
+        content: faker.lorem.paragraph(),
+    };
+    generateId && (constructorParameters.id = randomMongoObjId());
+    generateTimestamp &&
+        (constructorParameters.timestamp = faker.datatype.datetime());
+
+    return constructorParameters;
 }
