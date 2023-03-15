@@ -9,7 +9,7 @@ import {
 
 //////////// Test subjects ////////////
 import { app } from '../../src/app.js';
-import ContainerMongoDB from '../../src/controllers/containerMongoDB.js';
+import CartsDaoMongoDB from '../../src/daos/carts/cartsDaoMongoDB.js';
 import Product from '../../src/models/product.js';
 import Cart from '../../src/models/cart.js';
 const newCartConstParameters = generateCartParameters();
@@ -22,7 +22,7 @@ const newCartConstParameters = generateCartParameters();
 const exampleCart = new Cart(newCartConstParameters);
 
 afterAll(() => {
-    ContainerMongoDB.disconnectDB();
+    CartsDaoMongoDB.disconnectDB();
 });
 
 describe('/api/cart', () => {

@@ -10,12 +10,12 @@ import {
 
 //////////// Test subjects ////////////
 import { app } from '../../src/app.js';
-import ContainerMongoDB from '../../src/controllers/containerMongoDB.js';
+import ProductsDao from '../../src/daos/productsDao.js';
 import Product from '../../src/models/product.js';
 const exampleProduct = new Product(generateProductParameters());
 
 afterAll(() => {
-    ContainerMongoDB.disconnectDB();
+    ProductsDao.disconnectDB();
 });
 
 describe('/api/products', () => {
