@@ -1,15 +1,12 @@
-import mongoose from 'mongoose';
+import { model } from 'mongoose';
 import logger from '../config/logger.js';
 import MongoDatabaseClient from './client/mongoDatabaseClient.js';
 
 class Container {
-    constructor(collectionName, modelClass) {
-        // Precondition: modelClass has as method for creating a schema
-        // in MongoDB
-
+    constructor(collectionName) {
         this.coll = collectionName;
         this.constructor.client.connectDB();
-        this.model = mongoose.model(collectionName, modelClass.mongoSchema());
+        this.model = model(collectionName, this.constructor.mongoSchema());
     }
 
     static client = MongoDatabaseClient;
@@ -20,6 +17,10 @@ class Container {
 
     static disconnectDB() {
         this.client.disconnectDB();
+    }
+
+    static mongoSchema() {
+        throw new Error('Operation "mongoSchema" is not implemented');
     }
 
     async #findDocuments(objCondition = {}) {

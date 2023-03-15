@@ -1,4 +1,4 @@
-import { Schema, Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 /**
  * Representation any App's user.
@@ -32,19 +32,6 @@ class User {
     get fullName() {
         return this.firstName + ' ' + this.lastName;
     }
-
-    static mongoSchema = () =>
-        new Schema({
-            id: Types.ObjectId,
-            email: String,
-            firstName: String,
-            lastName: String,
-            age: Number,
-            password: String,
-            phone: String,
-            privilegesCategory: String,
-            photo: String,
-        });
 }
 
 export default User;

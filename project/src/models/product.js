@@ -1,5 +1,5 @@
 import myknex from '../config/mariaDB.js';
-import { Schema, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import logger from '../config/logger.js';
 
 class Product {
@@ -57,23 +57,6 @@ class Product {
             }
         });
     }
-
-    /**
-     * Creates schema for MongoDB
-     *
-     * @returns Schema
-     */
-    static mongoSchema = () =>
-        new Schema({
-            id: Types.ObjectId,
-            timestamp: { type: Date, default: Date.now },
-            name: String,
-            description: String,
-            code: String,
-            photo: String,
-            price: Number,
-            stock: Number,
-        });
 }
 
 // export default Container;

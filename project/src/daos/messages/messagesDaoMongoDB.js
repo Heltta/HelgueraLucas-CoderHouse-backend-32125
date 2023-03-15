@@ -2,16 +2,17 @@ import { Schema, Types } from 'mongoose';
 import logger from '../../config/logger.js';
 
 import ContainerMongoDB from '../../controllers/containerMongoDB.js';
+import UsersDaoMongoDB from '../users/usersDaoMongoDB.js';
 import MessageModel from '../../models/message.js';
 import UserModel from '../../models/user.js';
 
 class MessagesDaoMongoDB extends ContainerMongoDB {
     constructor() {
-        super('messages', { mongoSchema: MessagesDaoMongoDB.mongoSchema });
+        super('messages');
     }
 
     static mongoSchema = () => {
-        const UserSchema = UserModel.mongoSchema();
+        const UserSchema = UsersDaoMongoDB.mongoSchema();
         return new Schema({
             id: Types.ObjectId,
             timestamp: { type: Date, default: Date.now },

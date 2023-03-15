@@ -1,5 +1,4 @@
-import { Schema, Types } from 'mongoose';
-import Product from './product.js';
+import { Types } from 'mongoose';
 
 class Cart {
     constructor({ id, products, timestamp }) {
@@ -12,15 +11,6 @@ class Cart {
             this.products = [];
         }
     }
-
-    static mongoSchema = () => {
-        const ProdSchema = Product.mongoSchema();
-        return new Schema({
-            id: Types.ObjectId,
-            timestamp: { type: Date, default: Date.now },
-            products: [ProdSchema],
-        });
-    };
 }
 
 // export default Container;

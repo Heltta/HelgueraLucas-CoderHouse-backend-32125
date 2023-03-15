@@ -1,11 +1,12 @@
 import ContainerMongoDB from '../../controllers/containerMongoDB.js';
-import ProductModel from '../../models/cart.js';
+import ProductsDaoMongoDB from '../products/productsDaoMongoDB.js';
 import logger from '../../config/logger.js';
 import Product from '../../models/product.js';
+import { Schema, Types } from 'mongoose';
 
 class CartsDaoMongoDB extends ContainerMongoDB {
     constructor() {
-        super('carts', ProductModel);
+        super('carts');
     }
 
     async save(rawCart) {
@@ -33,6 +34,15 @@ class CartsDaoMongoDB extends ContainerMongoDB {
         } catch (error) {
             logger.error(error);
         }
+    }
+
+    static mongoSchema() {
+        const ProdSchema = ProductsDaoMongoDB.mongoSchema();
+        return new Schema({
+            id: Types.ObjectId,
+            timestamp: { type: Date, default: Date.now },
+            products: [ProdSchema],
+        });
     }
 }
 
