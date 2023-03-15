@@ -33,6 +33,13 @@ primaryRouter.use('/test', testsRouter);
 import authenticatorRouter from './authenticator.js';
 primaryRouter.use('/auth', authenticatorRouter);
 
+//-- Chat room --//
+primaryRouter.use('/chat', (req, res) => {
+    res.render('./chat.pug', {
+        loggedUser: req.user?.username,
+    });
+});
+
 //-- Home routes --/
 primaryRouter.get('/', (req, res) => {
     res.render('./home.pug', {

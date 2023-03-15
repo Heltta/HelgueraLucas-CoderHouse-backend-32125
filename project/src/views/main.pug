@@ -13,8 +13,12 @@ block headerScripts
 block content
     section(class="p-5")
         h2 Welcome to the main page, #{loggedUser}
-        +rdirBtn("Home page", "./")
-        +logOut()
+        span(class="pr-1")
+            +rdirBtn("Home page", "./")
+        span(class="pr-1 mx-1")
+            +rdirBtn("Chat", "./chat")
+        span(class="pr-1")
+            +logOut()
     //- form subir archivo 
     +title("Ingresar productos")
     form(action="/api/products" method="post" class="p-5" id="addProdForm")
@@ -53,7 +57,4 @@ block content
     //- Chat history
     ol(id="messages" class="mx-5")
 
-    script(src="/websocket/startSocket.js")
-    script(src="/websocket/itemList.js")
-    script(src="/websocket/chat.js")
     script(src="/authentication/logOut.js")
