@@ -23,9 +23,19 @@ class Container {
         throw new Error('Operation "mongoSchema" is not implemented');
     }
 
+    /**
+     * Find all documents in a collection that met a condition
+     *
+     * If not condition is passed, then return all docs inside the collection.
+     * if no doc is found, return null.
+     *
+     * @param {*} objCondition
+     * @returns {Array | null}
+     */
     async #findDocuments(objCondition = {}) {
         // Seach all docs from container collection stored at DB that pass a condition.
         // If not condition is passed, then return all docs inside the collection.
+        // if no doc is found, return null.
         try {
             const modelList = await this.model.find(objCondition);
             if (modelList.length === 0) return null;

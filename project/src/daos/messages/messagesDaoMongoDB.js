@@ -36,6 +36,7 @@ class MessagesDaoMongoDB extends ContainerMongoDB {
             mongoMessage.user._doc
         );
         const parsedMessageParameters = {
+            id: mongoMessage._id,
             ...mongoMessage,
             user: parsedUser,
         };
@@ -63,6 +64,25 @@ class MessagesDaoMongoDB extends ContainerMongoDB {
             return this.mongoMessageParametersToModel(rawMessage);
         } catch (error) {
             logger.error(error);
+        }
+    }
+
+    /**
+     * Find all documents in a collection
+     *
+     * if no doc is found, return null.
+     *
+     * @returns {Array | null}
+     */
+    async getAll() {
+        const rawMessages = await super.getAll();
+        if (rawMessages) {
+            const parsedMessages = rawMessages.map((rawMessage) =>
+                this.mongoMessageParametersToModel(rawMessage)
+            );
+            return parsedMessages;
+        } else {
+            return null;
         }
     }
 }

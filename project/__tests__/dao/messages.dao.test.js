@@ -40,4 +40,29 @@ describe('messagesDao CRUD methods', () => {
             expect(databaseResponse).toEqual(randomMessage);
         });
     });
+
+    describe('getAll()', () => {
+        const randomMessage = new Message(generateMessageParameters());
+        let databaseResponse;
+        beforeAll(async () => {
+            // save product at DB for testing
+            await messagesDao.save(randomMessage);
+
+            // getById
+            databaseResponse = await messagesDao.getAll(randomMessage.id);
+        });
+
+        afterAll(async () => {
+            // delete saved product from database
+            await messagesDao.deleteById(randomMessage.id);
+        });
+
+        test('should return an array', () => {
+            expect(databaseResponse).toBeInstanceOf(Array);
+        });
+
+        test('should return an array which contains the message', () => {
+            expect(databaseResponse).toContainEqual(randomMessage);
+        });
+    });
 });
