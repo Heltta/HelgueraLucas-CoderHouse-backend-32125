@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { MONGO_URL } from '../config/dotEnVar.js';
 import logger from '../config/logger.js';
+import MongoDatabaseClient from './client/mongoDatabaseClient.js';
 
 class Container {
     constructor(collectionName, modelClass) {
@@ -8,52 +8,18 @@ class Container {
         // in MongoDB
 
         this.coll = collectionName;
-        Container.connectDB();
+        this.constructor.client.connectDB();
         this.model = mongoose.model(collectionName, modelClass.mongoSchema());
     }
 
-    static #connectionStatus = false;
+    static client = MongoDatabaseClient;
 
-    static get isConnectedToDB() {
-        return Container.#connectionStatus;
-    }
-
-    static set isConnectedToDB(newStatus) {
-        if (typeof newStatus === 'boolean') {
-            Container.#connectionStatus = newStatus;
-        }
-    }
-
-    /**
-     * Start a connection with MongoDB.
-     *
-     * Method is called from class constructor, if a connection with MongoDB is online,
-     *  then, don't start another.
-     *
-     * @access     private
-     * @static
-     * @see #isConnectedToDB()
-     * @see #changeConnectionStatus()
-     */
     static connectDB() {
-        const URL = MONGO_URL;
-        if (!this.isConnectedToDB) {
-            mongoose.connect(URL, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            });
-            this.isConnectedToDB = true;
-            logger.info(`Started Conection with MongoDB`);
-        }
+        this.client.connectDB();
     }
 
     static disconnectDB() {
-        if (this.isConnectedToDB) {
-            mongoose.disconnect(() => {
-                logger.info(`Closed All connections with MongoDB`);
-            });
-            this.isConnectedToDB = false;
-        }
+        this.client.disconnectDB();
     }
 
     async #findDocuments(objCondition = {}) {
