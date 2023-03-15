@@ -1,6 +1,8 @@
 import { Server as IOServer } from 'socket.io';
 import logger from './config/logger.js';
 
+import attachChatEventToSocket from './lib/socketChatEvent.js';
+
 /**
  * Set ups a Socket server for an express app
  *
@@ -19,7 +21,9 @@ function setUpSocketServer(server) {
          * Examples of motives are users' chat and managin products view.
          */
         socket.emit('api_type');
+        attachChatEventToSocket(socket);
     });
+    return io;
 }
 
 export default setUpSocketServer;
