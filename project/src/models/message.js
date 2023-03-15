@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import User from './user';
+import User from './user.js';
 
 class Message {
     constructor({ id, user, timestamp, content }) {
