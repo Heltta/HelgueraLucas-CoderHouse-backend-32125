@@ -16,17 +16,41 @@ class MessagesDaoMongoDB extends ContainerMongoDB {
         return new Schema({
             id: Types.ObjectId,
             timestamp: { type: Date, default: Date.now },
-            user: [UserSchema],
+            user: UserSchema,
+            content: String,
         });
     };
 
+    mongoUserParametersToModel(mongoUserParameters) {
+        const { _id, ...objData } = mongoUserParameters;
+        return new UserModel({ id: _id, ...objData });
+    }
+
+    userToDestructForMongo(user) {
+        const { id, ...objData } = user;
+        return { _id: id, ...objData };
+    }
+
+    mongoMessageParametersToModel(mongoMessage) {
+        const parsedUser = this.mongoUserParametersToModel(
+            mongoMessage.user._doc
+        );
+        const parsedMessageParameters = {
+            ...mongoMessage,
+            user: parsedUser,
+        };
+        return new MessageModel(parsedMessageParameters);
+    }
+
+    messageToDestructForMongo(message) {
+        const parsedUser = this.userToDestructForMongo(message.user);
+        const parsedMessage = { ...message, users: parsedUser };
+        return parsedMessage;
+    }
+
     async save(rawMessage) {
         try {
-            const parsedUsers = rawMessage?.users.map((rawUser) => {
-                const { id, ...objData } = rawUser;
-                return { _id: id, ...objData };
-            });
-            const parsedMessage = { ...rawMessage, users: parsedUsers };
+            const parsedMessage = this.messageToDestructForMongo(rawMessage);
             return await super.save(parsedMessage);
         } catch (error) {
             logger.error(error);
@@ -36,12 +60,7 @@ class MessagesDaoMongoDB extends ContainerMongoDB {
     async getById(id) {
         try {
             const rawMessage = await super.getById(id);
-            const parsedUsers = rawMessage?.users.map((rawUser) => {
-                const { _id, ...objData } = rawUser._doc;
-                return new UserModel({ id: _id, ...objData });
-            });
-            const parsedMessage = { ...rawMessage, users: parsedUsers };
-            return new MessageModel(parsedMessage);
+            return this.mongoMessageParametersToModel(rawMessage);
         } catch (error) {
             logger.error(error);
         }
