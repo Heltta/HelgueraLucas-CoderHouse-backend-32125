@@ -9,7 +9,8 @@ socket.emit('chat', (response) => {
     console.log('placeholder for chat history render');
     console.log(response);
     renderMessages(response);
-    document.getElementById('message_box').addEventListener('submit', () => {
+    document.getElementById('message_box').addEventListener('submit', (e) => {
+        e.preventDefault();
         socket.emit(
             'new_user_message',
             document.getElementById('message').value

@@ -29,7 +29,7 @@ block content
                 #chat_box(class="my-2")
                 form#message_box(class="my-2")
                     +formInputField("Write your message", "message", "text")
-                    button(type="button" class="btn btn-secondary my-4" id="send_message") Send
+                    input(type="submit" value="Send" class="btn btn-secondary my-4" id="send_message")
                 button(type="button" class="btn btn-secondary my-4" id="log_out") Log Out
         script(src="ejs.js")
         script(src="socket/chatClient.js")
