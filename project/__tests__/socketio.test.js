@@ -2,12 +2,14 @@ import { describe, expect, test } from '@jest/globals';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import Client from 'socket.io-client';
+import express from 'express';
 
 describe('my awesome project', () => {
     let io, serverSocket, clientSocket;
 
     beforeAll((done) => {
-        const httpServer = createServer();
+        const app = express();
+        const httpServer = createServer(app);
         io = new Server(httpServer);
         httpServer.listen(() => {
             const port = httpServer.address().port;
