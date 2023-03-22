@@ -1,6 +1,7 @@
 import { Server as IOServer } from 'socket.io';
 import logger from './config/logger.js';
 
+import { expressSession } from './config/sessionConfig.js';
 import attachChatEventToSocket from './lib/socketChatEvent.js';
 
 /**
@@ -11,10 +12,11 @@ import attachChatEventToSocket from './lib/socketChatEvent.js';
 function setUpSocketServer(server) {
     logger.info('Socket server configuration initialized');
     const io = new IOServer(server);
-
+    io.use((socket, next) => {
+        expressSession(socket.request, {}, next);
+    });
     io.on('connection', (socket) => {
         logger.info(`New socket connection: ID = ${socket.id}`);
-
         /**
          * Requests client connection motive.
          *
