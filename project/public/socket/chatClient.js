@@ -22,9 +22,8 @@ async function renderMessages(response) {
     // fetch ejs template for message
     let ejsTemplate;
     try {
-        ejsTemplate = await fetch('views/templates/chatBox.ejs')
-            .then((res) => res.text())
-            .catch((err) => console.log(err));
+        fetchedTemplate = await fetch('views/templates/chatBox.ejs');
+        ejsTemplate = await fetchedTemplate.text();
     } catch (error) {
         console.log(error);
     }
