@@ -18,16 +18,7 @@ socket.emit('chat', async (response) => {
     attachNewUserMsgEventToSocket(socket);
 
     // Change form submit event to emit new message
-    document.getElementById('message_box').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const messageField = document.getElementById('message');
-        if (messageField.value) {
-            socket.emit('new_user_message', messageField.value);
-            messageField.value = '';
-        } else {
-            console.warn('Tried to send empty message');
-        }
-    });
+    alterFormSubmitToEmitMessage(socket);
 });
 
 function renderMessages(messages) {
@@ -45,6 +36,20 @@ async function fetchChatBoxTemplate() {
     } catch (error) {
         console.log(error);
     }
+}
+
+function alterFormSubmitToEmitMessage(socket) {
+    // Change form submit event to emit new message
+    document.getElementById('message_box').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const messageField = document.getElementById('message');
+        if (messageField.value) {
+            socket.emit('new_user_message', messageField.value);
+            messageField.value = '';
+        } else {
+            console.warn('Tried to send empty message');
+        }
+    });
 }
 
 function attachNewUserMsgEventToSocket(socket) {
