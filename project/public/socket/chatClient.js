@@ -30,11 +30,16 @@ async function renderMessages(response) {
         // add message to stream
         response.push(data);
 
-        // update chat box
-        applyRenderedTemplate({
-            template: ejsTemplate,
-            data: response,
-            elementID: 'chat_box',
+    // Change form submit event to emit new message
+    document.getElementById('message_box').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const messageField = document.getElementById('message');
+        if (messageField.value) {
+            socket.emit('new_user_message', messageField.value);
+            messageField.value = '';
+        } else {
+            console.warn('Tried to send empty message');
+        }
         });
     });
 }
