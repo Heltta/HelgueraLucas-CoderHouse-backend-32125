@@ -5,9 +5,6 @@ const { render } = ejs;
 
 socket.emit('chat', (response) => {
     // Response contains chat message history
-    // chat history needs to be rendered with ejs
-    console.log('placeholder for chat history render');
-    console.log(response);
     renderMessages(response);
     document.getElementById('message_box').addEventListener('submit', (e) => {
         e.preventDefault();
