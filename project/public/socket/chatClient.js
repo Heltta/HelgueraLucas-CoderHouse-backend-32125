@@ -30,13 +30,32 @@ async function renderMessages(response) {
     }
 
     // render fetched template
-    let renderedView = render(ejsTemplate, { messages: response });
-    const elementDOM = document.getElementById('chat_box');
-    elementDOM.innerHTML = renderedView;
+    applyRenderedTemplate({
+        template: ejsTemplate,
+        data: response,
+        elementID: 'chat_box',
+    });
 
     socket.on('new_user_message', (data) => {
-        // render message with ejs
-        console.log('placeholder for new user message');
-        console.log(data);
+        // add message to stream
+        response.push(data);
+
+        // update chat box
+        applyRenderedTemplate({
+            template: ejsTemplate,
+            data: response,
+            elementID: 'chat_box',
+        });
     });
+}
+
+function applyRenderedTemplate({
+    template,
+    data,
+    elementID = 'chat_box',
+} = {}) {
+    // render fetched template
+    let renderedView = render(template, { messages: data });
+    const elementDOM = document.getElementById(elementID);
+    elementDOM.innerHTML = renderedView;
 }

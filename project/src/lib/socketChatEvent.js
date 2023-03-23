@@ -36,7 +36,7 @@ function attachChatEventToSocket(socket) {
             } catch (error) {
                 logger.error(error);
             }
-            socket.broadcast.emit('new_user_message', msg);
+            socket.emit('new_user_message', msg);
         });
     });
 }
