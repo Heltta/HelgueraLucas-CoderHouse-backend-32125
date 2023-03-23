@@ -17,13 +17,7 @@ socket.emit('chat', (response) => {
 
 async function renderMessages(response) {
     // fetch ejs template for message
-    let ejsTemplate;
-    try {
-        fetchedTemplate = await fetch('views/templates/chatBox.ejs');
-        ejsTemplate = await fetchedTemplate.text();
-    } catch (error) {
-        console.log(error);
-    }
+    const ejsTemplate = await fetchChatBoxTemplate();
 
     // render fetched template
     applyRenderedTemplate({
@@ -43,6 +37,16 @@ async function renderMessages(response) {
             elementID: 'chat_box',
         });
     });
+}
+
+async function fetchChatBoxTemplate() {
+    try {
+        const fetchedTemplate = await fetch('views/templates/chatBox.ejs');
+        const ejsTemplate = await fetchedTemplate.text();
+        return ejsTemplate;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function applyRenderedTemplate({
