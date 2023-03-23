@@ -15,13 +15,7 @@ socket.emit('chat', async (response) => {
     renderMessages(response);
 
     // Attach event for new user message to socket
-    socket.on('new_user_message', (data) => {
-        // add message to stream
-        response.push(data);
-
-        // Update chat content inside chat_box
-        renderMessages(response);
-    });
+    attachNewUserMsgEventToSocket(socket);
 
     // Change form submit event to emit new message
     document.getElementById('message_box').addEventListener('submit', (e) => {
@@ -51,4 +45,15 @@ async function fetchChatBoxTemplate() {
     } catch (error) {
         console.log(error);
     }
+}
+
+function attachNewUserMsgEventToSocket(socket) {
+    // Attach event for new user message to socket
+    socket.on('new_user_message', (data) => {
+        // add message to stream
+        response.push(data);
+
+        // Update chat content inside chat_box
+        renderMessages(response);
+    });
 }
