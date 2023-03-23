@@ -1,10 +1,11 @@
 <section class="p-5">
-    <% if (messages && messages.length !== 0) { %> <% messages.forEach(message => { %>
-    <div>
-        <span><%= (message?.user?.firstName)? message.user.firstName : "unkown user" + ": "%></span>
-        <span><%= message.content %></span>
-    </div>
-    <% }); %> <% }else{ %>
+    <% if (messages && messages.length !== 0) { messages.forEach(message => { 
+        if (message?.content) { %>
+            <div>
+                <span><%= (message?.user?.firstName)? message.user.firstName : "unkown user" + ": "%></span>
+                <span><%= message.content %></span>
+            </div>
+    <% }}); %> <% }else{ %>
     <p
         class="bg-warning border border-warning rounded p-2"
         style="--bs-bg-opacity: 0.2"
