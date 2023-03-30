@@ -2,7 +2,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+//-- Node JS settings --//
 export const ENVIRONMENT = process.env.NODE_ENV;
+
 //-- Data storage settings --//
 export const DATA_STORAGE_TYPE = process.env.DATA_STORAGE_TYPE || 'MongoDB';
 export const MONGO_URL =
@@ -23,8 +25,8 @@ export const SESSION_STORE_MONGOURL =
 export const SESSION_COOKIE_HTTPONLY =
     process.env.SESSION_COOKIE_HTTPONLY || false;
 export const SESSION_COOKIE_SECURE = process.env.SESSION_COOKIE_SECURE || false;
-export const SESSION_COOKIE_MAXAGE = process.env.SESSION_COOKIE_MAXAGE || 60000; // miliseconds
-
+export const SESSION_COOKIE_MAXAGE =
+    Number(process.env.SESSION_COOKIE_MAXAGE) || 60000; // miliseconds
 //-- Server connection settings --//
 export const SERVER_INTERFACE = process.env.SERVER_INTERFACE || '127.0.0.1';
 export const SERVER_PORT = process.env.PORT || process.env.SERVER_PORT || 8080;
