@@ -16,12 +16,27 @@ export const MONGO_URL =
 //-- Session storage settings --//
 export const SESSION_SECRET =
     process.env.SESSION_SECRET || 'supreme cat codename';
-export const SESSION_STORE_TTL = process.env.SESSION_STORE_TTL || 60 * 5; // seconds
-export const SESSION_STORE_MONGOURL =
-    process.env.SESSION_STORE_MONGOURL ||
-    (process.env.SESSION_STORE_MONGO_DEPLOY ||
-        'mongodb+srv://SuperUser:qeeKFPY5kLCv4nMh@coderhousebackend.eu1a5zv.mongodb.net/') +
-        (process.env.SESSION_STORE_MONGO_DATABASE || 'test');
+export const SESSION_STORE_TTL = process.env.SESSION_STORE_TTL || 60 * 5; // second
+
+export const SESSION_STORE_MONGOURL = (() => {
+    if (process.env.SESSION_STORE_MONGOURL)
+        return process.env.SESSION_STORE_MONGOURL;
+
+    if (
+        process.env.SESSION_STORE_MONGO_DEPLOY &&
+        process.env.SESSION_STORE_MONGO_DATABASE
+    ) {
+        return (
+            process.env.SESSION_STORE_MONGO_DEPLOY +
+            process.env.SESSION_STORE_MONGO_DATABASE
+        );
+    } else if (process.env.SESSION_STORE_MONGO_DEPLOY) {
+        return process.env.SESSION_STORE_MONGO_DEPLOY + 'test';
+    }
+
+    return MONGO_URL;
+})();
+
 export const SESSION_COOKIE_HTTPONLY =
     process.env.SESSION_COOKIE_HTTPONLY || false;
 export const SESSION_COOKIE_SECURE = process.env.SESSION_COOKIE_SECURE || false;
